@@ -56,7 +56,7 @@ export class LoginComponent implements OnInit, OnDestroy {
       .subscribe(res=>{
         localStorage.setItem('token',res.token);
         console.log(res.token)
-        //this._router.navigate(['/historico']);
+        this._router.navigate(['/historico']);
       }
       ,error=>{
         if( error instanceof HttpErrorResponse){

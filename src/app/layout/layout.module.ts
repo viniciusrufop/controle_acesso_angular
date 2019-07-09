@@ -1,3 +1,4 @@
+import { SharedModule } from './../shared/shared.module';
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
@@ -8,6 +9,7 @@ import { PageModule } from '../page/page.module';
 @NgModule({
   declarations: [LayoutHomeComponent],
   imports: [
+    SharedModule,
     CommonModule,
     LayoutRoutingModule,
     PageModule,
