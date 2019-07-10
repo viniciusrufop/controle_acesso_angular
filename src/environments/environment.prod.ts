@@ -1,4 +1,4 @@
 export const environment = {
   production: true,
-  url: 'http://api-fechadura.servebeer.com:3000'
+  url: 'http://api-fechadura.servebeer.com'
 };
