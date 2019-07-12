@@ -4,6 +4,7 @@ import { FormGroup, FormBuilder, Validators, FormControl } from '@angular/forms'
 import { Subscription } from 'rxjs';
 import { Router } from '@angular/router';
 import { HttpErrorResponse } from '@angular/common/http';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 
 @Component({
@@ -14,7 +15,7 @@ import { HttpErrorResponse } from '@angular/common/http';
 
 export class LoginComponent implements OnInit, OnDestroy {
 
-  public validForm : boolean = false;
+  public validForm : boolean = true;
   public invalidLogin : boolean = false;
 
   loginForm:FormGroup;
@@ -24,7 +25,8 @@ export class LoginComponent implements OnInit, OnDestroy {
   constructor(
     private formBuilder : FormBuilder,
     private authService:AuthService,
-    private _router:Router
+    private _router:Router,
+    private _snackBar: MatSnackBar
   ) { }
 
   ngOnInit() {
@@ -45,8 +47,7 @@ export class LoginComponent implements OnInit, OnDestroy {
 
   validateForm(){
     this.sub = this.loginForm.statusChanges.subscribe(res=>{
-      if(res === 'VALID') this.validForm = false;
-      else this.validForm = true;
+      this.validForm = (res === 'VALID') ? false : true;
     })
   }
 
@@ -55,18 +56,19 @@ export class LoginComponent implements OnInit, OnDestroy {
       this.sub = this.authService.loginUser(this.loginForm.value)
       .subscribe(res=>{
         localStorage.setItem('token',res.token);
-        console.log(res.token)
         this._router.navigate(['/historico']);
       }
       ,error=>{
         if( error instanceof HttpErrorResponse){
           if(error.status === 401){
             this.invalidLogin = true;
+          } else if(error.status === 0){
+            this.openSnackBar('Servidor Offline','OK');
           }
         }
       })
       .add(()=>{
-        console.log('add');
+        //console.log('add');
       })
     } else {
       console.log('invalid')
@@ -85,5 +87,11 @@ export class LoginComponent implements OnInit, OnDestroy {
         '';
   }
 
+  openSnackBar(message: string, action: string) {
+    this._snackBar.open(message, action, {
+      duration: 3000,
+      verticalPosition: 'top'
+    });
+  }
 
 }

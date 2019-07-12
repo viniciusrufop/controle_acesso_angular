@@ -20,7 +20,7 @@
 
 /* CONTAINER */
 .vr-container{margin-left: 230px;min-height: 100vh;/* background: rgba(0,0,0,.14); */background: #fafafa;}
-.vr-container-main{min-height: calc(100vh - 10px);padding: 1rem;}
+.vr-container-main{min-height: calc(100vh - 100px);padding: 1rem;}
 .vr-toolbar{height: 50px;background: linear-gradient(to right,#563d7c 0%, #242939 100%);color:#fff;}
 .vr-spacer {flex: 1 1 auto;}
 .vr-icon{padding: 0 14px;cursor: pointer;}

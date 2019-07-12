@@ -1,3 +1,75 @@
-<p>
-  page-cadastro works!
-</p>
+<form [formGroup]="cadastroForm">
+  <div class="container align-self-center">
+    <div class="row">
+      <mat-form-field class="col mr-2 mt-3">
+        <input matInput placeholder="Nome" formControlName="nome" autocomplete="off">
+        <mat-error *ngIf="cadastroForm.get('nome').invalid">{{ getRequiredError('nome') }}</mat-error>
+      </mat-form-field>
+
+      <mat-form-field class="col mr-2 mt-3">
+        <input matInput placeholder="Sobrenome" formControlName="sobrenome" autocomplete="off">
+        <mat-error *ngIf="cadastroForm.get('sobrenome').invalid">{{ getRequiredError('sobrenome') }}</mat-error>
+      </mat-form-field>
+
+      <mat-form-field class="col mr-2 mt-3">
+        <input matInput placeholder="Email" formControlName="email" autocomplete="off">
+        <mat-error *ngIf="cadastroForm.get('email').invalid">{{ getEmailError() }}</mat-error>
+      </mat-form-field>
+    </div>
+
+    <div class="row">
+      <mat-form-field class="col mr-2 mt-3">
+        <input matInput placeholder="Telefone" formControlName="telefone" autocomplete="off">
+      </mat-form-field>
+
+      <mat-form-field class="col mr-2 mt-3">
+        <input matInput placeholder="CEP" formControlName="cep" autocomplete="off" type="number">
+      </mat-form-field>
+
+      <mat-form-field class="col mr-2 mt-3">
+        <input matInput placeholder="Endereço" formControlName="endereco" autocomplete="off">
+      </mat-form-field>
+    </div>
+
+    <div class="row">
+      <mat-form-field class="col mr-2 mt-3">
+        <input matInput placeholder="Bairro" formControlName="bairro" autocomplete="off">
+      </mat-form-field>
+
+      <mat-form-field class="col mr-2 mt-3">
+        <input matInput placeholder="Complemento" formControlName="complemento" autocomplete="off">
+      </mat-form-field>
+
+      <mat-form-field class="col mr-2 mt-3">
+        <input matInput placeholder="Cidade" formControlName="cidade" autocomplete="off">
+      </mat-form-field>
+    </div>
+
+    <div class="row">
+      <mat-form-field class="col mr-2 mt-3">
+        <input matInput placeholder="Estado" formControlName="estado" autocomplete="off">
+      </mat-form-field>
+
+      <mat-form-field class="col mr-2 mt-3">
+        <input matInput type="text" placeholder="Login" formControlName="login" maxlength="4" pattern="^[0-9]+"/>
+        <mat-error *ngIf="cadastroForm.get('login').invalid">{{ getLoginError() }}</mat-error>
+      </mat-form-field>
+
+      <mat-form-field class="col mr-2 mt-3">
+        <input matInput placeholder="Senha" formControlName="senha" type="number">
+        
+      </mat-form-field>
+    </div>
+
+    <div class="row">
+      <mat-form-field class="col-lg-4 col-md-6 mr-2 mt-3">
+        <input matInput placeholder="Situação" formControlName="situacao" autocomplete="off">
+      </mat-form-field>
+    </div>
+  </div>
+
+  <div class="row">
+    <button type="submit" class="ml-4 btn btn-primary float-right" [disabled]="validForm">Salvar</button>
+  </div>
+
+</form>

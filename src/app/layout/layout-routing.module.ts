@@ -11,18 +11,21 @@ import { LayoutHomeComponent } from './components/layout-home/layout-home.compon
 const routes: Routes = [
   { path:'cadastro' , component: LayoutHomeComponent,
     canActivate: [AuthGuard],
+    canLoad: [AuthGuard],
     children:[
       {path : '' , component:PageCadastroComponent}
     ]
   },
   { path:'historico' , component: LayoutHomeComponent,
     canActivate: [AuthGuard],
+    canLoad: [AuthGuard],
     children:[
       {path : '' , component: PageHistoricoComponent}
     ]
   },
   { path:'usuarios' , component: LayoutHomeComponent,
     canActivate: [AuthGuard],
+    canLoad: [AuthGuard],
     children:[
       {path : '' , component: PageUsuarioComponent}
     ]

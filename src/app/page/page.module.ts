@@ -1,3 +1,4 @@
+import { SharedModule } from './../shared/shared.module';
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
@@ -7,10 +8,14 @@ import { PageHistoricoComponent } from './components/page-historico/page-histori
 import { PageUsuarioComponent } from './components/page-usuario/page-usuario.component';
 
 @NgModule({
-  declarations: [PageCadastroComponent, PageHistoricoComponent, PageUsuarioComponent],
+  declarations: [
+    PageCadastroComponent,
+    PageHistoricoComponent, 
+    PageUsuarioComponent],
   imports: [
     CommonModule,
-    PageRoutingModule
+    PageRoutingModule,
+    SharedModule
   ]
 })
 export class PageModule { }

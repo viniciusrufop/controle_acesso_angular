@@ -8,6 +8,7 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 
 import { AuthGuard } from './guards/auth.guard';
+import { AutoLoginGuard } from './guards/auto-login.guard';
 
 import { SharedModule } from './shared/shared.module';
 import { LoginModule } from './login/login.module';
@@ -29,6 +30,7 @@ import { LayoutModule } from './layout/layout.module';
   ],
   providers: [
     AuthGuard,
+    AutoLoginGuard
   ],
   bootstrap: [AppComponent]
 })

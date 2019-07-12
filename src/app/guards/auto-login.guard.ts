@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { CanActivate, ActivatedRouteSnapshot, RouterStateSnapshot, UrlTree, Router, Route, CanLoad } from '@angular/router';
+import { CanActivate, ActivatedRouteSnapshot, RouterStateSnapshot, UrlTree, Router } from '@angular/router';
 import { Observable } from 'rxjs';
 
 import { AuthService } from '../core/services/auth.service';
@@ -7,7 +7,7 @@ import { AuthService } from '../core/services/auth.service';
 @Injectable({
   providedIn: 'root'
 })
-export class AuthGuard implements CanActivate, CanLoad {
+export class AutoLoginGuard implements CanActivate{
 
   constructor(
     private authService: AuthService,
@@ -16,10 +16,10 @@ export class AuthGuard implements CanActivate, CanLoad {
 
   private verifyAccess(){
     if (this.authService.loggedIn()) {
-      return true
-    } else {
-      this.router.navigate(['/login'])
+      this.router.navigate(['/historico'])
       return false
+    } else {
+      return true
     }
   }
 
@@ -30,11 +30,5 @@ export class AuthGuard implements CanActivate, CanLoad {
     Promise<boolean | UrlTree> | boolean | UrlTree{
     return this.verifyAccess();
   }
-
-  canLoad(route : Route):Observable<boolean> | Promise<boolean> | boolean{
-    return this.verifyAccess();
-  }
-
-  
   
 }

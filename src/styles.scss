@@ -16,8 +16,10 @@
 html, body { height: 100%; }
 body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
 
-.mat-form-field.mat-focused .mat-form-field-label{color: #fff !important; }
-.mat-form-field-label{color: #fff !important; }
-.mat-form-field-appearance-outline .mat-form-field-outline-thick {opacity: 0;color: #fff;}
-.mat-form-field-appearance-outline .mat-form-field-outline-thick {opacity: 1 !important;color: #fff !important;}
-.mat-form-field {display: unset !important ;position: relative;text-align: left;}
+app-login .mat-form-field.mat-focused .mat-form-field-label{color: #fff !important; }
+app-login .mat-form-field-label{color: #fff !important; }
+app-login .mat-form-field-appearance-outline .mat-form-field-outline-thick {opacity: 0;color: #fff;}
+app-login .mat-form-field-appearance-outline .mat-form-field-outline-thick {opacity: 1 !important;color: #fff !important;}
+app-login .mat-form-field {display: unset !important ;position: relative;text-align: left;}
+
+app-page-cadastro .mat-form-field-label{color: #563d7c !important; }
