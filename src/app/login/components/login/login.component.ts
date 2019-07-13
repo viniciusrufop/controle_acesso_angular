@@ -5,7 +5,7 @@ import { Subscription } from 'rxjs';
 import { Router } from '@angular/router';
 import { HttpErrorResponse } from '@angular/common/http';
 import { MatSnackBar } from '@angular/material/snack-bar';
-
+import { BlockUI, NgBlockUI } from 'ng-block-ui';
 
 @Component({
   selector: 'app-login',
@@ -15,6 +15,7 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 
 export class LoginComponent implements OnInit, OnDestroy {
 
+  @BlockUI() blockUI: NgBlockUI;
   public validForm : boolean = true;
   public invalidLogin : boolean = false;
 
@@ -53,6 +54,7 @@ export class LoginComponent implements OnInit, OnDestroy {
 
   onSubmit(){
     if(this.loginForm.status === 'VALID'){
+      this.blockUI.start();
       this.sub = this.authService.loginUser(this.loginForm.value)
       .subscribe(res=>{
         localStorage.setItem('token',res.token);
@@ -68,7 +70,7 @@ export class LoginComponent implements OnInit, OnDestroy {
         }
       })
       .add(()=>{
-        //console.log('add');
+        this.blockUI.stop();
       })
     } else {
       console.log('invalid')

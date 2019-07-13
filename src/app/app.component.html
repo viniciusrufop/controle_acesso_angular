@@ -1,1 +1,10 @@
-<router-outlet></router-outlet>
+<router-outlet>
+   <ng-template #blockTemplate>
+      <div class="block-ui-template">
+        <!-- <img src="../assets/img/fundo.jpg" alt="Carregando..." height="70px" /> -->
+        <mat-spinner></mat-spinner>
+      </div>
+    </ng-template>
+
+    <block-ui [template]="blockTemplate"></block-ui>
+</router-outlet>

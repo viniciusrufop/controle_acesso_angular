@@ -14,6 +14,8 @@ import { SharedModule } from './shared/shared.module';
 import { LoginModule } from './login/login.module';
 import { LayoutModule } from './layout/layout.module';
 
+import { BlockUIModule } from 'ng-block-ui';
+
 @NgModule({
   declarations: [
     AppComponent
@@ -26,7 +28,8 @@ import { LayoutModule } from './layout/layout.module';
     BrowserAnimationsModule,
     LoginModule,
     HttpClientModule,
-    LayoutModule
+    LayoutModule,
+    BlockUIModule.forRoot()
   ],
   providers: [
     AuthGuard,
