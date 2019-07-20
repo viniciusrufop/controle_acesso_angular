@@ -10,17 +10,11 @@ import { AuthService } from '../core/services/auth.service';
 export class AuthGuard implements CanActivate, CanLoad {
 
   constructor(
-    private authService: AuthService,
-    private router: Router,
+    private authService:AuthService
   ) { }
 
   private verifyAccess(){
-    if (this.authService.loggedIn()) {
-      return true
-    } else {
-      this.router.navigate(['/login'])
-      return false
-    }
+    return this.authService.checkJWT();
   }
 
   canActivate(
@@ -28,13 +22,10 @@ export class AuthGuard implements CanActivate, CanLoad {
     state: RouterStateSnapshot): 
     Observable<boolean | UrlTree> | 
     Promise<boolean | UrlTree> | boolean | UrlTree{
-    return this.verifyAccess();
+      return this.verifyAccess();
   }
 
   canLoad(route : Route):Observable<boolean> | Promise<boolean> | boolean{
     return this.verifyAccess();
   }
-
-  
-  
 }

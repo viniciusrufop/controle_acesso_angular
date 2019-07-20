@@ -9,6 +9,7 @@ import { AppComponent } from './app.component';
 
 import { AuthGuard } from './guards/auth.guard';
 import { AutoLoginGuard } from './guards/auto-login.guard';
+import { TokenInterceptorService } from './core/services/token-interceptor.service';
 
 import { SharedModule } from './shared/shared.module';
 import { LoginModule } from './login/login.module';
@@ -33,7 +34,12 @@ import { BlockUIModule } from 'ng-block-ui';
   ],
   providers: [
     AuthGuard,
-    AutoLoginGuard
+    AutoLoginGuard,
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass : TokenInterceptorService,
+      multi : true
+    }
   ],
   bootstrap: [AppComponent]
 })

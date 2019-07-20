@@ -2,7 +2,6 @@ import { Injectable } from '@angular/core';
 import { CanActivate, ActivatedRouteSnapshot, RouterStateSnapshot, UrlTree, Router } from '@angular/router';
 import { Observable } from 'rxjs';
 
-import { AuthService } from '../core/services/auth.service';
 
 @Injectable({
   providedIn: 'root'
@@ -10,16 +9,14 @@ import { AuthService } from '../core/services/auth.service';
 export class AutoLoginGuard implements CanActivate{
 
   constructor(
-    private authService: AuthService,
-    private router: Router,
+    private router: Router
   ) { }
 
   private verifyAccess(){
-    if (this.authService.loggedIn()) {
-      this.router.navigate(['/historico'])
-      return false
+    if(localStorage.getItem('token') === null){
+      return true;
     } else {
-      return true
+      this.router.navigate(['/historico']);
     }
   }
 

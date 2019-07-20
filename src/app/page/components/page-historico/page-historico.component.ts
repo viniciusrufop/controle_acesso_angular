@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { BlockUI, NgBlockUI } from 'ng-block-ui';
 
 @Component({
   selector: 'app-page-historico',
@@ -7,9 +8,11 @@ import { Component, OnInit } from '@angular/core';
 })
 export class PageHistoricoComponent implements OnInit {
 
-  constructor() { }
+  @BlockUI() blockUI: NgBlockUI;
+
+  constructor(
+  ) { }
 
   ngOnInit() {
   }
-
 }
