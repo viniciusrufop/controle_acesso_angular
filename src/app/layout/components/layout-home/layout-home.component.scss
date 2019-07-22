@@ -20,10 +20,11 @@
 
 /* CONTAINER */
 .vr-container{margin-left: 230px;min-height: 100vh;/* background: rgba(0,0,0,.14); */background: #fafafa;}
-.vr-container-main{min-height: calc(100vh - 100px);padding: 1rem;}
-.vr-toolbar{height: 50px;background: linear-gradient(to right,#563d7c 0%, #242939 100%);color:#fff;}
+.vr-container-main{min-height: calc(100vh - 50px);padding: 1rem; padding-top: 70px;}
+.vr-toolbar{height: 50px;background: linear-gradient(to right,#563d7c 0%, #242939 100%);color:#fff;position: fixed;
+    z-index: 10;}
 .vr-spacer {flex: 1 1 auto;}
-.vr-icon{padding: 0 14px;cursor: pointer;}
+.vr-icon{cursor: pointer;cursor: pointer;position: fixed;right: 20px;}
 .vr-menu-icon{display: none;cursor: pointer;}
 
 @media screen and (max-width: 618px){

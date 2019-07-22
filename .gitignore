@@ -46,3 +46,6 @@ testem.log
 Thumbs.db
 
 newserveraws.pem
+
+#teste
+src/app/page/components/page-historico/products.ts

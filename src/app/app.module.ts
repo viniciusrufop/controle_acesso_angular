@@ -2,7 +2,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
-import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -17,6 +17,7 @@ import { LayoutModule } from './layout/layout.module';
 
 import { BlockUIModule } from 'ng-block-ui';
 
+
 @NgModule({
   declarations: [
     AppComponent
@@ -30,7 +31,7 @@ import { BlockUIModule } from 'ng-block-ui';
     LoginModule,
     HttpClientModule,
     LayoutModule,
-    BlockUIModule.forRoot()
+    BlockUIModule.forRoot(),
   ],
   providers: [
     AuthGuard,

@@ -13,6 +13,8 @@ import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
+import { GridModule } from '@progress/kendo-angular-grid'
+
 @NgModule({
   declarations: [],
   imports: [
@@ -29,7 +31,8 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
     FormsModule,
     ReactiveFormsModule,
     MatSnackBarModule,
-    MatProgressSpinnerModule
+    MatProgressSpinnerModule,
+    GridModule
   ]
 })
 export class SharedModule { }
