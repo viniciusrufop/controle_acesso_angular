@@ -4,11 +4,14 @@ import { config } from './config';
 import { HttpClient } from '@angular/common/http';
 import { Router } from '@angular/router';
 import { Observable } from 'rxjs';
+import { BlockUI, NgBlockUI } from 'ng-block-ui';
 
 @Injectable({
   providedIn: 'root'
 })
 export class AuthService {
+
+  @BlockUI() blockUI: NgBlockUI;
 
   constructor(
     private http:HttpClient,
@@ -16,6 +19,7 @@ export class AuthService {
   ) { }
 
   checkJWT():Promise<boolean>{
+    this.blockUI.start();
     let userAuth: Promise<boolean>= <Promise<boolean>>this.http.get(`${config.apiUrl}/api/auth`)
     .toPromise()
     .then( res => { 
@@ -25,6 +29,7 @@ export class AuthService {
       this.logoutUser();
       return false; 
     })
+    this.blockUI.stop();
     return userAuth;
   }
 

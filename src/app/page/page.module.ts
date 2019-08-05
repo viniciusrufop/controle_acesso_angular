@@ -15,7 +15,7 @@ import { PageUsuarioComponent } from './components/page-usuario/page-usuario.com
   imports: [
     CommonModule,
     PageRoutingModule,
-    SharedModule
+    SharedModule,
   ]
 })
 export class PageModule { }

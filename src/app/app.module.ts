@@ -17,6 +17,8 @@ import { LayoutModule } from './layout/layout.module';
 
 import { BlockUIModule } from 'ng-block-ui';
 
+import {NgxMaskModule} from 'ngx-mask';
+import { ToastrModule } from 'ngx-toastr';
 
 @NgModule({
   declarations: [
@@ -32,6 +34,10 @@ import { BlockUIModule } from 'ng-block-ui';
     HttpClientModule,
     LayoutModule,
     BlockUIModule.forRoot(),
+    NgxMaskModule.forRoot(),
+    ToastrModule.forRoot({
+      positionClass: 'toast-bottom-right',
+    }),
   ],
   providers: [
     AuthGuard,

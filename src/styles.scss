@@ -1,6 +1,8 @@
 /* You can add global styles to this file, and also import other style files */
 @import '~bootstrap/dist/css/bootstrap.min.css';
 @import "~@angular/material/prebuilt-themes/indigo-pink.css";
+@import '~ngx-toastr/toastr';
+// @import '~ngx-toastr/toastr-bs4-alert';
 
 /* S C R O L L PAGE*/
 /* width */
@@ -23,3 +25,6 @@ app-login .mat-form-field-appearance-outline .mat-form-field-outline-thick {opac
 app-login .mat-form-field {display: unset !important ;position: relative;text-align: left;}
 
 app-page-cadastro .mat-form-field-label{color: #563d7c !important; }
+
+// CHECKBOX
+.mat-checkbox-checked.mat-accent .mat-checkbox-background{background-color: #563d7c ;}

@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatIconModule } from '@angular/material/icon';
@@ -10,15 +11,19 @@ import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
+import { MatCheckboxModule } from '@angular/material/checkbox';
+import { MatSelectModule } from '@angular/material/select';
+import { MatCardModule } from '@angular/material/card';
 
-import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { GridModule } from '@progress/kendo-angular-grid';
 
-import { GridModule } from '@progress/kendo-angular-grid'
+import { NgxMaskModule } from 'ngx-mask';
+import { ToastrModule } from 'ngx-toastr';
 
 @NgModule({
   declarations: [],
   imports: [
-    CommonModule
+    CommonModule,
   ],
   exports: [
     MatButtonModule,
@@ -32,7 +37,12 @@ import { GridModule } from '@progress/kendo-angular-grid'
     ReactiveFormsModule,
     MatSnackBarModule,
     MatProgressSpinnerModule,
-    GridModule
+    GridModule,
+    NgxMaskModule,
+    MatCheckboxModule,
+    MatSelectModule,
+    ToastrModule,
+    MatCardModule
   ]
 })
 export class SharedModule { }
