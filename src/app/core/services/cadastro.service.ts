@@ -42,4 +42,12 @@ export class CadastroService {
     return this.http.post(`${config.apiUrl}/api/get-login-user`,{params:login});
   }
 
+  getAllUsers(): Observable<any>{
+    return this.http.get(`${config.apiUrl}/api/get-all-users`);
+  }
+
+  deleteUser(idUser): Observable<any>{
+    return this.http.delete(`${config.apiUrl}/api/delete-user`,{params:idUser});
+  }
+
 }

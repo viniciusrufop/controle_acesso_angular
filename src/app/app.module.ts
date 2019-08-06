@@ -17,8 +17,11 @@ import { LayoutModule } from './layout/layout.module';
 
 import { BlockUIModule } from 'ng-block-ui';
 
-import {NgxMaskModule} from 'ngx-mask';
+import { NgxMaskModule } from 'ngx-mask';
 import { ToastrModule } from 'ngx-toastr';
+import { SweetAlert2Module } from '@sweetalert2/ngx-sweetalert2';
+import { DialogsModule } from '@progress/kendo-angular-dialog';
+
 
 @NgModule({
   declarations: [
@@ -38,6 +41,8 @@ import { ToastrModule } from 'ngx-toastr';
     ToastrModule.forRoot({
       positionClass: 'toast-bottom-right',
     }),
+    SweetAlert2Module.forRoot(),
+    DialogsModule
   ],
   providers: [
     AuthGuard,

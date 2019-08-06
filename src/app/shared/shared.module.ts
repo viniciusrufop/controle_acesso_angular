@@ -16,9 +16,13 @@ import { MatSelectModule } from '@angular/material/select';
 import { MatCardModule } from '@angular/material/card';
 
 import { GridModule } from '@progress/kendo-angular-grid';
+import { DialogsModule } from '@progress/kendo-angular-dialog'
 
 import { NgxMaskModule } from 'ngx-mask';
 import { ToastrModule } from 'ngx-toastr';
+import { SweetAlert2Module } from '@sweetalert2/ngx-sweetalert2';
+
+import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 
 @NgModule({
   declarations: [],
@@ -42,7 +46,10 @@ import { ToastrModule } from 'ngx-toastr';
     MatCheckboxModule,
     MatSelectModule,
     ToastrModule,
-    MatCardModule
+    MatCardModule,
+    SweetAlert2Module,
+    FontAwesomeModule,
+    DialogsModule
   ]
 })
 export class SharedModule { }
