@@ -3,7 +3,7 @@ import { CadastroService } from 'src/app/core/services/cadastro.service';
 import { BlockUI, NgBlockUI } from 'ng-block-ui';
 import { faTrash, faEdit } from '@fortawesome/free-solid-svg-icons';
 import { ToastrService } from 'ngx-toastr';
-import { DialogService } from '@progress/kendo-angular-dialog';
+import { DialogService, DialogCloseResult } from '@progress/kendo-angular-dialog';
 
 import { ModalUserEditComponent } from './../modal-user-edit/modal-user-edit.component';
 
@@ -58,10 +58,17 @@ export class PageUsuarioComponent implements OnInit {
 
   editUser(idUser){
     const dialogRef = this.dialogService.open({
+      title: 'Editar usuário',
       content: ModalUserEditComponent,
     });
     const userInfo = dialogRef.content.instance;
     userInfo.id = idUser;
+    
+    dialogRef.result.subscribe((result) => {
+      if (!(result instanceof DialogCloseResult)) {
+        this.getAllUsers();
+      } 
+    });
   }
 
 }

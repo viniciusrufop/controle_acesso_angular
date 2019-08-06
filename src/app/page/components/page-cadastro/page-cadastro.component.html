@@ -3,7 +3,7 @@
     
     <div class="row">
       <mat-form-field class="col mr-2 mt-3">
-        <input matInput placeholder="Nome" formControlName="nome" autocomplete="off">
+        <input matInput placeholder="*Nome" formControlName="nome" autocomplete="off">
         <mat-error *ngIf="cadastroForm.get('nome').invalid && cadastroForm.get('nome').touched">{{ getRequiredError('nome') }}</mat-error>
       </mat-form-field>
 
@@ -13,7 +13,7 @@
       </mat-form-field>
 
       <mat-form-field class="col mr-2 mt-3">
-        <input matInput placeholder="Email" formControlName="email" autocomplete="off" (blur)="getEmailUser()">
+        <input matInput placeholder="*Email" formControlName="email" autocomplete="off" (blur)="getEmailUser()">
         <mat-error *ngIf="cadastroForm.get('email').invalid && cadastroForm.get('email').touched">{{ getEmailError() }}</mat-error>
       </mat-form-field>
     </div>
@@ -28,7 +28,7 @@
       </mat-form-field>
 
       <mat-form-field class="col mr-2 mt-3" formGroupName="endereco">
-        <input matInput placeholder="Rua" formControlName="rua" autocomplete="off">
+        <input matInput placeholder="Logradouro" formControlName="logradouro" autocomplete="off">
       </mat-form-field>
     </div>
 
@@ -57,12 +57,12 @@
       </mat-form-field>
 
       <mat-form-field class="col mr-2 mt-3">
-        <input matInput type="text" placeholder="Login" formControlName="login" mask="0000" autocomplete="off" (blur)="getLoginUser()">
+        <input matInput type="text" placeholder="*Login" formControlName="login" mask="0000" autocomplete="off" (blur)="getLoginUser()">
         <mat-error *ngIf="cadastroForm.get('login').invalid && cadastroForm.get('login').touched">{{ getLoginError('login') }}</mat-error>
       </mat-form-field>
 
       <mat-form-field class="col mr-2 mt-3">
-        <input matInput type="text" placeholder="Senha" formControlName="senha" mask="0000" autocomplete="off">
+        <input matInput type="text" placeholder="*Senha" formControlName="senha" mask="0000" autocomplete="off">
         <mat-error *ngIf="cadastroForm.get('senha').invalid && cadastroForm.get('senha').touched">{{ getLoginError('senha') }}</mat-error>
       </mat-form-field>
 
@@ -71,7 +71,7 @@
     <div class="row">
 
       <!-- <div class="col-lg-4 col-md-6 mr-2 mt-3"> -->
-      <div class="col-lg-4 col-sm-1 mr-2 mt-3">
+      <div class="col-lg-4 col-sm-1 mt-3">
         <mat-checkbox formControlName="ativo">Ativo</mat-checkbox>
       </div>
 
@@ -91,7 +91,9 @@
   </div>
 
   <div class="row">
-    <button type="submit" class="ml-4 btn btn-primary float-right" [disabled]="validForm">Salvar</button>
+    <button type="submit" class="ml-4 btn btn-sm btn-primary float-right" [disabled]="validForm">
+        <fa-icon [icon]="faSave" size="md"></fa-icon>&nbsp;&nbsp;Salvar
+    </button>
   </div>
 
 </form>

@@ -6,6 +6,7 @@ import { BlockUI, NgBlockUI } from 'ng-block-ui';
 import { ToastrService } from 'ngx-toastr';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { HttpErrorResponse } from '@angular/common/http';
+import { faSave } from '@fortawesome/free-solid-svg-icons';
 
 @Component({
   selector: 'app-page-cadastro',
@@ -23,6 +24,8 @@ export class PageCadastroComponent implements OnInit {
   public tagList: any = [];
   existUserEmail : boolean = false;
   existUserLogin : boolean = false;
+
+  faSave = faSave;
 
   constructor(
     private formBuilder : FormBuilder,
@@ -46,7 +49,7 @@ export class PageCadastroComponent implements OnInit {
       telefone:[null,],
       endereco:this.formBuilder.group({
         cep:[null,],
-        rua:[null,],
+        logradouro:[null,],
         bairro:[null,],
         complemento:[null,],
         cidade:[null,],
@@ -99,7 +102,7 @@ export class PageCadastroComponent implements OnInit {
   preencheCampoCEP(dados){
     this.cadastroForm.patchValue({
       endereco:{
-        rua : dados.logradouro,
+        logradouro : dados.logradouro,
         bairro : dados.bairro,
         cidade : dados.localidade,
         estado : dados.uf
@@ -114,6 +117,7 @@ export class PageCadastroComponent implements OnInit {
       this.cadastroService.createUser(Obj).subscribe(res=>{
         this.cadastroForm.reset();
         this.cadastroForm.get('ativo').setValue(true);
+        this.getEmptyTags();
         this.toastr.success('Usuário cadastrado com sucesso!', 'Sucesso',{timeOut:3000});
       },error=>{
         console.log(error)

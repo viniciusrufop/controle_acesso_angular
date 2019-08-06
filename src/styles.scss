@@ -28,3 +28,8 @@ app-page-cadastro .mat-form-field-label{color: #563d7c !important; }
 
 // CHECKBOX
 .mat-checkbox-checked.mat-accent .mat-checkbox-background{background-color: #563d7c ;}
+
+// DIALOG
+app-page-usuario .k-dialog {padding: 0;position: fixed;box-sizing: border-box;border-radius: 5px;}
+.k-dialog-titlebar {border-color: inherit;color: #fff;background: linear-gradient(to right, #563d7c 0%, #242939 100%);}
+.k-dialog-wrapper {overflow-y: auto;display: -webkit-box !important;z-index: 1000 !important;}

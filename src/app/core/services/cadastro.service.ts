@@ -50,4 +50,12 @@ export class CadastroService {
     return this.http.delete(`${config.apiUrl}/api/delete-user`,{params:idUser});
   }
 
+  getDataUser(idUser): Observable<any>{
+    return this.http.post(`${config.apiUrl}/api/get-data-user`,{params:idUser});
+  }
+
+  updateUser(dataUser): Observable<any>{
+    return this.http.put(`${config.apiUrl}/api/update-user`,{params:dataUser});
+  }
+
 }
