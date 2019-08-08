@@ -1,39 +1,89 @@
-<kendo-grid
-        [data]="gridData"
-        [pageSize]="state.take"
-        [skip]="state.skip"
-        [sort]="state.sort"
-        [filter]="state.filter"
-        [sortable]="true"
-        [pageable]="true"
-        [filterable]="true"
-        (dataStateChange)="dataStateChange($event)"
-    >
-    <kendo-grid-column field="ProductID" title="ID" width="40" [filterable]="false">
-    </kendo-grid-column>
-    <kendo-grid-column field="ProductName" title="Product Name">
-    </kendo-grid-column>
-    <kendo-grid-column field="FirstOrderedOn" title="First Ordered On" width="240" filter="date" format="{0:d}">
-    </kendo-grid-column>
-    <kendo-grid-column field="UnitPrice" title="Unit Price" width="180" filter="numeric" format="{0:c}">
-    </kendo-grid-column>
-    <kendo-grid-column field="Discontinued" width="120" filter="boolean">
-        <ng-template kendoGridCellTemplate let-dataItem>
-            <input type="checkbox" [checked]="dataItem.Discontinued" disabled/>
-        </ng-template>
-    </kendo-grid-column>
-    </kendo-grid>
+<form [formGroup]="historicoForm" >
+    <div class="container align-self-center">
+        <div class="row">
+        
+            <div class="col">
+                <div>
+                    <mat-label class="fs-12">Começando em:</mat-label>
+                </div>
+                <kendo-datepicker
+                    style="width: 100%"
+                    formControlName="dataInicio"
+                    [format]="'dd-MM-yyyy'"
+                    [max]="maxDate"
+                    (valueChange)="onChangeMinDate($event)"
+                ></kendo-datepicker>
+            </div>
+        
+            <div class="col">
+                <div>
+                    <mat-label class="fs-12">Terminando em:</mat-label>
+                </div>
+                <kendo-datepicker
+                    style="width: 100%"
+                    formControlName="dataFim"
+                    [min]="minDate"
+                    [format]="'dd-MM-yyyy'"
+                    (valueChange)="onChangeMaxDate($event)"
+                ></kendo-datepicker>
+            </div>
+        
+            <div class="col">
+                <mat-form-field style="width: 100%">
+                    <mat-label class="fs-12">Usuarios</mat-label>
+                    <mat-select multiple formControlName="users">
+                        <mat-option *ngFor="let item of users" [value]="item.id">
+                        {{item.nome}} {{item.sobrenome}} 
+                        </mat-option>
+                    </mat-select>
+                </mat-form-field>
+            </div>
+        
+            <div class="col center-div">
+                <button type="submit" class="btn btn-sm btn-info" (click)="onSubmit()">
+                    <fa-icon [icon]="faSearch" size="md" class="ml-2"></fa-icon>&nbsp;&nbsp;
+                </button>
+                <button type="submit" class="btn btn-sm btn-secondary ml-1" (click)="resetForm()">
+                    <fa-icon [icon]="faReply" size="md" class="ml-2"></fa-icon>&nbsp;&nbsp;Resetar
+                </button>
+            </div>
+            
+        </div>
+    
+    </div>
+</form>
 
-    <!-- Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.
-    Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.
-    Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.
-    Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.
-    Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.
-    Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.
-    Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.
-    Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.
-    Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.
-    Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.
- -->
+<div class="container align-self-center mt-2">
+    
+    <div class="row" *ngIf="showGrid">
+    <kendo-grid
+            [data]="gridData"
+            [pageSize]="state.take"
+            [skip]="state.skip"
+            [sort]="state.sort"
+            [filter]="state.filter"
+            [sortable]="true"
+            [pageable]="true"
+            [filterable]="true"
+            (dataStateChange)="dataStateChange($event)"
+        >
+        <kendo-grid-column field="data" title="Data" filter="date" format="{0:EE dd/MMM/yyyy}">
+            <ng-template kendoGridFilterCellTemplate let-filter let-column="column" let-dataItem>
+                <kendo-grid-date-filter-cell
+                    [showOperators]="true"
+                    [column]="column"
+                    [filter]="filter"
+                    operator="eq">
+                </kendo-grid-date-filter-cell>
+            </ng-template>
+        </kendo-grid-column>
+        <kendo-grid-column field="hora" title="Horário" [filterable]="false">
+        </kendo-grid-column>
+        <kendo-grid-column field="nome" title="Nome" >
+        </kendo-grid-column>
+        </kendo-grid>
+    </div>
+
+</div>
 
 

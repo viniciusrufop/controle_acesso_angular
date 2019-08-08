@@ -58,4 +58,8 @@ export class CadastroService {
     return this.http.put(`${config.apiUrl}/api/update-user`,{params:dataUser});
   }
 
+  getHistory(params): Observable<any>{
+    return this.http.post(`${config.apiUrl}/api/get-history`,{params:params});
+  }
+
 }

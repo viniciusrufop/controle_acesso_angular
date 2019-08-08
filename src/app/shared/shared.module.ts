@@ -17,6 +17,7 @@ import { MatCardModule } from '@angular/material/card';
 
 import { GridModule } from '@progress/kendo-angular-grid';
 import { DialogsModule } from '@progress/kendo-angular-dialog'
+import { DateInputsModule } from '@progress/kendo-angular-dateinputs';
 
 import { NgxMaskModule } from 'ngx-mask';
 import { ToastrModule } from 'ngx-toastr';
@@ -49,7 +50,8 @@ import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
     MatCardModule,
     SweetAlert2Module,
     FontAwesomeModule,
-    DialogsModule
+    DialogsModule,
+    DateInputsModule
   ]
 })
 export class SharedModule { }

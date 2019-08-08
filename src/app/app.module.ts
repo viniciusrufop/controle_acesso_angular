@@ -1,5 +1,5 @@
 import { BrowserModule } from '@angular/platform-browser';
-import { NgModule } from '@angular/core';
+import { NgModule, LOCALE_ID } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
@@ -21,6 +21,9 @@ import { NgxMaskModule } from 'ngx-mask';
 import { ToastrModule } from 'ngx-toastr';
 import { SweetAlert2Module } from '@sweetalert2/ngx-sweetalert2';
 import { DialogsModule } from '@progress/kendo-angular-dialog';
+import { DateInputsModule } from '@progress/kendo-angular-dateinputs';
+
+import '@progress/kendo-angular-intl/locales/pt/all';
 
 
 @NgModule({
@@ -42,7 +45,8 @@ import { DialogsModule } from '@progress/kendo-angular-dialog';
       positionClass: 'toast-bottom-right',
     }),
     SweetAlert2Module.forRoot(),
-    DialogsModule
+    DialogsModule,
+    DateInputsModule
   ],
   providers: [
     AuthGuard,
@@ -51,7 +55,8 @@ import { DialogsModule } from '@progress/kendo-angular-dialog';
       provide: HTTP_INTERCEPTORS,
       useClass : TokenInterceptorService,
       multi : true
-    }
+    },
+    { provide: LOCALE_ID, useValue: 'pt-BR' }
   ],
   bootstrap: [AppComponent]
 })
