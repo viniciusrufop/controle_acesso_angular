@@ -40,6 +40,7 @@ export class LayoutHomeComponent implements OnInit {
     if(url == '/usuarios') this.titlePage = 'Usuários';
     else if(url == '/cadastro') this.titlePage = 'Cadastro';
     else if(url == '/historico') this.titlePage = 'Histórico';
+    else if(url == '/relatorio') this.titlePage = 'Relatório';
   }
 
   logout(){

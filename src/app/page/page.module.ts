@@ -7,6 +7,7 @@ import { PageCadastroComponent } from './components/page-cadastro/page-cadastro.
 import { PageHistoricoComponent } from './components/page-historico/page-historico.component';
 import { PageUsuarioComponent, PhonePipe } from './components/page-usuario/page-usuario.component';
 import { ModalUserEditComponent } from './components/modal-user-edit/modal-user-edit.component';
+import { PageRelatorioComponent } from './components/page-relatorio/page-relatorio.component';
 
 @NgModule({
   declarations: [
@@ -14,7 +15,8 @@ import { ModalUserEditComponent } from './components/modal-user-edit/modal-user-
     PageHistoricoComponent, 
     PageUsuarioComponent,
     PhonePipe,
-    ModalUserEditComponent
+    ModalUserEditComponent,
+    PageRelatorioComponent
   ],
   imports: [
     CommonModule,

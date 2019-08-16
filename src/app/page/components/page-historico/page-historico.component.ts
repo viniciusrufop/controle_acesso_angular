@@ -43,7 +43,6 @@ export class PageHistoricoComponent implements OnInit {
     this.getAllUsers();
     this.createForm();
     this.minDate = this.historicoForm.get('dataInicio').value;
-    console.log(sampleProducts)
   }
 
   getAllUsers(){

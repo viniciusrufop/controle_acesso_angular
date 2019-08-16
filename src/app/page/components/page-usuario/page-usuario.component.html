@@ -18,7 +18,7 @@
           <mat-card-subtitle *ngIf="item.telefone"> {{ item.telefone | phone }}</mat-card-subtitle>
         </mat-card-header>
         <mat-card-actions>
-          <button type="button" class="btn btn-sm btn-success" (click)="editUser(item.id)">
+          <button type="button" class="btn btn-sm btn-info" (click)="editUser(item.id)">
             <fa-icon [icon]="faEdit" size="md"></fa-icon>&nbsp;&nbsp;Editar
           </button>
           <button class="btn btn-sm btn-danger ml-1" type="button" [swal]="{ title: 'Exclusão', text: 'Deseja realmente deletar o usuário?', type: 'question', showCancelButton: true, confirmButtonText: '<i class=\'fa fa-trash-alt fa-lg\'></i>&nbsp;&nbsp;Excluir', cancelButtonText: '<i class=\'fa fa-times fa-lg\'></i>&nbsp;&nbsp;Cancelar' }" (confirm)="deleteUser(item.id)">
@@ -33,4 +33,4 @@
 
 </div>
 
-<div kendoDialogContainer></div>
+<div kendoDialogContainer ></div>

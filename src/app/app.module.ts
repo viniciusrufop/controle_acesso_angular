@@ -24,6 +24,9 @@ import { DialogsModule } from '@progress/kendo-angular-dialog';
 import { DateInputsModule } from '@progress/kendo-angular-dateinputs';
 
 import '@progress/kendo-angular-intl/locales/pt/all';
+import { registerLocaleData } from '@angular/common';
+import ptBr from '@angular/common/locales/pt';
+registerLocaleData(ptBr)
 
 
 @NgModule({

@@ -7,6 +7,7 @@ import { PageUsuarioComponent } from './../page/components/page-usuario/page-usu
 import { PageHistoricoComponent } from './../page/components/page-historico/page-historico.component';
 import { PageCadastroComponent } from './../page/components/page-cadastro/page-cadastro.component';
 import { LayoutHomeComponent } from './components/layout-home/layout-home.component';
+import { PageRelatorioComponent } from '../page/components/page-relatorio/page-relatorio.component';
 
 const routes: Routes = [
   { path:'cadastro' , component: LayoutHomeComponent,
@@ -28,6 +29,13 @@ const routes: Routes = [
     /* canLoad: [AuthGuard], */
     children:[
       {path : '' , component: PageUsuarioComponent}
+    ]
+  },
+  { path:'relatorio' , component: LayoutHomeComponent,
+    canActivate: [AuthGuard],
+    /* canLoad: [AuthGuard], */
+    children:[
+      {path : '' , component: PageRelatorioComponent}
     ]
   },
 ];
