@@ -14,6 +14,7 @@ import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MatSelectModule } from '@angular/material/select';
 import { MatCardModule } from '@angular/material/card';
+import { MatMenuModule } from '@angular/material/menu';
 
 import { GridModule } from '@progress/kendo-angular-grid';
 import { DialogsModule } from '@progress/kendo-angular-dialog'
@@ -21,6 +22,7 @@ import { DateInputsModule } from '@progress/kendo-angular-dateinputs';
 
 import { NgxMaskModule } from 'ngx-mask';
 import { ToastrModule } from 'ngx-toastr';
+import { ClipboardModule } from 'ngx-clipboard';
 import { SweetAlert2Module } from '@sweetalert2/ngx-sweetalert2';
 
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
@@ -51,7 +53,9 @@ import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
     SweetAlert2Module,
     FontAwesomeModule,
     DialogsModule,
-    DateInputsModule
+    DateInputsModule,
+    MatMenuModule,
+    ClipboardModule
   ]
 })
 export class SharedModule { }

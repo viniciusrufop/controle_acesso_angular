@@ -6,6 +6,7 @@ import { BlockUI, NgBlockUI } from 'ng-block-ui';
 import { faReply, faFileAlt, faFileDownload } from '@fortawesome/free-solid-svg-icons';
 import { DrawOptions, drawDOM, Group, exportPDF } from '@progress/kendo-drawing';
 import { saveAs } from '@progress/kendo-file-saver';
+import { admin } from 'src/app/core/services/admin';
 
 @Component({
   selector: 'app-page-relatorio',
@@ -22,6 +23,7 @@ export class PageRelatorioComponent implements OnInit {
   public showRelatorio: boolean = false;
   public dataUser:any = [];
   public arrayData: any = [];
+  public admin = admin.value;
 
   faReply = faReply;
   faFileAlt = faFileAlt;
@@ -34,19 +36,26 @@ export class PageRelatorioComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-    this.getAllUsers();
     this.createForm();
+    this.getAllUsers();
   }
 
   getAllUsers(){
-    this.blockUI.start();
-    this.cadastroService.getAllUsers().subscribe(res=>{
-      this.users = res.userList;
-    },error=>{
-      console.log(error)
-    }).add(()=>{
-      this.blockUI.stop();
-    });
+    if(this.admin){
+      this.blockUI.start();
+      this.cadastroService.getAllUsers().subscribe(res=>{
+        this.users = res.userList;
+      },error=>{
+        console.log(error)
+      }).add(()=>{
+        this.blockUI.stop();
+      });
+    } else {
+      let id = localStorage.getItem('dataUserId');
+      if(id != 'undefined'){
+        this.relatorioForm.get('idUser').setValue(id);
+      }
+    }
   }
 
   createForm(){
@@ -94,10 +103,18 @@ export class PageRelatorioComponent implements OnInit {
     Object.keys(arrayRes).forEach(element => {
       let value = arrayRes[element];
       if(value.length > 1){
+        let totalSeconds = 0;
+        for (let i = 0; i < value.length; i++) {
+          if(i%2 != 0){
+            let hora1Seconds = this.hoursToSeconds(value[i-1]['hora']);
+            let hora2Seconds = this.hoursToSeconds(value[i]['hora']);
+            totalSeconds += (hora2Seconds-hora1Seconds);
+          }
+        }
         let hora1 = value[0]['hora'];
         let hora2 = value[value.length-1]['hora'];
         value[0]['hora'] = `${hora1} - ${hora2}`;
-        value[0]['tempo'] = this.calcTempo(hora1,hora2);;
+        value[0]['tempo'] = this.secondsToHours(totalSeconds);
       } else {
         value[0]['data'] =  new Date(value[0]['data']);
         value[0]['tempo'] = '-';
@@ -106,33 +123,23 @@ export class PageRelatorioComponent implements OnInit {
     });
   }
 
-  calcTempo(hora1:string,hora2:string){
+  hoursToSeconds(hora:string):number{
+    let hSeconds = parseInt(hora.substr(0,2))*3600;
+    let mSeconds = parseInt(hora.substr(3,2))*60;
+    let sSeconds = parseInt(hora.substr(6,2));
+    let total = hSeconds + mSeconds + sSeconds;
+    return total;
+  }
 
-    function hoursToSeconds(hora:string):number{
-      let hSeconds = parseInt(hora.substr(0,2))*3600;
-      let mSeconds = parseInt(hora.substr(3,2))*60;
-      let sSeconds = parseInt(hora.substr(6,2));
-      let total = hSeconds + mSeconds + sSeconds;
-      return total;
-    }
-
+  secondsToHours(s:number) : string{
     function formatNumber(numero:number){
       return (numero <= 9) ? `0${numero}` : numero;
     }
-
-    function secondsToHours(s:number) : string{
-      let hora = formatNumber(Math.round(s/3600));
-      let minuto = formatNumber(Math.floor((s%3600)/60));
-      let segundo = formatNumber((s%3600)%60);
-      let formatado = hora+":"+minuto+":"+segundo;
-      return formatado;
-    }
-
-    let total1 = hoursToSeconds(hora1);
-    let total2 = hoursToSeconds(hora2);
-    let total = total2 - total1;
-
-    return secondsToHours(total);
+    let hora = formatNumber(Math.round(s/3600));
+    let minuto = formatNumber(Math.floor((s%3600)/60));
+    let segundo = formatNumber((s%3600)%60);
+    let formatado = hora+":"+minuto+":"+segundo;
+    return formatado;
   }
 
   getDataUser(){

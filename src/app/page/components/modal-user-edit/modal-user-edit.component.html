@@ -68,22 +68,15 @@
   
       </div>
   
-      <div class="row">
+      <div *ngIf="admin" class="row">
   
         <div class="col-lg-4 col-sm-1 mr-2 mt-3">
           <mat-checkbox formControlName="ativo">Ativo</mat-checkbox>
         </div>
-  
-        <!-- <mat-form-field class="col-lg-4 col-sm-1 mr-2 mt-3">
-          <mat-label>Tag</mat-label>
-          <mat-select multiple formControlName="tag">
-            <mat-option *ngFor="let item of tagList" [value]="item">{{item}}</mat-option>
-          </mat-select>
-        </mat-form-field> -->
-  
-        <!-- <div class="col-lg-4 col-sm-1 mr-2 mt-3">
-  
-        </div> -->
+
+        <div class="col-lg-4 col-sm-1 mr-2 mt-3">
+          <mat-checkbox formControlName="admin">Administrador</mat-checkbox>
+        </div>
   
       </div>
   

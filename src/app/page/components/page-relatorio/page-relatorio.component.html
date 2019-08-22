@@ -15,7 +15,7 @@
             </kendo-datepicker>
          </div>
 
-         <div class="col">
+         <div class="col" *ngIf="admin">
             <mat-form-field style="width: 100%">
                <mat-label class="fs-12-bold">Usuario</mat-label>
                <mat-select formControlName="idUser">

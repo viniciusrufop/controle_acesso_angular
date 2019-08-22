@@ -2,6 +2,9 @@ import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
 import { AuthService } from 'src/app/core/services/auth.service';
 import { Router } from '@angular/router';
 import {TooltipPosition} from '@angular/material/tooltip';
+import { faAngleDown, faSignOutAlt, faUser } from '@fortawesome/free-solid-svg-icons';
+
+import { admin } from './../../../core/services/admin';
 
 @Component({
   selector: 'app-layout-home',
@@ -12,15 +15,21 @@ export class LayoutHomeComponent implements OnInit {
 
   @ViewChild('vrMenu',{static:false}) vrMenu : ElementRef;
 
+  faAngleDown = faAngleDown;
+  faSignOutAlt = faSignOutAlt;
+  faUser = faUser;
+
   positionLogout: TooltipPosition = 'left';
   showFiller = false;
   showMenu : boolean = false;
   titlePage : string;
+  public admin = admin.value;
+  public userName = localStorage.getItem('userName');
 
   constructor(
     private router:Router,
     private authService:AuthService,
-  ) { }
+  ) {}
 
   ngOnInit() {
     this.namePage(this.router.url);
@@ -41,6 +50,8 @@ export class LayoutHomeComponent implements OnInit {
     else if(url == '/cadastro') this.titlePage = 'Cadastro';
     else if(url == '/historico') this.titlePage = 'Histórico';
     else if(url == '/relatorio') this.titlePage = 'Relatório';
+    else if(url == '/perfil') this.titlePage = 'Perfil do Usuário';
+    else if(url == '/ajuste') this.titlePage = 'Ajuste de Ponto';
   }
 
   logout(){

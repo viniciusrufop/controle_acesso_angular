@@ -1,0 +1,104 @@
+<form [formGroup]="ajusteForm" *ngIf="showFormAjuste">
+   <div class="container align-self-center">
+       <div class="row">
+
+            <div class="col">
+                  <div>
+                        <mat-label class="fs-12">Data:</mat-label>
+                  </div>
+                  <kendo-datepicker
+                        style="width: 100%"
+                        formControlName="data"
+                        [format]="'dd-MM-yyyy'"
+                        [max]="maxDate">
+                        <kendo-datepicker-messages
+                              today="Hoje"
+                              toggle="Ajustar data"
+                        ></kendo-datepicker-messages>
+                  </kendo-datepicker>
+                  <mat-error class="fs-075" *ngIf="ajusteForm.get('data').invalid && ajusteForm.get('data').touched">{{ getRequiredError('justificativa') }}</mat-error>
+            </div>
+
+            <div class="col">
+               <div>
+                     <mat-label class="fs-12">Horário:</mat-label>
+               </div>
+
+               <kendo-timepicker
+                  formControlName="hora"
+                  [format]="'HH:mm:ss'">
+                  <kendo-timepicker-messages
+                        accept="Selecionar"
+                        acceptLabel="Selecionar o tempo"
+                        cancel="Cancelar"
+                        cancelLabel="Cancelar"
+                        now="Agora"
+                        nowLabel="Seleciona o horário atual"
+                        toggle="Ajustar horário">
+                  </kendo-timepicker-messages>
+                  </kendo-timepicker>
+                  <mat-error class="fs-075" *ngIf="ajusteForm.get('hora').invalid && ajusteForm.get('hora').touched">{{ getRequiredError('justificativa') }}</mat-error>
+            </div>
+
+            <div class="col center-div pt-2">
+               <button type="submit" class="btn btn-sm btn-info" (click)="onSubmit()" >
+                     <fa-icon [icon]="faRedo" size="md" class="ml-2"></fa-icon>&nbsp;&nbsp;Enviar Solicitação
+               </button>
+               <button type="submit" class="btn btn-sm btn-secondary ml-1" (click)="resetForm()">
+                     <fa-icon [icon]="faReply" size="md" class="ml-2"></fa-icon>&nbsp;&nbsp;Resetar
+               </button>
+            </div>
+
+       </div>
+
+       <div class="row">
+         <mat-form-field class="col mr-2 mt-3">
+            <textarea matInput placeholder="Justificativa" formControlName="justificativa" autocomplete="off"></textarea>
+            <mat-error *ngIf="ajusteForm.get('justificativa').invalid && ajusteForm.get('justificativa').touched">{{ getRequiredError('justificativa') }}</mat-error>
+         </mat-form-field>
+       </div>
+   </div>
+</form>
+
+<div class="container align-self-center">
+      <div *ngIf="showTableAjuste" class="row">
+            <h4 class="vr-title-info">Solicitações de ajuste pendente </h4>
+      </div>
+
+      <div *ngIf="!showTableAjuste" class="row">
+            <h4 class="vr-title-info">Não há solicitações de ajuste pendente </h4>
+      </div>
+
+      <div *ngIf="showTableAjuste" class="row" >
+            <table class="table table-sm table-striped table-ajuste">
+                  <thead>
+                        <tr>
+                              <th>Nome</th>
+                              <th>Data</th>
+                              <th>Hora</th>
+                              <th>Justificativa</th>
+                              <th *ngIf="admin">Aceitar</th>
+                              <th *ngIf="admin">Recusar</th>
+                        </tr>
+                  </thead>
+                  <tbody>
+                        <tr *ngFor="let item of solicitacaoAjuste">
+                              <td>{{item?.nome}}</td>
+                              <td>{{item?.data}}</td>
+                              <td>{{item?.hora}}</td>
+                              <td style="max-width: 200px;">{{item?.justificativa}}</td>
+                              <td *ngIf="admin">
+                                    <button type="submit" class="btn btn-sm btn-primary" (click)="setObjSolicitacao(true,item.id)" >
+                                          <fa-icon [icon]="faCheckCircle" size="md" class="ml-2"></fa-icon>&nbsp;&nbsp;Aceitar
+                                    </button>
+                              </td>
+                              <td *ngIf="admin">
+                                    <button type="submit" class="btn btn-sm btn-warning" (click)="setObjSolicitacao(false,item.id)" >
+                                          <fa-icon [icon]="faTimesCircle" size="md" class="ml-2"></fa-icon>&nbsp;&nbsp;Recusar
+                                    </button>
+                              </td>
+                        </tr>
+                  </tbody>
+            </table>
+      </div>
+</div>

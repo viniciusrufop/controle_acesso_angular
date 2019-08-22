@@ -7,6 +7,8 @@ import { HttpErrorResponse } from '@angular/common/http';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { BlockUI, NgBlockUI } from 'ng-block-ui';
 
+import { admin } from './../../../core/services/admin';
+
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
@@ -57,7 +59,12 @@ export class LoginComponent implements OnInit, OnDestroy {
       this.blockUI.start();
       this.sub = this.authService.loginUser(this.loginForm.value)
       .subscribe(res=>{
-        localStorage.setItem('token',res.token);
+        localStorage.setItem('token',res.result.token);
+        localStorage.setItem('userEmail',res.result.userEmail);
+        localStorage.setItem('userName',res.result.userName);
+        localStorage.setItem('dataUserId',res.result.dataUserId);
+        localStorage.setItem('authToken',res.result.auth);
+        admin.value = (!res.result.auth) ? false : true;
         this._router.navigate(['/historico']);
       }
       ,error=>{

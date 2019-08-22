@@ -7,6 +7,7 @@ import { CadastroService } from 'src/app/core/services/cadastro.service';
 import { faSearch, faReply } from '@fortawesome/free-solid-svg-icons';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { admin } from 'src/app/core/services/admin';
 
 @Component({
   selector: 'app-page-historico',
@@ -23,6 +24,7 @@ export class PageHistoricoComponent implements OnInit {
   public maxDate : Date;
   public arrayData: any = [];
   public showGrid : boolean = false;
+  public admin = admin.value;
   
   faSearch = faSearch;
   faReply = faReply;
@@ -40,20 +42,27 @@ export class PageHistoricoComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-    this.getAllUsers();
     this.createForm();
+    this.getAllUsers();
     this.minDate = this.historicoForm.get('dataInicio').value;
   }
 
   getAllUsers(){
-    this.blockUI.start();
-    this.cadastroService.getAllUsers().subscribe(res=>{
-      this.users = res.userList;
-    },error=>{
-      console.log(error)
-    }).add(()=>{
-      this.blockUI.stop();
-    });
+    if(this.admin){
+      this.blockUI.start();
+      this.cadastroService.getAllUsers().subscribe(res=>{
+        this.users = res.userList;
+      },error=>{
+        console.log(error)
+      }).add(()=>{
+        this.blockUI.stop();
+      });
+    } else {
+      let id = localStorage.getItem('dataUserId');
+      if(id != 'undefined'){
+        this.historicoForm.get('users').setValue([id]);
+      }
+    }
   }
 
   createForm(){
@@ -77,10 +86,13 @@ export class PageHistoricoComponent implements OnInit {
     this.historicoForm.reset();
     this.minDate = null;
     this.maxDate = null;
+    if(!this.admin){
+      let id = localStorage.getItem('dataUserId');
+      this.historicoForm.get('users').setValue([id]);
+    }
   }
 
   onSubmit(){
-    console.log(this.historicoForm.value)
     if(this.validForm()){
       let obj = this.historicoForm.value;
       this.blockUI.start();

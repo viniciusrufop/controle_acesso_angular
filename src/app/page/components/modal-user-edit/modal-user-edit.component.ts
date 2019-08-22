@@ -7,6 +7,7 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 import { Observable, Subscription } from 'rxjs';
 import { faWindowClose, faSave } from '@fortawesome/free-solid-svg-icons';
 import { ToastrService } from 'ngx-toastr';
+import { admin } from 'src/app/core/services/admin';
 
 @Component({
   selector: 'app-modal-user-edit',
@@ -23,6 +24,7 @@ export class ModalUserEditComponent implements OnInit {
 
   public validForm : boolean = true;
   public tagList : any = [];
+  public admin = admin.value;
   faWindowClose = faWindowClose ;
   faSave = faSave;
 
@@ -67,7 +69,8 @@ export class ModalUserEditComponent implements OnInit {
         estado:[null,],
       }),
       login:[null,[Validators.required,Validators.minLength(4)]],
-      ativo:[true,[Validators.required]],
+      ativo:[null,[Validators.required]],
+      admin:[null,[Validators.required]],
       tag: [null],
     })
   }
@@ -132,6 +135,7 @@ export class ModalUserEditComponent implements OnInit {
       login: dataUser.login,
       telefone: dataUser.telefone,
       ativo: dataUser.ativo,
+      admin: dataUser.admin,
       endereco:{
         cep : dataUser.cep,
         logradouro : dataUser.logradouro,

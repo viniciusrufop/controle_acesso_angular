@@ -58,6 +58,7 @@ export class PageCadastroComponent implements OnInit {
       login:[null,[Validators.required,Validators.minLength(4)]],
       senha:[null,[Validators.required,Validators.minLength(4)]],
       ativo:[true,[Validators.required]],
+      admin:[false],
       tag: [null],
     })
   }

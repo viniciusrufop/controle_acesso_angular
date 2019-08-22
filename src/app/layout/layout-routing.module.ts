@@ -8,11 +8,14 @@ import { PageHistoricoComponent } from './../page/components/page-historico/page
 import { PageCadastroComponent } from './../page/components/page-cadastro/page-cadastro.component';
 import { LayoutHomeComponent } from './components/layout-home/layout-home.component';
 import { PageRelatorioComponent } from '../page/components/page-relatorio/page-relatorio.component';
+import { PagePerfilComponent } from '../page/components/page-perfil/page-perfil.component';
+import { PageAjusteComponent } from '../page/components/page-ajuste/page-ajuste.component';
 
 const routes: Routes = [
   { path:'cadastro' , component: LayoutHomeComponent,
     canActivate: [AuthGuard],
     /* canLoad: [AuthGuard], */
+    canActivateChild:[AuthGuard],
     children:[
       {path : '' , component:PageCadastroComponent}
     ]
@@ -27,6 +30,7 @@ const routes: Routes = [
   { path:'usuarios' , component: LayoutHomeComponent,
     canActivate: [AuthGuard],
     /* canLoad: [AuthGuard], */
+    canActivateChild:[AuthGuard],
     children:[
       {path : '' , component: PageUsuarioComponent}
     ]
@@ -36,6 +40,20 @@ const routes: Routes = [
     /* canLoad: [AuthGuard], */
     children:[
       {path : '' , component: PageRelatorioComponent}
+    ]
+  },
+  { path:'ajuste' , component: LayoutHomeComponent,
+    canActivate: [AuthGuard],
+    /* canLoad: [AuthGuard], */
+    children:[
+      {path : '' , component: PageAjusteComponent}
+    ]
+  },
+  { path:'perfil' , component: LayoutHomeComponent,
+    canActivate: [AuthGuard],
+    /* canLoad: [AuthGuard], */
+    children:[
+      {path : '' , component: PagePerfilComponent}
     ]
   },
 ];
