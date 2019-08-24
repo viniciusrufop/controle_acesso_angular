@@ -6,6 +6,9 @@ import { ToastrService } from 'ngx-toastr';
 
 import { process, State } from '@progress/kendo-data-query';
 import { GridDataResult, DataStateChangeEvent } from '@progress/kendo-angular-grid';
+import { faTrash } from '@fortawesome/free-solid-svg-icons';
+import { DialogCloseResult, DialogService } from '@progress/kendo-angular-dialog';
+import { ModalVinculaTagComponent } from '../modal-vincula-tag/modal-vincula-tag.component';
 
 @Component({
   selector: 'app-page-tags',
@@ -17,6 +20,8 @@ export class PageTagsComponent implements OnInit {
   @BlockUI() blockUI: NgBlockUI;
 
   public showTagTable:boolean = false;
+
+  faTrash = faTrash;
 
   /**
    * === CONFIG GRID TABLE
@@ -39,6 +44,7 @@ export class PageTagsComponent implements OnInit {
     private ajusteService: AjusteService,
     private _snackBar: MatSnackBar,
     private toastr: ToastrService,
+    private dialogService: DialogService,
   ) { }
 
   ngOnInit() {
@@ -51,7 +57,7 @@ export class PageTagsComponent implements OnInit {
     this.ajusteService.getTags(obj).subscribe(res=>{
       this.tagsArray = res.result;
       this.gridData = process(this.tagsArray, this.state);
-      this.showTagTable = true;
+      this.showTagTable = (this.tagsArray.length > 0);
     },error=>{
       console.log(error)
       this.openSnackBar('Erro ao buscar dados.','OK');
@@ -74,6 +80,50 @@ export class PageTagsComponent implements OnInit {
     this._snackBar.open(message, action, {
       duration: 3000,
       verticalPosition: 'top'
+    });
+  }
+
+  deleteTag(idTag){
+    this.blockUI.start();
+    let obj = Object.assign(this.getObjSolicitacao(),{id:idTag}) ;
+    this.ajusteService.deleteTag(obj).subscribe(res=>{
+      this.toastr.success('Tag deletada com sucesso!', 'Sucesso',{timeOut:3000});
+    },error=>{
+      console.log(error)
+      this.toastr.error('Erro ao deletar tag.', 'Erro',{timeOut:3000});
+    }).add(()=>{
+      this.getTags();
+      this.blockUI.stop();
+    });
+  }
+
+  desvincularTag(idTag){
+    this.blockUI.start();
+    let obj = Object.assign(this.getObjSolicitacao(),{id:idTag}) ;
+    this.ajusteService.desvincularTag(obj).subscribe(res=>{
+      this.toastr.success('Tag desvinculada com sucesso!', 'Sucesso',{timeOut:3000});
+    },error=>{
+      console.log(error)
+      this.toastr.error('Erro ao desvincular tag.', 'Erro',{timeOut:3000});
+    }).add(()=>{
+      this.getTags();
+      this.blockUI.stop();
+    });
+  }
+
+  vincularTag(idTag,tagValue){
+    const dialogRef = this.dialogService.open({
+      title: 'Vincular Tag',
+      content: ModalVinculaTagComponent,
+    });
+    const userInfo = dialogRef.content.instance;
+    userInfo.idTag = idTag;
+    userInfo.tagValue = tagValue;
+    
+    dialogRef.result.subscribe((result) => {
+      if (!(result instanceof DialogCloseResult)) {
+        this.getTags();
+      } 
     });
   }
 

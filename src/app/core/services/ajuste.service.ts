@@ -30,4 +30,17 @@ export class AjusteService {
   getTags(params): Observable<any>{
     return this.http.post(`${config.apiUrl}/api/get-tags`,{params:params});
   }
+
+  deleteTag(params): Observable<any>{
+    return this.http.post(`${config.apiUrl}/api/delete-tag`,{params:params});
+  }
+
+  desvincularTag(params): Observable<any>{
+    return this.http.post(`${config.apiUrl}/api/desvincular-tag`,{params:params});
+  }
+
+  vincularTag(params): Observable<any>{
+    return this.http.post(`${config.apiUrl}/api/vincular-tag`,{params:params});
+  }
+
 }

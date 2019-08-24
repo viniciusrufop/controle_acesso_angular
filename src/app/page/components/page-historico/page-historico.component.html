@@ -67,7 +67,7 @@
                 [filterable]="true"
                 (dataStateChange)="dataStateChange($event)"
             >
-            <kendo-grid-column field="data" title="Data" filter="date" format="{0:EE dd/MMM/yyyy}">
+            <kendo-grid-column field="data" title="Data" filter="date" format="{0:EE dd/MMM/yyyy}" width="150">
                 <ng-template kendoGridFilterCellTemplate let-filter let-column="column" let-dataItem>
                     <kendo-grid-date-filter-cell
                         [showOperators]="true"
@@ -77,9 +77,9 @@
                     </kendo-grid-date-filter-cell>
                 </ng-template>
             </kendo-grid-column>
-            <kendo-grid-column field="hora" title="Horário" [filterable]="false">
+            <kendo-grid-column field="hora" title="Horário" [filterable]="false" width="150">
             </kendo-grid-column>
-            <kendo-grid-column field="nome" title="Nome" >
+            <kendo-grid-column field="nome" title="Nome" width="150" >
             </kendo-grid-column>
         </kendo-grid>
     </div>

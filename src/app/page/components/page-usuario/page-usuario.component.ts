@@ -6,6 +6,7 @@ import { ToastrService } from 'ngx-toastr';
 import { DialogService, DialogCloseResult } from '@progress/kendo-angular-dialog';
 
 import { ModalUserEditComponent } from './../modal-user-edit/modal-user-edit.component';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Component({
   selector: 'app-page-usuario',
@@ -24,7 +25,8 @@ export class PageUsuarioComponent implements OnInit {
   constructor(
     private cadastroService : CadastroService,
     private toastr: ToastrService,
-    private dialogService: DialogService
+    private dialogService: DialogService,
+    private _snackBar: MatSnackBar,
   ) { }
 
   ngOnInit() {
@@ -37,6 +39,7 @@ export class PageUsuarioComponent implements OnInit {
       this.users = res.userList;
     },error=>{
       console.log(error)
+      this.openSnackBar('Problema ao buscar dados','OK');
     }).add(()=>{
       this.blockUI.stop();
     });
@@ -68,6 +71,13 @@ export class PageUsuarioComponent implements OnInit {
       if (!(result instanceof DialogCloseResult)) {
         this.getAllUsers();
       } 
+    });
+  }
+
+  openSnackBar(message: string, action: string) {
+    this._snackBar.open(message, action, {
+      duration: 3000,
+      verticalPosition: 'top'
     });
   }
 

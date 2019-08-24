@@ -122,10 +122,10 @@
                   [filterable]="true"
                   (dataStateChange)="dataStateChange($event)">
 
-            <kendo-grid-column field="nome" title="Nome" >
+            <kendo-grid-column field="nome" title="Nome" width="130">
             </kendo-grid-column>
 
-            <kendo-grid-column field="data" title="Data" filter="date" format="{0:EE dd/MMM/yyyy}">
+            <kendo-grid-column field="data" title="Data" filter="date" format="{0:EE dd/MMM/yyyy}" width="150">
                   <ng-template kendoGridFilterCellTemplate let-filter let-column="column" let-dataItem>
                         <kendo-grid-date-filter-cell
                               [showOperators]="true"
@@ -136,19 +136,19 @@
                   </ng-template>
             </kendo-grid-column>
 
-            <kendo-grid-column field="hora" title="Horário" [filterable]="false">
+            <kendo-grid-column field="hora" title="Horário" [filterable]="false" width="100">
             </kendo-grid-column>
 
-            <kendo-grid-column field="justificativa" title="Justificativa" [filterable]="false">
+            <kendo-grid-column field="justificativa" title="Justificativa" [filterable]="false" width="150">
             </kendo-grid-column>
 
-            <kendo-grid-column field="aceito" title="Aprovado" [filterable]="false">
+            <kendo-grid-column field="aceito" title="Aprovado" [filterable]="false" width="100">
                   <ng-template kendoGridCellTemplate let-dataItem>
                         {{ dataItem.aceito ? 'Sim' : 'Não' }}
                   </ng-template>
             </kendo-grid-column>
 
-            <kendo-grid-column field="created_at" title="Dia do pedido" filter="date" format="{0:EE dd/MMM/yyyy}">
+            <kendo-grid-column field="created_at" title="Dia do pedido" filter="date" format="{0:EE dd/MMM/yyyy}" width="150">
                   <ng-template kendoGridFilterCellTemplate let-filter let-column="column" let-dataItem>
                         <kendo-grid-date-filter-cell
                               [showOperators]="true"
@@ -165,56 +165,4 @@
 
       </mat-accordion>
 
-      <!-- <div *ngIf="showHistoricoAjuste" class="row">
-            <h4 class="vr-title-info">Historico de ajuste</h4>
-      </div>
-
-      <div *ngIf="showHistoricoAjuste" class="row">
-            <kendo-grid
-                  [data]="gridData"
-                  [pageSize]="state.take"
-                  [skip]="state.skip"
-                  [sort]="state.sort"
-                  [filter]="state.filter"
-                  [sortable]="true"
-                  [pageable]="true"
-                  [filterable]="true"
-                  (dataStateChange)="dataStateChange($event)">
-
-            <kendo-grid-column field="nome" title="Nome" >
-            </kendo-grid-column>
-
-            <kendo-grid-column field="data" title="Data" filter="date" format="{0:EE dd/MMM/yyyy}">
-                  <ng-template kendoGridFilterCellTemplate let-filter let-column="column" let-dataItem>
-                        <kendo-grid-date-filter-cell
-                              [showOperators]="true"
-                              [column]="column"
-                              [filter]="filter"
-                              operator="eq">
-                        </kendo-grid-date-filter-cell>
-                  </ng-template>
-            </kendo-grid-column>
-
-            <kendo-grid-column field="hora" title="Horário" [filterable]="false">
-            </kendo-grid-column>
-
-            <kendo-grid-column field="justificativa" title="Justificativa" >
-            </kendo-grid-column>
-
-            <kendo-grid-column field="aceito" title="Aceito" >
-            </kendo-grid-column>
-
-            <kendo-grid-column field="created_at" title="Dia do pedido" filter="date" format="{0:EE dd/MMM/yyyy}">
-                  <ng-template kendoGridFilterCellTemplate let-filter let-column="column" let-dataItem>
-                        <kendo-grid-date-filter-cell
-                              [showOperators]="true"
-                              [column]="column"
-                              [filter]="filter"
-                              operator="eq">
-                        </kendo-grid-date-filter-cell>
-                  </ng-template>
-            </kendo-grid-column>
-            
-            </kendo-grid>
-      </div> -->
 </div>

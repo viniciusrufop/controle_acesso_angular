@@ -11,6 +11,7 @@ import { PageRelatorioComponent } from './components/page-relatorio/page-relator
 import { PagePerfilComponent } from './components/page-perfil/page-perfil.component';
 import { PageAjusteComponent } from './components/page-ajuste/page-ajuste.component';
 import { PageTagsComponent } from './components/page-tags/page-tags.component';
+import { ModalVinculaTagComponent } from './components/modal-vincula-tag/modal-vincula-tag.component';
 
 @NgModule({
   declarations: [
@@ -22,7 +23,8 @@ import { PageTagsComponent } from './components/page-tags/page-tags.component';
     PageRelatorioComponent,
     PagePerfilComponent,
     PageAjusteComponent,
-    PageTagsComponent
+    PageTagsComponent,
+    ModalVinculaTagComponent
   ],
   imports: [
     CommonModule,
@@ -30,7 +32,8 @@ import { PageTagsComponent } from './components/page-tags/page-tags.component';
     SharedModule,
   ],
   entryComponents: [ 
-    ModalUserEditComponent 
+    ModalUserEditComponent,
+    ModalVinculaTagComponent 
   ],
 })
 export class PageModule { }

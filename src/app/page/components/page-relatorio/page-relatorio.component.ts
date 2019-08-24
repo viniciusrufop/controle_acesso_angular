@@ -7,6 +7,7 @@ import { faReply, faFileAlt, faFileDownload } from '@fortawesome/free-solid-svg-
 import { DrawOptions, drawDOM, Group, exportPDF } from '@progress/kendo-drawing';
 import { saveAs } from '@progress/kendo-file-saver';
 import { admin } from 'src/app/core/services/admin';
+// import { PDFOptions } from '@progress/kendo-drawing/pdf';
 
 @Component({
   selector: 'app-page-relatorio',
@@ -29,6 +30,8 @@ export class PageRelatorioComponent implements OnInit {
   faReply = faReply;
   faFileAlt = faFileAlt;
   faFileDownload = faFileDownload;
+
+  options : DrawOptions = {paperSize:"A4"};
 
   constructor(
     private formBuilder : FormBuilder,
@@ -167,8 +170,8 @@ export class PageRelatorioComponent implements OnInit {
     });
   }
 
-  downloadPDF(element?: HTMLElement, options?: DrawOptions) {
-    drawDOM(this.pdf.nativeElement, options).then((group: Group) => {
+  downloadPDF(element?: HTMLElement) {
+    drawDOM(this.pdf.nativeElement, this.options).then((group: Group) => {
         return exportPDF(group);
     }).then((dataUri) => {
         let pdfName = this.pafName();
@@ -191,5 +194,6 @@ export class PageRelatorioComponent implements OnInit {
   getRequiredError(campo){
     return this.relatorioForm.get(campo).hasError('required') ? 'Campo obrigatório' : '';
   }
+
 
 }
