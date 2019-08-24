@@ -56,31 +56,31 @@
 <div class="container align-self-center mt-2">
     
     <div class="row" *ngIf="showGrid">
-    <kendo-grid
-            [data]="gridData"
-            [pageSize]="state.take"
-            [skip]="state.skip"
-            [sort]="state.sort"
-            [filter]="state.filter"
-            [sortable]="true"
-            [pageable]="true"
-            [filterable]="true"
-            (dataStateChange)="dataStateChange($event)"
-        >
-        <kendo-grid-column field="data" title="Data" filter="date" format="{0:EE dd/MMM/yyyy}">
-            <ng-template kendoGridFilterCellTemplate let-filter let-column="column" let-dataItem>
-                <kendo-grid-date-filter-cell
-                    [showOperators]="true"
-                    [column]="column"
-                    [filter]="filter"
-                    operator="eq">
-                </kendo-grid-date-filter-cell>
-            </ng-template>
-        </kendo-grid-column>
-        <kendo-grid-column field="hora" title="Horário" [filterable]="false">
-        </kendo-grid-column>
-        <kendo-grid-column field="nome" title="Nome" >
-        </kendo-grid-column>
+        <kendo-grid
+                [data]="gridData"
+                [pageSize]="state.take"
+                [skip]="state.skip"
+                [sort]="state.sort"
+                [filter]="state.filter"
+                [sortable]="true"
+                [pageable]="true"
+                [filterable]="true"
+                (dataStateChange)="dataStateChange($event)"
+            >
+            <kendo-grid-column field="data" title="Data" filter="date" format="{0:EE dd/MMM/yyyy}">
+                <ng-template kendoGridFilterCellTemplate let-filter let-column="column" let-dataItem>
+                    <kendo-grid-date-filter-cell
+                        [showOperators]="true"
+                        [column]="column"
+                        [filter]="filter"
+                        operator="eq">
+                    </kendo-grid-date-filter-cell>
+                </ng-template>
+            </kendo-grid-column>
+            <kendo-grid-column field="hora" title="Horário" [filterable]="false">
+            </kendo-grid-column>
+            <kendo-grid-column field="nome" title="Nome" >
+            </kendo-grid-column>
         </kendo-grid>
     </div>
 

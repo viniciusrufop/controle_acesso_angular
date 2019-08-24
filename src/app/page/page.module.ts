@@ -10,6 +10,7 @@ import { ModalUserEditComponent } from './components/modal-user-edit/modal-user-
 import { PageRelatorioComponent } from './components/page-relatorio/page-relatorio.component';
 import { PagePerfilComponent } from './components/page-perfil/page-perfil.component';
 import { PageAjusteComponent } from './components/page-ajuste/page-ajuste.component';
+import { PageTagsComponent } from './components/page-tags/page-tags.component';
 
 @NgModule({
   declarations: [
@@ -20,7 +21,8 @@ import { PageAjusteComponent } from './components/page-ajuste/page-ajuste.compon
     ModalUserEditComponent,
     PageRelatorioComponent,
     PagePerfilComponent,
-    PageAjusteComponent
+    PageAjusteComponent,
+    PageTagsComponent
   ],
   imports: [
     CommonModule,

@@ -13,6 +13,7 @@
                [topView]="'decade'"
                [format]="'MMMM'" >
             </kendo-datepicker>
+            <mat-error class="fs-075" *ngIf="relatorioForm.get('mes').invalid && relatorioForm.get('mes').touched">{{ getRequiredError('mes') }}</mat-error>
          </div>
 
          <div class="col" *ngIf="admin">
@@ -23,6 +24,7 @@
                      {{item.nome}} {{item.sobrenome}}
                   </mat-option>
                </mat-select>
+               <mat-error class="fs-075" *ngIf="relatorioForm.get('idUser').invalid && relatorioForm.get('idUser').touched">{{ getRequiredError('idUser') }}</mat-error>
             </mat-form-field>
          </div>
 
@@ -66,12 +68,10 @@
             <div class="col-6">
                <mat-label class="fs-10-bold">Nome</mat-label>
                <div class="vr-mt--5px">{{ dataUser.nome }} {{ dataUser.sobrenome }}</div>
-               <!-- Nome : {{ dataUser.nome }} {{ dataUser.sobrenome }} -->
             </div>
             <div class="col-6">
                <mat-label class="fs-10-bold">Email</mat-label>
                <div class="vr-mt--5px">{{ dataUser.email ? dataUser.email : '-' }}</div>
-               <!-- Email: {{ dataUser.email }} -->
             </div>
          </div>
 
@@ -79,13 +79,10 @@
             <div class="col-6">
                <mat-label class="fs-10-bold">Telefone</mat-label>
                <div class="vr-mt--5px">{{ dataUser.telefone ? dataUser.telefone : '-' }}</div>
-               <!-- Telefone : {{ dataUser.telefone }} -->
             </div>
             <div class="col-6">
                <mat-label class="fs-10-bold">Cidade</mat-label>
                <div class="vr-mt--5px">{{ dataUser.cidade }} - {{ dataUser.estado }}</div>
-               <!-- Cidade: {{ dataUser.cidade }} - {{ dataUser.estado }} -->
-               
             </div>
          </div>
 
@@ -93,12 +90,10 @@
             <div class="col-6">
                <mat-label class="fs-10-bold">Rua/Av</mat-label>
                <div class="vr-mt--5px">{{ dataUser.logradouro ? dataUser.logradouro : '-' }}</div>
-               <!-- Rua/Av.: {{ dataUser.logradouro }} -->
             </div>
             <div class="col-6">
                <mat-label class="fs-10-bold">Bairro</mat-label>
                <div class="vr-mt--5px">{{ dataUser.bairro ? dataUser.bairro : '-' }}</div>
-               <!-- Bairro: {{ dataUser.bairro }} -->
             </div>
          </div>
 
@@ -106,12 +101,20 @@
             <div class="col-6">
                <mat-label class="fs-10-bold">CEP</mat-label>
                <div class="vr-mt--5px">{{ dataUser.cep ? dataUser.cep : '-'  }}</div>
-               <!-- CEP: {{ dataUser.cep }} -->
             </div>
             <div class="col-6">
                <mat-label class="fs-10-bold">Complemento</mat-label>
                <div class="vr-mt--5px">{{ dataUser.complemento ? dataUser.complemento : '-' }}</div>
-               <!-- Complemento: {{ dataUser.complemento }} -->
+            </div>
+         </div>
+
+         <div class="vr-row">
+            <div class="col-6">
+               <mat-label class="fs-10-bold">Total de horas</mat-label>
+               <div class="vr-mt--5px">{{ totalHorasMensal }}</div>
+            </div>
+            <div class="col-6">
+               
             </div>
          </div>
 

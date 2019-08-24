@@ -1,3 +1,5 @@
+<!-- https://material.io/resources/icons/?icon=delete_forever&style=baseline -->
+
 <div #vrMenu class="vr-main-menu" >
 
     <header class="vr-menuHeader">
@@ -32,7 +34,13 @@
         <li class="vr-menu-item">
           <a [routerLink]="['/ajuste']" routerLinkActive="active"  class="nav-link" >
             <span class="ml-3">Ajuste</span>
-            <mat-icon class="float-right vr-mat-icon" >history</mat-icon>
+            <mat-icon class="float-right vr-mat-icon" >report</mat-icon>
+          </a>
+        </li>
+        <li class="vr-menu-item" *ngIf="admin">
+          <a [routerLink]="['/tags']" routerLinkActive="active"  class="nav-link" >
+            <span class="ml-3">Tags</span>
+            <mat-icon class="float-right vr-mat-icon" >vpn_key</mat-icon>
           </a>
         </li>
     </ul>

@@ -1,0 +1,38 @@
+<div class="container align-self-center">
+
+   <div class="row">
+      <span class="vr-title-info">Tags cadastradas no sistema</span>
+   </div>
+
+   <div class="row mt-3" *ngIf="showTagTable">
+      <kendo-grid
+            [data]="gridData"
+            [pageSize]="state.take"
+            [skip]="state.skip"
+            [sort]="state.sort"
+            [filter]="state.filter"
+            [sortable]="true"
+            [pageable]="true"
+            [filterable]="true"
+            (dataStateChange)="dataStateChange($event)">
+
+      <kendo-grid-column field="nome" title="Usuário" >
+         <ng-template kendoGridCellTemplate let-dataItem>
+               {{ dataItem.nome ? dataItem.nome : 'Null' }}
+         </ng-template>
+      </kendo-grid-column>
+
+      <kendo-grid-column field="tag_value" title="TAG" [filterable]="false">
+      </kendo-grid-column>
+
+      <kendo-grid-column field="ativo" title="Ativada" [filterable]="false">
+         <ng-template kendoGridCellTemplate let-dataItem>
+               {{ dataItem.ativo ? 'Sim' : 'Não' }}
+         </ng-template>
+      </kendo-grid-column>
+
+      </kendo-grid>
+
+   </div>
+
+</div>

@@ -1,11 +1,13 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { CadastroService } from 'src/app/core/services/cadastro.service';
+import { AjusteService } from 'src/app/core/services/ajuste.service';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { ToastrService } from 'ngx-toastr';
 import { BlockUI, NgBlockUI } from 'ng-block-ui';
 import { faReply, faRedo, faCheckCircle, faTimesCircle } from '@fortawesome/free-solid-svg-icons';
 import { admin } from 'src/app/core/services/admin';
+import { DataStateChangeEvent, GridDataResult } from '@progress/kendo-angular-grid';
+import { process, State } from '@progress/kendo-data-query';
 
 @Component({
   selector: 'app-page-ajuste',
@@ -23,16 +25,27 @@ export class PageAjusteComponent implements OnInit {
   public solicitacaoAjuste : any = [];
   public showTableAjuste : boolean = false;
   public showFormAjuste : boolean = false;
+  public showHistoricoAjuste : boolean = false;
   private dataUserId = localStorage.getItem('dataUserId');
 
   faRedo = faRedo;
   faReply = faReply;
   faCheckCircle = faCheckCircle;
   faTimesCircle = faTimesCircle;
+ 
+  /**
+   * CONFIG GRID TABLE
+   */
+  public historicoAjuste : any = [];
+  public state: State = {
+    skip: 0,
+    take: 7,
+  };
+  public gridData: GridDataResult = process(this.historicoAjuste, this.state);
 
   constructor(
     private formBuilder : FormBuilder,
-    private cadastroService : CadastroService,
+    private ajusteService: AjusteService,
     private _snackBar: MatSnackBar,
     private toastr: ToastrService,
   ) { }
@@ -45,6 +58,7 @@ export class PageAjusteComponent implements OnInit {
       this.showFormAjuste = false;
     }
     this.getAdjustmentRequest();
+    this.getAdjustmentHistoryRequest();
   }
 
   createForm(){
@@ -57,18 +71,17 @@ export class PageAjusteComponent implements OnInit {
   }
 
   onSubmit(){
+    this.ajusteForm.markAllAsTouched()
     if(this.trataForm()){
-      console.log(this.ajusteForm.value);
       this.blockUI.start();
       let obj = this.ajusteForm.value;
-      console.log(obj)
-      this.cadastroService.adjustmentRequest(obj).subscribe(res=>{
-        console.log(res);
-        this.toastr.success('Solicitação de ajuste realizada!', 'Sucesso',{timeOut:3000});
+      this.ajusteService.adjustmentRequest(obj).subscribe(res=>{
+        this.ajusteForm.reset()
+        this.toastr.success('Solicitação de ajuste enviada!', 'Sucesso',{timeOut:3000});
         this.getAdjustmentRequest();
       },error=>{
         console.log(error)
-        this.toastr.error('Erro de solicitação.', 'Erro',{timeOut:3000});
+        this.toastr.error('Erro ao solicitar ajuste.', 'Erro',{timeOut:3000});
       }).add(()=>{
         this.blockUI.stop();
       });
@@ -87,9 +100,29 @@ export class PageAjusteComponent implements OnInit {
     this.blockUI.start();
     let email = localStorage.getItem('userEmail');
     let obj = {email : email};
-    this.cadastroService.getAdjustmentRequest(obj).subscribe(res=>{
+    this.ajusteService.getAdjustmentRequest(obj).subscribe(res=>{
       this.solicitacaoAjuste = res.result;
       this.showTableAjuste = (this.solicitacaoAjuste.length > 0);
+    },error=>{
+      console.log(error)
+      this.openSnackBar('Problema ao buscar dados','OK');
+    }).add(()=>{
+      this.blockUI.stop();
+    });
+  }
+
+  getAdjustmentHistoryRequest(){
+    this.blockUI.start();
+    let email = localStorage.getItem('userEmail');
+    let obj = {email : email};
+    this.ajusteService.getAdjustmentHistoryRequest(obj).subscribe(res=>{
+      this.historicoAjuste = res.result;
+      if(this.historicoAjuste.length > 0){
+        this.formatData(this.historicoAjuste)
+        this.showHistoricoAjuste = true;
+      } else {
+        this.showHistoricoAjuste = false;
+      }
     },error=>{
       console.log(error)
       this.openSnackBar('Problema ao buscar dados','OK');
@@ -116,9 +149,10 @@ export class PageAjusteComponent implements OnInit {
   confirmaSolicitacao(obj){
     if(admin){
       this.blockUI.start();
-      this.cadastroService.acceptAdjustmentRequest(obj).subscribe(res=>{
+      this.ajusteService.acceptAdjustmentRequest(obj).subscribe(res=>{
         this.toastr.success('Solicitação atendida!', 'Sucesso',{timeOut:3000});
         this.getAdjustmentRequest();
+        this.getAdjustmentHistoryRequest();
       },error=>{
         console.log(error)
         this.toastr.success('Erro ao atender solicitação!', 'Sucesso',{timeOut:3000});
@@ -140,10 +174,17 @@ export class PageAjusteComponent implements OnInit {
     this.confirmaSolicitacao(obj)
   }
 
-  // recusarSolicitacao(){
-  //   if(admin){
-  //     console.log('recusarSolicitacao')
-  //   }
-  // }
+  public dataStateChange(state: DataStateChangeEvent): void {
+    this.state = state;
+    this.gridData = process(this.historicoAjuste, this.state);
+  }
+
+  formatData(array){
+    array.forEach(element => {
+      element.data = new Date(element.data);
+      element.created_at = new Date(element.created_at);
+    });
+    this.gridData = process(array, this.state);
+  }
 
 }

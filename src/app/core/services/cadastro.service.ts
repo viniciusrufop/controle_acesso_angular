@@ -74,16 +74,4 @@ export class CadastroService {
     return this.http.post(`${config.apiUrl}/api/get-admin`,{params:emailUser});
   }
 
-  adjustmentRequest(params): Observable<any>{
-    return this.http.post(`${config.apiUrl}/api/adjustment-request`,{params:params});
-  }
-
-  getAdjustmentRequest(params): Observable<any>{
-    return this.http.post(`${config.apiUrl}/api/get-adjustment-request`,{params:params});
-  }
-
-  acceptAdjustmentRequest(params): Observable<any>{
-    return this.http.post(`${config.apiUrl}/api/accept-adjustment-request`,{params:params});
-  }
-
 }

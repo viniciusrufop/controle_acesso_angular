@@ -33,3 +33,16 @@ app-page-cadastro .mat-form-field-label{color: #563d7c !important; }
 app-page-usuario .k-dialog {padding: 0;position: fixed;box-sizing: border-box;border-radius: 5px;}
 .k-dialog-titlebar {border-color: inherit;color: #fff;background: linear-gradient(to right, #563d7c 0%, #242939 100%);}
 .k-dialog-wrapper {overflow-y: auto;display: -webkit-box !important;z-index: 1000 !important;}
+
+// KENDO GRID
+.k-pager-wrap .k-link, .k-pager-wrap .k-state-selected {z-index: 0;}
+.k-grid-header-wrap {background-color: #563d7c;color:#fff;border-color: #fafafa;}
+.k-grid td,.k-filter-row>td{border-color: #fafafa;}
+.k-grid tr.k-alt {background-color: #eaeaef;}
+.k-pager-wrap {background-color: #563d7c;color:#fff;}
+.k-pager-numbers .k-state-selected {color: #563d7c !important;background-color: #fff;}
+.k-pager-numbers .k-link {color: #fff;}
+
+// GERAL
+.vr-title-info{font-family: 'Open Sans Condensed', sans-serif;padding: 1rem;border-radius: 3px;width: 100%;font-weight: normal; font-size: 20px;
+   box-shadow: 0 3px 1px -2px rgba(0,0,0,.2), 0 2px 2px 0 rgba(0,0,0,.14), 0 1px 5px 0 rgba(0,0,0,.12);}

@@ -52,6 +52,7 @@ export class LayoutHomeComponent implements OnInit {
     else if(url == '/relatorio') this.titlePage = 'Relatório';
     else if(url == '/perfil') this.titlePage = 'Perfil do Usuário';
     else if(url == '/ajuste') this.titlePage = 'Ajuste de Ponto';
+    else if(url == '/tags') this.titlePage = 'Controle de Tags';
   }
 
   logout(){

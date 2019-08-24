@@ -160,43 +160,47 @@ export class PageCadastroComponent implements OnInit {
   }
 
   getEmailUser(){
-    let email = this.cadastroForm.get('email').value;
-    
-    this.blockUI.start();
-    this.cadastroService.getEmailUser({email:email}).subscribe(res=>{
-      this.existUserEmail = false;
-    },error=>{
-      if( error instanceof HttpErrorResponse){
-        if(error.status === 400){
-          this.toastr.warning('Email de usuário já cadastrado.', 'Atenção');
-          this.existUserEmail = true;
-        } else {
-          console.log(error);
+    // let email = this.cadastroForm.get('email').value;
+    let email = this.cadastroForm.get('email');
+    if(email.valid){
+      this.blockUI.start();
+      this.cadastroService.getEmailUser({email:email.value}).subscribe(res=>{
+        this.existUserEmail = false;
+      },error=>{
+        if( error instanceof HttpErrorResponse){
+          if(error.status === 400){
+            this.toastr.warning('Email de usuário já cadastrado.', 'Atenção');
+            this.existUserEmail = true;
+          } else {
+            console.log(error);
+          }
         }
-      }
-    }).add(()=>{
-      this.blockUI.stop();
-    });
+      }).add(()=>{
+        this.blockUI.stop();
+      });
+    }
   }
 
   getLoginUser(){
-    let login = this.cadastroForm.get('login').value;
-
-    this.blockUI.start();
-    this.cadastroService.getLoginUser({login:login}).subscribe(res=>{
-      this.existUserLogin = false;
-    },error=>{
-      if( error instanceof HttpErrorResponse){
-        if(error.status === 400){
-          this.toastr.warning('Login de usuário já cadastrado.', 'Atenção');
-          this.existUserLogin = true;
-        } else {
-          console.log(error);
+    let login = this.cadastroForm.get('login');
+    if(login.valid){
+      this.blockUI.start();
+      this.cadastroService.getLoginUser({login:login.value}).subscribe(res=>{
+        this.existUserLogin = false;
+      },error=>{
+        if( error instanceof HttpErrorResponse){
+          if(error.status === 400){
+            this.toastr.warning('Login de usuário já cadastrado.', 'Atenção');
+            this.existUserLogin = true;
+          } else {
+            console.log(error);
+          }
         }
-      }
-    }).add(()=>{
-      this.blockUI.stop();
-    });
+      }).add(()=>{
+        this.blockUI.stop();
+      });
+    }
+
   }
 
 }

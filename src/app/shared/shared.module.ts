@@ -15,6 +15,8 @@ import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MatSelectModule } from '@angular/material/select';
 import { MatCardModule } from '@angular/material/card';
 import { MatMenuModule } from '@angular/material/menu';
+import { MatExpansionModule } from '@angular/material/expansion';
+
 
 import { GridModule } from '@progress/kendo-angular-grid';
 import { DialogsModule } from '@progress/kendo-angular-dialog'
@@ -55,7 +57,8 @@ import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
     DialogsModule,
     DateInputsModule,
     MatMenuModule,
-    ClipboardModule
+    ClipboardModule,
+    MatExpansionModule
   ]
 })
 export class SharedModule { }

@@ -24,6 +24,7 @@ export class PageRelatorioComponent implements OnInit {
   public dataUser:any = [];
   public arrayData: any = [];
   public admin = admin.value;
+  public totalHorasMensal;
 
   faReply = faReply;
   faFileAlt = faFileAlt;
@@ -72,6 +73,7 @@ export class PageRelatorioComponent implements OnInit {
   }
 
   validForm() {
+    this.relatorioForm.markAllAsTouched()
     if(this.relatorioForm.status === 'VALID'){
       let mes = (this.relatorioForm.get('mes').value.getMonth())+1;
       let ano = this.relatorioForm.get('mes').value.getFullYear();
@@ -100,6 +102,7 @@ export class PageRelatorioComponent implements OnInit {
   }
 
   setArrayData(arrayRes){
+    let totalHoras = 0;
     Object.keys(arrayRes).forEach(element => {
       let value = arrayRes[element];
       if(value.length > 1){
@@ -115,12 +118,14 @@ export class PageRelatorioComponent implements OnInit {
         let hora2 = value[value.length-1]['hora'];
         value[0]['hora'] = `${hora1} - ${hora2}`;
         value[0]['tempo'] = this.secondsToHours(totalSeconds);
+        totalHoras += totalSeconds;
       } else {
         value[0]['data'] =  new Date(value[0]['data']);
         value[0]['tempo'] = '-';
       }
       this.arrayData.push(value[0]);
     });
+    this.totalHorasMensal = this.secondsToHours(totalHoras)
   }
 
   hoursToSeconds(hora:string):number{
@@ -173,7 +178,6 @@ export class PageRelatorioComponent implements OnInit {
 
   pafName():string{
     let data = this.relatorioForm.get('mes').value;
-    // let mes = data.getMonth()+1;
     let mes = data.toLocaleString('default', { month: 'short' });;
     let ano = data.getFullYear();
     let id = this.relatorioForm.get('idUser').value;
@@ -182,6 +186,10 @@ export class PageRelatorioComponent implements OnInit {
     })
     let nome = (obj.sobrenome) ? `${obj.nome}_${obj.sobrenome}` : obj.nome;
     return `Rochaut_${nome}_${mes}_${ano}`;
+  }
+
+  getRequiredError(campo){
+    return this.relatorioForm.get(campo).hasError('required') ? 'Campo obrigatório' : '';
   }
 
 }

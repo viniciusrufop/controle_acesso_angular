@@ -29,6 +29,7 @@ export class AppComponent{
       admin.value=true;
     },error=>{
       admin.value=false;
+      localStorage.setItem('authToken','false');
     }).add(()=>{
       this.blockUI.stop();
     });
