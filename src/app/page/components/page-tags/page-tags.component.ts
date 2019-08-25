@@ -6,7 +6,7 @@ import { ToastrService } from 'ngx-toastr';
 
 import { process, State } from '@progress/kendo-data-query';
 import { GridDataResult, DataStateChangeEvent } from '@progress/kendo-angular-grid';
-import { faTrash } from '@fortawesome/free-solid-svg-icons';
+import { faTrash, faRedo } from '@fortawesome/free-solid-svg-icons';
 import { DialogCloseResult, DialogService } from '@progress/kendo-angular-dialog';
 import { ModalVinculaTagComponent } from '../modal-vincula-tag/modal-vincula-tag.component';
 
@@ -22,6 +22,7 @@ export class PageTagsComponent implements OnInit {
   public showTagTable:boolean = false;
 
   faTrash = faTrash;
+  faRedo = faRedo;
 
   /**
    * === CONFIG GRID TABLE
@@ -57,7 +58,12 @@ export class PageTagsComponent implements OnInit {
     this.ajusteService.getTags(obj).subscribe(res=>{
       this.tagsArray = res.result;
       this.gridData = process(this.tagsArray, this.state);
-      this.showTagTable = (this.tagsArray.length > 0);
+      if(this.tagsArray.length > 0){
+        this.showTagTable = true;  
+      } else {
+        this.openSnackBar('Nenhuma tag cadastrada.','OK');
+        this.showTagTable = false;  
+      }
     },error=>{
       console.log(error)
       this.openSnackBar('Erro ao buscar dados.','OK');

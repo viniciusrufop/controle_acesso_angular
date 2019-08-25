@@ -165,4 +165,13 @@
 
       </mat-accordion>
 
+      <div class="row mt-3 text-center" *ngIf="!showHistoricoAjuste">
+            <span class="vr-title-info">
+                  <button class="btn btn-sm btn-primary ml-1" type="button" (click)="getAdjustmentHistoryRequest()">
+                  <fa-icon [icon]="faRedo" size="md"></fa-icon>
+                  </button>
+                  Nenhum histórico de ajuste encontrado
+            </span>
+      </div>
+
 </div>

@@ -121,6 +121,7 @@ export class PageAjusteComponent implements OnInit {
         this.formatData(this.historicoAjuste)
         this.showHistoricoAjuste = true;
       } else {
+        this.openSnackBar('Nenhum histórico encontrado','OK');
         this.showHistoricoAjuste = false;
       }
     },error=>{
@@ -155,7 +156,7 @@ export class PageAjusteComponent implements OnInit {
         this.getAdjustmentHistoryRequest();
       },error=>{
         console.log(error)
-        this.toastr.success('Erro ao atender solicitação!', 'Sucesso',{timeOut:3000});
+        this.toastr.error('Erro ao atender solicitação!', 'Erro',{timeOut:3000});
       }).add(()=>{
         this.blockUI.stop();
       });
