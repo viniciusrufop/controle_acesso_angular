@@ -6,7 +6,7 @@ import { ToastrService } from 'ngx-toastr';
 
 import { process, State } from '@progress/kendo-data-query';
 import { GridDataResult, DataStateChangeEvent } from '@progress/kendo-angular-grid';
-import { faTrash, faRedo } from '@fortawesome/free-solid-svg-icons';
+import { faTrash, faRedo, faUnlink, faLink } from '@fortawesome/free-solid-svg-icons';
 import { DialogCloseResult, DialogService } from '@progress/kendo-angular-dialog';
 import { ModalVinculaTagComponent } from '../modal-vincula-tag/modal-vincula-tag.component';
 
@@ -23,6 +23,8 @@ export class PageTagsComponent implements OnInit {
 
   faTrash = faTrash;
   faRedo = faRedo;
+  faUnlink = faUnlink;
+  faLink = faLink;
 
   /**
    * === CONFIG GRID TABLE

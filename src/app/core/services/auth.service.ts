@@ -37,8 +37,8 @@ export class AuthService {
     return localStorage.getItem('token');
   }
 
-  loginUser(user) : Observable<any>{
-    return this.http.post<any>(`${config.apiUrl}/login`,user);
+  loginUser(obj) : Observable<any>{
+    return this.http.post<any>(`${config.apiUrl}/login`,obj);
   }
 
   logoutUser(){

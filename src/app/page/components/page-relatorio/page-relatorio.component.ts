@@ -20,6 +20,7 @@ export class PageRelatorioComponent implements OnInit {
   @ViewChild('pdf',{static : false}) pdf : ElementRef;
   relatorioForm:FormGroup;
 
+  public maxDate : Date = new Date();
   public users : any = [];
   public showRelatorio: boolean = false;
   public dataUser:any = [];
@@ -109,16 +110,21 @@ export class PageRelatorioComponent implements OnInit {
     Object.keys(arrayRes).forEach(element => {
       let value = arrayRes[element];
       if(value.length > 1){
-        let totalSeconds = 0;
+        let arraySeconds : any = [];
         for (let i = 0; i < value.length; i++) {
+          arraySeconds.push(this.hoursToSeconds(value[i]['hora']));
+        }
+        arraySeconds.sort((a,b) => {return a-b});
+        let totalSeconds = 0;
+        for (let i = 0; i < arraySeconds.length; i++) {
           if(i%2 != 0){
-            let hora1Seconds = this.hoursToSeconds(value[i-1]['hora']);
-            let hora2Seconds = this.hoursToSeconds(value[i]['hora']);
+            let hora1Seconds = arraySeconds[i-1];
+            let hora2Seconds = arraySeconds[i];
             totalSeconds += (hora2Seconds-hora1Seconds);
           }
         }
-        let hora1 = value[0]['hora'];
-        let hora2 = value[value.length-1]['hora'];
+        let hora1 = this.secondsToHours(arraySeconds[0]);
+        let hora2 = this.secondsToHours(arraySeconds[arraySeconds.length-1]);
         value[0]['hora'] = `${hora1} - ${hora2}`;
         value[0]['tempo'] = this.secondsToHours(totalSeconds);
         totalHoras += totalSeconds;
@@ -143,7 +149,7 @@ export class PageRelatorioComponent implements OnInit {
     function formatNumber(numero:number){
       return (numero <= 9) ? `0${numero}` : numero;
     }
-    let hora = formatNumber(Math.round(s/3600));
+    let hora = formatNumber(Math.trunc(s/3600));
     let minuto = formatNumber(Math.floor((s%3600)/60));
     let segundo = formatNumber((s%3600)%60);
     let formatado = hora+":"+minuto+":"+segundo;

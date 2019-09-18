@@ -71,36 +71,39 @@
                         </mat-panel-title>
                   </mat-expansion-panel-header>
 
-                  <table class="table table-sm table-striped table-ajuste">
-                        <thead>
-                              <tr>
-                                    <th>Nome</th>
-                                    <th>Data</th>
-                                    <th>Hora</th>
-                                    <th>Justificativa</th>
-                                    <th *ngIf="admin" class="text-center">Aceitar</th>
-                                    <th *ngIf="admin" class="text-center">Recusar</th>
-                              </tr>
-                        </thead>
-                        <tbody>
-                              <tr *ngFor="let item of solicitacaoAjuste">
-                                    <td>{{item?.nome}}</td>
-                                    <td>{{item?.data}}</td>
-                                    <td>{{item?.hora}}</td>
-                                    <td style="max-width: 200px;">{{item?.justificativa}}</td>
-                                    <td *ngIf="admin" class="text-center">
-                                          <button type="submit" class="btn btn-sm btn-success" (click)="setObjSolicitacao(true,item.id)" >
-                                                <fa-icon [icon]="faCheckCircle" size="md"></fa-icon>
-                                          </button>
-                                    </td>
-                                    <td *ngIf="admin" class="text-center">
-                                          <button type="submit" class="btn btn-sm btn-warning" (click)="setObjSolicitacao(false,item.id)" >
-                                                <fa-icon [icon]="faTimesCircle" size="md"></fa-icon>
-                                          </button>
-                                    </td>
-                              </tr>
-                        </tbody>
-                  </table>
+                  <div style="overflow: auto">
+                        <table class="table table-sm table-striped table-ajuste">
+                              <thead>
+                                    <tr>
+                                          <th>Nome</th>
+                                          <th>Data</th>
+                                          <th>Hora</th>
+                                          <th>Justificativa</th>
+                                          <th *ngIf="admin" class="text-center">Aceitar</th>
+                                          <th *ngIf="admin" class="text-center">Recusar</th>
+                                    </tr>
+                              </thead>
+                              <tbody>
+                                    <tr *ngFor="let item of solicitacaoAjuste">
+                                          <td>{{item?.nome}}</td>
+                                          <td>{{item?.data}}</td>
+                                          <td>{{item?.hora}}</td>
+                                          <td style="max-width: 200px;">{{item?.justificativa}}</td>
+                                          <td *ngIf="admin" class="text-center">
+                                                <button type="submit" class="btn btn-sm btn-success" (click)="setObjSolicitacao(true,item.id)" >
+                                                      <fa-icon [icon]="faCheckCircle" size="md"></fa-icon>
+                                                </button>
+                                          </td>
+                                          <td *ngIf="admin" class="text-center">
+                                                <button type="submit" class="btn btn-sm btn-warning" (click)="setObjSolicitacao(false,item.id)" >
+                                                      <fa-icon [icon]="faTimesCircle" size="md"></fa-icon>
+                                                </button>
+                                          </td>
+                                    </tr>
+                              </tbody>
+                        </table>
+                  </div>
+
 
             </mat-expansion-panel>
 
@@ -148,7 +151,7 @@
                   </ng-template>
             </kendo-grid-column>
 
-            <kendo-grid-column field="created_at" title="Dia do pedido" filter="date" format="{0:EE dd/MMM/yyyy}" width="150">
+            <kendo-grid-column field="diaDoPedido" title="Dia do pedido" filter="date" format="{0:EE dd/MMM/yyyy}" width="150">
                   <ng-template kendoGridFilterCellTemplate let-filter let-column="column" let-dataItem>
                         <kendo-grid-date-filter-cell
                               [showOperators]="true"

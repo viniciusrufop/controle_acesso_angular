@@ -49,7 +49,7 @@ export class ModalUserEditComponent implements OnInit {
 
   validateForm(){
     this.sub = this.cadastroForm.statusChanges.subscribe(res=>{
-      this.validForm = (res === 'VALID') ? false : true;
+      this.validForm = (res !== 'VALID');
     })
   }
   
@@ -59,14 +59,14 @@ export class ModalUserEditComponent implements OnInit {
       nome:[null,[Validators.required]],
       sobrenome:[null],
       email:[null,[Validators.required,Validators.email]],
-      telefone:[null,],
+      telefone:[null],
       endereco:this.formBuilder.group({
-        cep:[null,],
-        logradouro:[null,],
-        bairro:[null,],
-        complemento:[null,],
-        cidade:[null,],
-        estado:[null,],
+        cep:[null],
+        logradouro:[null],
+        bairro:[null],
+        complemento:[null],
+        cidade:[null],
+        estado:[null],
       }),
       login:[null,[Validators.required,Validators.minLength(4)]],
       ativo:[null,[Validators.required]],

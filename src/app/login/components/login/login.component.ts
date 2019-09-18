@@ -56,15 +56,11 @@ export class LoginComponent implements OnInit, OnDestroy {
 
   onSubmit(){
     if(this.loginForm.status === 'VALID'){
+      let obj = this.loginForm.value;
       this.blockUI.start();
-      this.sub = this.authService.loginUser(this.loginForm.value)
-      .subscribe(res=>{
-        localStorage.setItem('token',res.result.token);
-        localStorage.setItem('userEmail',res.result.userEmail);
-        localStorage.setItem('userName',res.result.userName);
-        localStorage.setItem('dataUserId',res.result.dataUserId);
-        localStorage.setItem('authToken',res.result.auth);
-        admin.value = (!res.result.auth) ? false : true;
+      this.sub = this.authService.loginUser(obj).subscribe(res=>{
+        this.setLocalStorage(res);
+        admin.value = (res.result.auth);
         this._router.navigate(['/historico']);
       }
       ,error=>{
@@ -80,7 +76,7 @@ export class LoginComponent implements OnInit, OnDestroy {
         this.blockUI.stop();
       })
     } else {
-      console.log('invalid')
+      this.openSnackBar('Formulário Inválido','OK');
     }
   }
 
@@ -101,6 +97,14 @@ export class LoginComponent implements OnInit, OnDestroy {
       duration: 3000,
       verticalPosition: 'top'
     });
+  }
+
+  setLocalStorage(res) {
+    localStorage.setItem('token',res.result.token);
+    localStorage.setItem('userEmail',res.result.userEmail);
+    localStorage.setItem('userName',res.result.userName);
+    localStorage.setItem('dataUserId',res.result.dataUserId);
+    localStorage.setItem('authToken',res.result.auth);
   }
 
 }

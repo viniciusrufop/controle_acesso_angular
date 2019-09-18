@@ -11,7 +11,8 @@
                formControlName="mes" 
                [bottomView]="'year'"
                [topView]="'decade'"
-               [format]="'MMMM'" >
+               [format]="'MMMM'"
+               [max]="maxDate" >
             </kendo-datepicker>
             <mat-error class="fs-075" *ngIf="relatorioForm.get('mes').invalid && relatorioForm.get('mes').touched">{{ getRequiredError('mes') }}</mat-error>
          </div>
@@ -78,7 +79,8 @@
          <div class="vr-row">
             <div class="col-6">
                <mat-label class="fs-10-bold">Telefone</mat-label>
-               <div class="vr-mt--5px">{{ dataUser.telefone ? dataUser.telefone : '-' }}</div>
+               <div class="vr-mt--5px">{{ (dataUser.telefone ? dataUser.telefone : '-') | phone}}</div>
+               <!-- <div class="vr-mt--5px">{{ dataUser?.telefone | phone}}</div> -->
             </div>
             <div class="col-6">
                <mat-label class="fs-10-bold">Cidade</mat-label>

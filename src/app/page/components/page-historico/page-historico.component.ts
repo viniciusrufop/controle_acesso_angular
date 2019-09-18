@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import { BlockUI, NgBlockUI } from 'ng-block-ui';
-import { sampleProducts } from './products';
 import { process, State } from '@progress/kendo-data-query';
 import { GridDataResult, DataStateChangeEvent } from '@progress/kendo-angular-grid';
 import { CadastroService } from 'src/app/core/services/cadastro.service';

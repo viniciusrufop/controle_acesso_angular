@@ -1,4 +1,4 @@
-import { Component, OnInit, Pipe, PipeTransform } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { CadastroService } from 'src/app/core/services/cadastro.service';
 import { BlockUI, NgBlockUI } from 'ng-block-ui';
 import { faTrash, faEdit } from '@fortawesome/free-solid-svg-icons';
@@ -83,10 +83,10 @@ export class PageUsuarioComponent implements OnInit {
 
 }
 
-@Pipe({name: 'phone'})
-export class PhonePipe implements PipeTransform {
-  transform(value: string): string {
-    if(value)
-      return `(${value.slice(0, 2)}) ${value.slice(2,7)}-${value.slice(7,11)}`;
-  }
-}
+// @Pipe({name: 'phone'})
+// export class PhonePipe implements PipeTransform {
+//   transform(value: string): string {
+//     if(value)
+//       return `(${value.slice(0, 2)}) ${value.slice(2,7)}-${value.slice(7,11)}`;
+//   }
+// }

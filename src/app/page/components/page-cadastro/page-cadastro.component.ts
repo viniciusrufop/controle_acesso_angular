@@ -87,10 +87,11 @@ export class PageCadastroComponent implements OnInit {
 
   consultaCEP(){
     let cep = this.cadastroForm.get('endereco.cep').value;
-    if(cep !== "" && cep !=null){
+    if(cep !== "" && cep !=null && cep.length === 8){
       this.blockUI.start();
       this.cadastroService.consultaCEP(cep).subscribe(res=>{
         let dados = JSON.parse(res.dados);
+        if (dados.hasOwnProperty('erro')) { this.openSnackBar('CEP não encontrado', 'OK'); }
         this.preencheCampoCEP(dados);
       },error=>{
         console.log(error)
@@ -118,6 +119,7 @@ export class PageCadastroComponent implements OnInit {
       this.cadastroService.createUser(Obj).subscribe(res=>{
         this.cadastroForm.reset();
         this.cadastroForm.get('ativo').setValue(true);
+        this.cadastroForm.get('admin').setValue(false);
         this.getEmptyTags();
         this.toastr.success('Usuário cadastrado com sucesso!', 'Sucesso',{timeOut:3000});
       },error=>{

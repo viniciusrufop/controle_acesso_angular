@@ -183,7 +183,7 @@ export class PageAjusteComponent implements OnInit {
   formatData(array){
     array.forEach(element => {
       element.data = new Date(element.data);
-      element.created_at = new Date(element.created_at);
+      element.diaDoPedido = new Date(element.diaDoPedido);
     });
     this.gridData = process(array, this.state);
   }
