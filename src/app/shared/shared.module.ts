@@ -2,6 +2,7 @@ import { NgModule, Pipe } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
+/** MATERIAL */
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatIconModule } from '@angular/material/icon';
 import { MatInputModule } from '@angular/material/input';
@@ -16,12 +17,15 @@ import { MatSelectModule } from '@angular/material/select';
 import { MatCardModule } from '@angular/material/card';
 import { MatMenuModule } from '@angular/material/menu';
 import { MatExpansionModule } from '@angular/material/expansion';
+import { MatDialogModule } from '@angular/material/dialog';
 
-
+/** KENDO */
 import { GridModule } from '@progress/kendo-angular-grid';
 import { DialogsModule } from '@progress/kendo-angular-dialog'
 import { DateInputsModule } from '@progress/kendo-angular-dateinputs';
+import { UploadModule } from '@progress/kendo-angular-upload';
 
+/** OUTROS */
 import { NgxMaskModule } from 'ngx-mask';
 import { ToastrModule } from 'ngx-toastr';
 import { ClipboardModule } from 'ngx-clipboard';
@@ -61,7 +65,9 @@ import { PipesModule } from './../core/pipes/pipes.module';
     MatMenuModule,
     ClipboardModule,
     MatExpansionModule,
-    PipesModule
+    PipesModule,
+    UploadModule,
+    MatDialogModule
   ]
 })
 export class SharedModule { }

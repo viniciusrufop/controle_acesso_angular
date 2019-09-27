@@ -2,6 +2,7 @@
 @import '~bootstrap/dist/css/bootstrap.min.css';
 @import "~@angular/material/prebuilt-themes/indigo-pink.css";
 @import '~ngx-toastr/toastr';
+// @import './../node_modules/font-awesome/scss/font-awesome.scss';
 // @import '~ngx-toastr/toastr-bs4-alert';
 
 /* S C R O L L PAGE*/
@@ -16,7 +17,10 @@
 
 .bg-rock{background: linear-gradient(to right,#563d7c 0%, #242939 100%); }
 html, body { height: 100%; }
-body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+// body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+body { margin: 0; font-family: 'Source Sans Pro', sans-serif; }
+
+.vr-spacer {flex: 1 1 auto;}
 
 app-login .mat-form-field.mat-focused .mat-form-field-label{color: #fff !important; }
 app-login .mat-form-field-label{color: #fff !important; }
@@ -29,10 +33,18 @@ app-page-cadastro .mat-form-field-label{color: #563d7c !important; }
 // CHECKBOX
 .mat-checkbox-checked.mat-accent .mat-checkbox-background{background-color: #563d7c ;}
 
-// DIALOG
+// KENDO DIALOG
 app-page-usuario .k-dialog {padding: 0;position: fixed;box-sizing: border-box;border-radius: 5px;}
 .k-dialog-titlebar {border-color: inherit;color: #fff;background: linear-gradient(to right, #563d7c 0%, #242939 100%);}
 .k-dialog-wrapper {overflow-y: auto;display: -webkit-box !important;z-index: 1000 !important;}
+
+/** MAT DIALOG */
+.mat-dialog-container { padding: 0 !important; }
+.mat-dialog-title { margin: 0 !important; padding: 12px 16px; font-size: 19px; line-height: 1.3; }
+.mat-dialog-title { border-color: inherit; color: #fff; background: linear-gradient(to right, #563d7c 0%, #242939 100%); }
+.mat-dialog-content { margin: 0 !important; font-family: 'Source Sans Pro', sans-serif; font-weight: 400; }
+.mat-dialog-actions { margin-bottom: 0 !important; display: block !important; }
+.mat-dialog-actions { border-top: 1px solid #a6a6a6; }
 
 // KENDO GRID
 .k-grid{overflow-x: auto}
@@ -45,8 +57,8 @@ app-page-usuario .k-dialog {padding: 0;position: fixed;box-sizing: border-box;bo
 .k-pager-numbers .k-link {color: #fff;}
 
 // GERAL
-.vr-title-info{font-family: 'Open Sans Condensed', sans-serif;padding: 1rem;border-radius: 3px;width: 100%;font-weight: normal; font-size: 20px;
-   box-shadow: 0 3px 1px -2px rgba(0,0,0,.2), 0 2px 2px 0 rgba(0,0,0,.14), 0 1px 5px 0 rgba(0,0,0,.12);}
+.vr-box-info { padding: 1rem;border-radius: 3px;width: 100%; box-shadow: 0 3px 1px -2px rgba(0,0,0,.2), 0 2px 2px 0 rgba(0,0,0,.14), 0 1px 5px 0 rgba(0,0,0,.12);}
+.vr-title-info{font-family: 'Source Sans Pro', sans-serif; font-weight: 300; font-size: 20px; }
 
 // SWAL2
 .swal2-title{color:#fff !important;}
@@ -54,4 +66,13 @@ app-page-usuario .k-dialog {padding: 0;position: fixed;box-sizing: border-box;bo
 .swal2-content{color:#fff !important;}
 .swal2-icon.swal2-question {border-color: #c9dae1 !important;color: #fff !important;}
 
-// GRID TAGS
+// KENDO UPLOAD
+.k-button { color: #FFFFFF; background-color: #007bff; }
+.k-button:hover { color: #fff; background-color: #0069d9; }
+.k-upload .k-dropzone .k-upload-status { display: none;}
+// .k-upload-button span::before { font-family: "Font Awesome 5 Free"; font-weight: 900; content: "\f382"; margin-right: 5px;}
+.k-upload-button { @extend .btn !optional; @extend .btn-sm !optional; @extend .btn-risk !optional; background-image: none; margin: 0 !important; padding: 0.30rem 0.5rem ; border-radius: 0.25rem; }
+.k-upload-button:hover { background-image: none; }
+.k-upload { display: inline-block !important; border: none; }
+// kendo-upload .k-widget:not(.k-grid-pager):not(.k-datepicker), .k-upload { background-color: transparent !important; border: none !important; }
+.k-upload .k-dropzone-hint, kendo-upload .k-upload .k-action-buttons, kendo-upload .k-upload kendo-upload-status-total { display: none; }

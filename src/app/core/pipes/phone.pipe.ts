@@ -5,7 +5,7 @@ import { Pipe, PipeTransform } from '@angular/core';
 export class PhonePipe implements PipeTransform {
 
   transform(value: string): string {
-
+    value = value.replace(/\D/g,'');
     if(value){
       let lengthValue = value.length;
       switch (lengthValue) {

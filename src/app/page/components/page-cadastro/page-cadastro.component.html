@@ -1,6 +1,33 @@
+<div class="row">
+
+  <div style="padding-left: 20px;">
+
+    <kendo-upload
+      saveField="arquivo"
+      [autoUpload]="true"
+      [saveUrl]="apiUploadFile"
+      [withCredentials]="false"
+    
+      [multiple]="false"
+      [showFileList]="false"
+    
+      (upload)="uploadEventHandler($event)"
+      (success)="successUpload($event)"
+      (error)="errorUpload($event)"
+    >
+    <kendo-upload-messages select="Exportar Excel"></kendo-upload-messages>
+    </kendo-upload>
+  
+    <button type="submit" class="ml-2 btn btn-sm btn-primary" (click)="downloadTamplateTabela()">
+      <fa-icon [icon]="faDownload" size="md"></fa-icon>&nbsp;&nbsp;Download Template Excel
+    </button>
+
+  </div>
+
+</div>
+
 <form [formGroup]="cadastroForm" (ngSubmit)="onSubmit()">
   <div class="container align-self-center">
-    
     <div class="row">
       <mat-form-field class="col mr-2 mt-3">
         <input matInput placeholder="*Nome" formControlName="nome" autocomplete="off">

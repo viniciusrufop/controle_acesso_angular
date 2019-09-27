@@ -3,7 +3,7 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
 import { PageRoutingModule } from './page-routing.module';
-import { PageCadastroComponent } from './components/page-cadastro/page-cadastro.component';
+import { PageCadastroComponent, PageCadastroComponentDialog } from './components/page-cadastro/page-cadastro.component';
 import { PageHistoricoComponent } from './components/page-historico/page-historico.component';
 import { PageUsuarioComponent } from './components/page-usuario/page-usuario.component';
 import { ModalUserEditComponent } from './components/modal-user-edit/modal-user-edit.component';
@@ -23,7 +23,8 @@ import { ModalVinculaTagComponent } from './components/modal-vincula-tag/modal-v
     PagePerfilComponent,
     PageAjusteComponent,
     PageTagsComponent,
-    ModalVinculaTagComponent
+    ModalVinculaTagComponent,
+    PageCadastroComponentDialog
   ],
   imports: [
     CommonModule,
@@ -32,7 +33,8 @@ import { ModalVinculaTagComponent } from './components/modal-vincula-tag/modal-v
   ],
   entryComponents: [ 
     ModalUserEditComponent,
-    ModalVinculaTagComponent 
+    ModalVinculaTagComponent,
+    PageCadastroComponentDialog 
   ],
 })
 export class PageModule { }

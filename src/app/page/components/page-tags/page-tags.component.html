@@ -1,7 +1,7 @@
 <div class="container align-self-center">
 
    <div class="row" *ngIf="showTagTable">
-      <span class="vr-title-info">Tags cadastradas no sistema</span>
+      <span class="vr-title-info vr-box-info">Tags cadastradas no sistema</span>
    </div>
 
    <div class="row mt-3" *ngIf="showTagTable">
@@ -61,7 +61,7 @@
    </div>
 
    <div class="row mt-3 text-center" *ngIf="!showTagTable">
-      <span class="vr-title-info">
+      <span class="vr-title-info vr-box-info">
          <button class="btn btn-sm btn-primary ml-1" type="button" (click)="getTags()">
             <fa-icon [icon]="faRedo" size="md"></fa-icon>
          </button>

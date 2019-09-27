@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Inject } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { Subscription, Observable } from 'rxjs';
 import { CadastroService } from './../../../core/services/cadastro.service';
@@ -6,7 +6,10 @@ import { BlockUI, NgBlockUI } from 'ng-block-ui';
 import { ToastrService } from 'ngx-toastr';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { HttpErrorResponse } from '@angular/common/http';
-import { faSave } from '@fortawesome/free-solid-svg-icons';
+import { faSave, faDownload } from '@fortawesome/free-solid-svg-icons';
+import { config } from './../../../core/services/config';
+import { UploadEvent } from '@progress/kendo-angular-upload';
+import {MatDialog, MatDialogRef, MAT_DIALOG_DATA} from '@angular/material/dialog';
 
 @Component({
   selector: 'app-page-cadastro',
@@ -14,6 +17,8 @@ import { faSave } from '@fortawesome/free-solid-svg-icons';
   styleUrls: ['./page-cadastro.component.scss']
 })
 export class PageCadastroComponent implements OnInit {
+
+  public apiUploadFile: string = `${config.apiUrl}/api/importExcelUser`;
 
   @BlockUI() blockUI: NgBlockUI;
   estados:Observable <any>;
@@ -26,12 +31,14 @@ export class PageCadastroComponent implements OnInit {
   existUserLogin : boolean = false;
 
   faSave = faSave;
+  faDownload = faDownload;
 
   constructor(
     private formBuilder : FormBuilder,
     private cadastroService : CadastroService,
     private toastr: ToastrService,
-    private _snackBar: MatSnackBar
+    private _snackBar: MatSnackBar,
+    public dialog: MatDialog
   ) { }
 
   ngOnInit() {
@@ -202,7 +209,77 @@ export class PageCadastroComponent implements OnInit {
         this.blockUI.stop();
       });
     }
-
   }
 
+  /** ===== UPLOAD ARQUIVO EXCEL ===== */
+  successUpload(event) {
+    // this.toastr.success('Dados salvos com sucesso!', 'Sucesso!', {disableTimeOut: false, timeOut: 3000});
+    const result: Array<any> = event.response.body.Result;
+    const nonInserted = result.filter(elem => elem.success === false);
+    if (nonInserted.length === 0) {
+      this.toastr.success('Dados salvos com sucesso!', 'Sucesso!', {disableTimeOut: false, timeOut: 3000});
+    } else {
+      const modal = this.dialog.open(PageCadastroComponentDialog, {
+        width: '50%',
+        data: nonInserted
+      });
+    }
+  }
+
+  errorUpload(event) {
+    this.toastr.error(event.response.error.message || 'Erro ao inserir dados.' , 'Erro!', { disableTimeOut: false, timeOut: 3000 });
+  }
+
+  uploadEventHandler(e: UploadEvent) {
+    e.data = {
+      description: 'File upload'
+    };
+  }
+
+  downloadTamplateTabela() {
+    window.open('./../../../../assets/tabelas/tabela_cadastro_usuario.xlsx');
+  }
 }
+
+/** POPUP COM USUÁRIOS NÃO CADASTRADOS */
+
+@Component({
+  selector: 'app-page-cadastro-dialog',
+  template: `
+  <div mat-dialog-title>Erro ao inserir alguns usuários</div>
+
+  <div mat-dialog-content class="mt-2">
+  
+    <div class="row vr-box-info mt-1" *ngFor="let item of data" style="margin-left: 0;font-size: 14px;">
+      <div>Usuário: {{ item.nome }} - {{ item.email }} </div>
+      <div>Erro: {{ item.message.errorInfo }} </div>
+    </div>
+
+  </div>
+
+  <div mat-dialog-actions class="mt-2">
+    <button type="submit" class="mr-2 btn btn-sm btn-primary float-right" (click)="onNoClick()">
+      OK
+    </button>
+  </div>
+  `,
+})
+export class PageCadastroComponentDialog {
+
+  constructor(
+    public dialogRef: MatDialogRef<PageCadastroComponentDialog>,
+    @Inject(MAT_DIALOG_DATA) public data: any) {}
+
+    onNoClick(): void {
+      this.dialogRef.close();
+    }
+
+}
+
+// <div class="row">
+//       <div class="col-12">
+//         <button type="submit" class="btn btn-sm btn-primary float-right" (click)="onNoClick()">
+//           OK
+//         </button>
+//       </div>
+//     </div>
