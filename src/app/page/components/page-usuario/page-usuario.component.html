@@ -1,3 +1,11 @@
+<div class="row">
+  <div class="col">
+    <button type="submit" class="ml-2 btn btn-sm btn-primary" (click)="exportarExcel(excelexport)">
+      <fa-icon [icon]="faFileExcel" size="md"></fa-icon>&nbsp;&nbsp;Exportar dados Excel
+    </button>
+  </div>
+</div>
+
 <div class="container align-self-center">
 
   <div class="row">
@@ -10,7 +18,7 @@
           <div mat-card-avatar>
             <mat-icon style="font-size: 50px;color: grey;">account_circle</mat-icon>
           </div>
-          <mat-card-title> {{ item?.nome }}</mat-card-title>
+          <mat-card-title> {{ item?.nome }} {{ item?.sobrenome }}</mat-card-title>
           <mat-card-subtitle> {{ item?.email }}</mat-card-subtitle>
           <mat-card-subtitle *ngIf="item.telefone"> {{ item.telefone | phone }}</mat-card-subtitle>
         </mat-card-header>
@@ -31,3 +39,20 @@
 </div>
 
 <div kendoDialogContainer ></div>
+
+<kendo-excelexport [data]="allDataUser" fileName="testeUsers.xlsx" #excelexport>
+
+    <kendo-excelexport-column field="nome" title="Nome"></kendo-excelexport-column>
+    <kendo-excelexport-column field="user.email" title="Email"></kendo-excelexport-column>
+    <kendo-excelexport-column field="login" title="Login"></kendo-excelexport-column>
+    <kendo-excelexport-column field="senha" title="Senha"></kendo-excelexport-column>
+    <kendo-excelexport-column field=" " title="Administrador"></kendo-excelexport-column>
+    <kendo-excelexport-column field="telefone" title="Telefone"></kendo-excelexport-column>
+    <kendo-excelexport-column field="logradouro" title="Endereço"></kendo-excelexport-column>
+    <kendo-excelexport-column field="complemento" title="Complemento"></kendo-excelexport-column>
+    <kendo-excelexport-column field="bairro" title="Bairro"></kendo-excelexport-column>
+    <kendo-excelexport-column field="cidade" title="Cidade"></kendo-excelexport-column>
+    <kendo-excelexport-column field="estado" title="Estado"></kendo-excelexport-column>
+    <kendo-excelexport-column field="cep" title="CEP"></kendo-excelexport-column>
+
+</kendo-excelexport>

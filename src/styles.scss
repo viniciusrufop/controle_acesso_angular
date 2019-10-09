@@ -76,3 +76,8 @@ app-page-usuario .k-dialog {padding: 0;position: fixed;box-sizing: border-box;bo
 .k-upload { display: inline-block !important; border: none; }
 // kendo-upload .k-widget:not(.k-grid-pager):not(.k-datepicker), .k-upload { background-color: transparent !important; border: none !important; }
 .k-upload .k-dropzone-hint, kendo-upload .k-upload .k-action-buttons, kendo-upload .k-upload kendo-upload-status-total { display: none; }
+
+
+/** BOX INFO */
+.vr-box-info.success{ background-color: #51A351; color: #FFFFFF;}
+.vr-box-info.error{ background-color: #BD362F; color: #FFFFFF;}

@@ -24,6 +24,7 @@ import { GridModule } from '@progress/kendo-angular-grid';
 import { DialogsModule } from '@progress/kendo-angular-dialog'
 import { DateInputsModule } from '@progress/kendo-angular-dateinputs';
 import { UploadModule } from '@progress/kendo-angular-upload';
+import { ExcelExportModule } from '@progress/kendo-angular-excel-export';
 
 /** OUTROS */
 import { NgxMaskModule } from 'ngx-mask';
@@ -67,7 +68,8 @@ import { PipesModule } from './../core/pipes/pipes.module';
     MatExpansionModule,
     PipesModule,
     UploadModule,
-    MatDialogModule
+    MatDialogModule,
+    ExcelExportModule
   ]
 })
 export class SharedModule { }

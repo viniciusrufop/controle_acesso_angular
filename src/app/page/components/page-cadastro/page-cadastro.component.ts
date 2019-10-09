@@ -6,7 +6,7 @@ import { BlockUI, NgBlockUI } from 'ng-block-ui';
 import { ToastrService } from 'ngx-toastr';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { HttpErrorResponse } from '@angular/common/http';
-import { faSave, faDownload } from '@fortawesome/free-solid-svg-icons';
+import { faSave, faDownload, faCheck, faTimes } from '@fortawesome/free-solid-svg-icons';
 import { config } from './../../../core/services/config';
 import { UploadEvent } from '@progress/kendo-angular-upload';
 import {MatDialog, MatDialogRef, MAT_DIALOG_DATA} from '@angular/material/dialog';
@@ -213,6 +213,7 @@ export class PageCadastroComponent implements OnInit {
 
   /** ===== UPLOAD ARQUIVO EXCEL ===== */
   successUpload(event) {
+    this.blockUI.stop();
     // this.toastr.success('Dados salvos com sucesso!', 'Sucesso!', {disableTimeOut: false, timeOut: 3000});
     const result: Array<any> = event.response.body.Result;
     const nonInserted = result.filter(elem => elem.success === false);
@@ -221,16 +222,18 @@ export class PageCadastroComponent implements OnInit {
     } else {
       const modal = this.dialog.open(PageCadastroComponentDialog, {
         width: '50%',
-        data: nonInserted
+        data: result
       });
     }
   }
 
   errorUpload(event) {
+    this.blockUI.stop();
     this.toastr.error(event.response.error.message || 'Erro ao inserir dados.' , 'Erro!', { disableTimeOut: false, timeOut: 3000 });
   }
 
   uploadEventHandler(e: UploadEvent) {
+    this.blockUI.start();
     e.data = {
       description: 'File upload'
     };
@@ -250,36 +253,54 @@ export class PageCadastroComponent implements OnInit {
 
   <div mat-dialog-content class="mt-2">
   
-    <div class="row vr-box-info mt-1" *ngFor="let item of data" style="margin-left: 0;font-size: 14px;">
-      <div>Usuário: {{ item.nome }} - {{ item.email }} </div>
-      <div>Erro: {{ item.message.errorInfo }} </div>
+    <div *ngFor="let item of data">
+
+      <div *ngIf="!item.success" class="row vr-box-info error mt-1"  style="margin-left: 0;font-size: 14px;">
+        <span style="font-size: 20px;align-self: center;"><fa-icon [icon]="faTimes" size="lg"></fa-icon></span>
+        <div class="ml-2">
+          <div style="font-weight: bold;">Erro: {{ item.message.errorInfo }} </div>
+          <div>Usuário: {{ item.nome }} - {{ item.email }} </div>
+        </div>
+        
+      </div>
+
+      <div *ngIf="item.success" class="row vr-box-info success mt-1"  style="margin-left: 0;font-size: 14px;">
+        <span style="font-size: 20px;align-self: center;"><fa-icon [icon]="faCheck" size="lg"></fa-icon></span>
+        <div class="ml-2">
+          <div style="font-weight: bold;">Sucesso!</div>
+          <div>Usuário: {{ item.nome }} - {{ item.email }}</div>
+        </div>
+      </div>
+
     </div>
 
   </div>
 
   <div mat-dialog-actions class="mt-2">
     <button type="submit" class="mr-2 btn btn-sm btn-primary float-right" (click)="onNoClick()">
-      OK
+      Fechar
     </button>
   </div>
   `,
 })
-export class PageCadastroComponentDialog {
+export class PageCadastroComponentDialog implements OnInit {
+
+  faCheck = faCheck;
+  faTimes = faTimes;
 
   constructor(
     public dialogRef: MatDialogRef<PageCadastroComponentDialog>,
     @Inject(MAT_DIALOG_DATA) public data: any) {}
 
+    ngOnInit() {
+      this.sortArrayByBooleanValue(this.data);
+    }
+
     onNoClick(): void {
       this.dialogRef.close();
     }
 
+    sortArrayByBooleanValue(a) {
+      return a.sort((a, b) => b.success - a.success );
+    }
 }
-
-// <div class="row">
-//       <div class="col-12">
-//         <button type="submit" class="btn btn-sm btn-primary float-right" (click)="onNoClick()">
-//           OK
-//         </button>
-//       </div>
-//     </div>

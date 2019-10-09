@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { CadastroService } from 'src/app/core/services/cadastro.service';
 import { BlockUI, NgBlockUI } from 'ng-block-ui';
-import { faTrash, faEdit } from '@fortawesome/free-solid-svg-icons';
+import { faTrash, faEdit, faFileExcel } from '@fortawesome/free-solid-svg-icons';
 import { ToastrService } from 'ngx-toastr';
 import { DialogService, DialogCloseResult } from '@progress/kendo-angular-dialog';
 
@@ -19,8 +19,10 @@ export class PageUsuarioComponent implements OnInit {
 
   faTrash = faTrash;
   faEdit = faEdit;
+  faFileExcel = faFileExcel;
 
   public users : any = [];
+  public allDataUser: Array<any> = [];
 
   constructor(
     private cadastroService : CadastroService,
@@ -81,12 +83,18 @@ export class PageUsuarioComponent implements OnInit {
     });
   }
 
-}
+  exportarExcel(excelexport) {
+    this.blockUI.start();
+    this.cadastroService.getAllDatauser().subscribe(res=>{
+      this.allDataUser = res.result.map(elem => { elem.senha = 9999; return elem; });
+      setTimeout(() => excelexport.save(), 200 );
+    },error=>{
+      console.log(error)
+      this.openSnackBar('Problema ao buscar dados','OK');
+    }).add(()=>{
+      this.blockUI.stop();
+    });
+    
+  }
 
-// @Pipe({name: 'phone'})
-// export class PhonePipe implements PipeTransform {
-//   transform(value: string): string {
-//     if(value)
-//       return `(${value.slice(0, 2)}) ${value.slice(2,7)}-${value.slice(7,11)}`;
-//   }
-// }
+}

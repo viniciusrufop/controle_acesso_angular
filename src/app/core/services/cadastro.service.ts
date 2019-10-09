@@ -74,4 +74,8 @@ export class CadastroService {
     return this.http.post(`${config.apiUrl}/api/get-admin`,{params:emailUser});
   }
 
+  getAllDatauser(): Observable<any>{
+    return this.http.get(`${config.apiUrl}/api/get-all-data-user`);
+  }
+
 }
