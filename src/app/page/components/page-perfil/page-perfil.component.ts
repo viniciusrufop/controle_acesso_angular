@@ -3,11 +3,11 @@ import { CadastroService } from 'src/app/core/services/cadastro.service';
 import { BlockUI, NgBlockUI } from 'ng-block-ui';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
-import { faEdit, faCopy } from '@fortawesome/free-solid-svg-icons';
+import { faEdit, faCopy, faKey } from '@fortawesome/free-solid-svg-icons';
 import { DialogService, DialogCloseResult } from '@progress/kendo-angular-dialog';
 import { ModalUserEditComponent } from '../modal-user-edit/modal-user-edit.component';
 import { admin } from 'src/app/core/services/admin';
-
+import { ModalChangePasswordComponent } from '../modal-change-password/modal-change-password.component';
 
 @Component({
   selector: 'app-page-perfil',
@@ -21,6 +21,7 @@ export class PagePerfilComponent implements OnInit {
 
   faEdit = faEdit;
   faCopy = faCopy;
+  faKey = faKey;
 
   private idUser:number;
   public tagList : any = [];
@@ -122,6 +123,13 @@ export class PagePerfilComponent implements OnInit {
     } else {
       this.openSnackBar('Problema ao buscar dados','OK');
     }
+  }
+
+  changePassword() {
+    const dialogRef = this.dialogService.open({
+      title: 'Trocar Senha',
+      content: ModalChangePasswordComponent,
+    });
   }
 
 }

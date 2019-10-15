@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { of, Observable } from 'rxjs';
 
 import { config } from './config';
@@ -9,7 +9,12 @@ import { config } from './config';
 })
 export class CadastroService {
 
-  constructor(private http: HttpClient) { }
+  
+  private httpOptions = { headers: new HttpHeaders({}) };
+
+  constructor(
+    private http: HttpClient,
+    ) { }
 
   consultaCEP(cep) : Observable<any>{
     cep = cep.replace(/\D/g,'');
@@ -76,6 +81,11 @@ export class CadastroService {
 
   getAllDatauser(): Observable<any>{
     return this.http.get(`${config.apiUrl}/api/get-all-data-user`);
+  }
+  
+  changePassword(params): Observable<any>{
+    this.httpOptions.headers = this.httpOptions.headers.set('email', localStorage.getItem('userEmail'));
+    return this.http.post(`${config.apiUrl}/api/changePassword`, {params: params}, this.httpOptions);
   }
 
 }

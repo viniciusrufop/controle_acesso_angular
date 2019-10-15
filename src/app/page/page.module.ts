@@ -12,6 +12,7 @@ import { PagePerfilComponent } from './components/page-perfil/page-perfil.compon
 import { PageAjusteComponent } from './components/page-ajuste/page-ajuste.component';
 import { PageTagsComponent } from './components/page-tags/page-tags.component';
 import { ModalVinculaTagComponent } from './components/modal-vincula-tag/modal-vincula-tag.component';
+import { ModalChangePasswordComponent } from './components/modal-change-password/modal-change-password.component';
 
 @NgModule({
   declarations: [
@@ -24,7 +25,8 @@ import { ModalVinculaTagComponent } from './components/modal-vincula-tag/modal-v
     PageAjusteComponent,
     PageTagsComponent,
     ModalVinculaTagComponent,
-    PageCadastroComponentDialog
+    PageCadastroComponentDialog,
+    ModalChangePasswordComponent
   ],
   imports: [
     CommonModule,
@@ -34,7 +36,8 @@ import { ModalVinculaTagComponent } from './components/modal-vincula-tag/modal-v
   entryComponents: [ 
     ModalUserEditComponent,
     ModalVinculaTagComponent,
-    PageCadastroComponentDialog 
+    PageCadastroComponentDialog,
+    ModalChangePasswordComponent
   ],
 })
 export class PageModule { }

@@ -19,7 +19,7 @@ export class PageAjusteComponent implements OnInit {
   @BlockUI() blockUI: NgBlockUI;
   ajusteForm:FormGroup;
 
-  public maxDate : Date = new Date;
+  public maxDate: Date = new Date;
   public valueDateTime:Date;
   public admin = admin.value;
   public solicitacaoAjuste : any = [];
@@ -33,9 +33,7 @@ export class PageAjusteComponent implements OnInit {
   faCheckCircle = faCheckCircle;
   faTimesCircle = faTimesCircle;
  
-  /**
-   * CONFIG GRID TABLE
-   */
+  /** CONFIG GRID TABLE */
   public historicoAjuste : any = [];
   public state: State = {
     skip: 0,
@@ -51,6 +49,7 @@ export class PageAjusteComponent implements OnInit {
   ) { }
 
   ngOnInit() {
+    this.maxDate.setDate(this.maxDate.getDate() - 1);
     if(this.dataUserId != "null"){
       this.createForm();
       this.showFormAjuste = true;
