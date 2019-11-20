@@ -42,11 +42,12 @@ export class AuthService {
   }
 
   logoutUser(){
-    localStorage.removeItem('token');
-    localStorage.removeItem('userEmail');
-    localStorage.removeItem('userName');
-    localStorage.removeItem('dataUserId');
-    localStorage.removeItem('authToken');
+    localStorage.clear();
+    // localStorage.removeItem('token');
+    // localStorage.removeItem('userEmail');
+    // localStorage.removeItem('userName');
+    // localStorage.removeItem('dataUserId');
+    // localStorage.removeItem('authToken');
     this.router.navigate(['/login']);
   }
 

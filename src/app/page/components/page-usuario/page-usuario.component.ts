@@ -38,7 +38,8 @@ export class PageUsuarioComponent implements OnInit {
   getAllUsers(){
     this.blockUI.start();
     this.cadastroService.getAllUsers().subscribe(res=>{
-      this.users = res.userList;
+      const userId = parseInt(localStorage.getItem('dataUserId'), 10);
+      this.users = res.userList.filter(elem => elem.id !== userId );
     },error=>{
       console.log(error)
       this.openSnackBar('Problema ao buscar dados','OK');
@@ -48,7 +49,7 @@ export class PageUsuarioComponent implements OnInit {
   }
 
   deleteUser(idUser){
-    let obj = {id : idUser };
+    const obj = {id : idUser };
     this.blockUI.start();
     this.cadastroService.deleteUser(obj).subscribe(res=>{
       this.getAllUsers();
