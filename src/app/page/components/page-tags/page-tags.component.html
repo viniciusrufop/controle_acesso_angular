@@ -1,0 +1,74 @@
+<div class="container align-self-center">
+
+   <div class="row" *ngIf="showTagTable">
+      <span class="vr-title-info vr-box-info">Tags cadastradas no sistema</span>
+   </div>
+
+   <div class="row mt-3" *ngIf="showTagTable">
+      <kendo-grid
+            [data]="gridData"
+            [pageSize]="state.take"
+            [skip]="state.skip"
+            [sort]="state.sort"
+            [filter]="state.filter"
+            [sortable]="true"
+            [pageable]="true"
+            [filterable]="true"
+            (dataStateChange)="dataStateChange($event)"
+            (edit)="desvincularTag($event)"
+            >
+
+      <kendo-grid-column field="nome" title="Usuário" width="150">
+         <ng-template kendoGridCellTemplate let-dataItem>
+               {{ dataItem.nome ? dataItem.nome : 'DESVINCULADA' }}
+         </ng-template>
+      </kendo-grid-column>
+
+      <kendo-grid-column field="tag_value" title="TAG" [filterable]="false" width="150">
+      </kendo-grid-column>
+
+      <kendo-grid-column field="ativo" title="Ativada" [filterable]="false" width="150">
+         <ng-template kendoGridCellTemplate let-dataItem>
+               {{ dataItem.ativo ? 'Sim' : 'Não' }}
+         </ng-template>
+      </kendo-grid-column>
+
+      <kendo-grid-column title="Opções" [filterable]="false" width="150">
+         <ng-template kendoGridCellTemplate let-dataItem>
+            <span class="vr-center-btn">
+               <button *ngIf="dataItem.nome" class="btn btn-sm btn-secondary ml-1" type="button" [swal]="{ title: 'Exclusão', text: 'Deseja realmente desvincular a tag?', type: 'question', showCancelButton: true, confirmButtonText: '<i class=\'fa fa-trash-alt fa-lg\'></i>&nbsp;&nbsp;Desvincular', cancelButtonText: '<i class=\'fa fa-times fa-lg\'></i>&nbsp;&nbsp;Cancelar' }" (confirm)="desvincularTag(dataItem.id)">
+                  <fa-icon [icon]="faUnlink" size="md"></fa-icon>&nbsp;&nbsp;Desvincular
+               </button>
+               <button style="width: 91px;" *ngIf="!dataItem.nome" class="btn btn-sm btn-primary ml-1" (click)="vincularTag(dataItem.id,dataItem.tag_value)">
+                     <fa-icon [icon]="faLink" size="md"></fa-icon>&nbsp;&nbsp;Vincular
+               </button>
+            </span>
+         </ng-template>
+      </kendo-grid-column>
+
+      <kendo-grid-column title="Remover" [filterable]="false" width="150">
+         <ng-template kendoGridCellTemplate let-dataItem>
+            <span class="vr-center-btn">
+               <button class="btn btn-sm btn-danger ml-1" type="button" [swal]="{ title: 'Exclusão', text: 'Deseja realmente deletar a tag?', type: 'question', showCancelButton: true, confirmButtonText: '<i class=\'fa fa-trash-alt fa-lg\'></i>&nbsp;&nbsp;Excluir', cancelButtonText: '<i class=\'fa fa-times fa-lg\'></i>&nbsp;&nbsp;Cancelar' }" (confirm)="deleteTag(dataItem.id)">
+                  <fa-icon [icon]="faTrash" size="md"></fa-icon>&nbsp;&nbsp;Deletar
+               </button>
+            </span>
+         </ng-template>
+      </kendo-grid-column>
+
+      </kendo-grid>
+
+   </div>
+
+   <div class="row mt-3 text-center" *ngIf="!showTagTable">
+      <span class="vr-title-info vr-box-info">
+         <button class="btn btn-sm btn-primary ml-1" type="button" (click)="getTags()">
+            <fa-icon [icon]="faRedo" size="md"></fa-icon>
+         </button>
+         Nenhuma tag encontrada
+      </span>
+   </div>
+
+</div>
+
+<div kendoDialogContainer ></div>

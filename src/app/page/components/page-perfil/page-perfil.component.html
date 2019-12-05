@@ -1,0 +1,127 @@
+<div class="container align-self-center">
+
+   <div class="row">
+      <span class="vr-title-info vr-box-info">Informações de Contato</span>
+   </div>
+
+   <div class="ml-4">
+      <div class="mt-2 row">
+         <div class="vr-flex">
+            <mat-label class="fs-12-bold w-100px">Nome</mat-label>
+            <mat-label class="fs-12">
+               {{ cadastroForm.get('nome').value }} {{ cadastroForm.get('sobrenome').value }}
+            </mat-label>
+         </div>
+      </div>
+
+      <div class="row">
+         <div class="vr-flex">
+            <mat-label class="fs-12-bold w-100px">Email</mat-label>
+            <mat-label class="fs-12">
+               {{ cadastroForm.get('email').value }}
+            </mat-label>
+         </div>
+      </div>
+
+      <div class="row">
+         <div class="vr-flex">
+            <mat-label class="fs-12-bold w-100px">Telefone</mat-label>
+            <mat-label class="fs-12">
+               {{ cadastroForm.get('telefone').value | phone }}
+            </mat-label>
+         </div>
+      </div>
+   </div>
+
+   <div class="mt-3 row">
+      <h4 class="vr-title-info vr-box-info">Informações de Endereço</h4>
+   </div>
+
+   <div class="ml-4">
+      <div class="mt-2 row">
+         <div class="vr-flex">
+            <mat-label class="fs-12-bold w-100px">Cidade</mat-label>
+            <mat-label class="fs-12">
+               {{ cadastroForm.get('endereco.cidade').value }} - {{ cadastroForm.get('endereco.estado').value }}
+            </mat-label>
+         </div>
+      </div>
+   
+      <div class="row">
+         <div class="vr-flex">
+            <mat-label class="fs-12-bold w-100px">Logradouro</mat-label>
+            <mat-label class="fs-12">
+               {{ cadastroForm.get('endereco.logradouro').value }}
+            </mat-label>
+         </div>
+      </div>
+   
+      <div class="row">
+         <div class="vr-flex">
+            <mat-label class="fs-12-bold w-100px">Logradouro</mat-label>
+            <mat-label class="fs-12">
+               {{ cadastroForm.get('endereco.bairro').value }}
+            </mat-label>
+         </div>
+      </div>
+   
+      <div class="row">
+         <div class="vr-flex">
+            <mat-label class="fs-12-bold w-100px">Complemento</mat-label>
+            <mat-label class="fs-12">
+               {{ cadastroForm.get('endereco.complemento').value }}
+            </mat-label>
+         </div>
+      </div>
+   </div>
+
+   <div class="mt-3 row">
+      <h4 class="vr-title-info vr-box-info">Informações de Acesso</h4>
+   </div>
+
+   <div class="ml-4">
+      <div class="row" *ngIf="admin">
+         <div class="vr-flex">
+            <mat-label class="fs-12-bold w-100px" style="align-self: center;">Token </mat-label>
+            <mat-form-field class="fs-12">
+               <input #inputTarget matInput [value]="cadastroForm.get('authToken').value" [readonly]="true">
+            </mat-form-field>
+            <button type="button" class="btn btn-sm btn-info ml-2" [ngxClipboard]="inputTarget" matTooltip="Copiar Token">
+               <fa-icon [icon]="faCopy" size="sm"></fa-icon>
+            </button>
+         </div>
+      </div>
+   
+      <div class="row">
+         <div class="vr-flex">
+            <mat-label class="fs-12-bold w-100px">Login</mat-label>
+            <mat-label class="fs-12">
+               {{ cadastroForm.get('login').value }}
+            </mat-label>
+         </div>
+      </div>
+   
+      <div class="row">
+         <mat-label class="fs-12-bold w-100px">Tags</mat-label>
+      </div>
+   
+      <div class="ml-4 row" *ngFor="let item of tagList">
+         <mat-label class="fs-12">
+            {{item.tag_value}} - {{ (item.ativo) ? 'ativado' : 'desativado' }}
+         </mat-label>
+      </div>
+   </div>
+
+   <div class="mt-3 row">
+      <button type="button" class="btn btn-sm btn-info" (click)="editUser()">
+         <fa-icon [icon]="faEdit" ></fa-icon>&nbsp;&nbsp;Editar Informações
+      </button>
+      <button type="button" class="ml-2 btn btn-sm btn-info" (click)="changePassword()">
+         <fa-icon [icon]="faKey" ></fa-icon>&nbsp;&nbsp;Alterar Senha
+      </button>
+   </div>
+
+
+</div>
+
+<div kendoDialogContainer ></div>

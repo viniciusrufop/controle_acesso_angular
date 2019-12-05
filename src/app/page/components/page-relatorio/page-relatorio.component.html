@@ -1,0 +1,147 @@
+<form [formGroup]="relatorioForm">
+   <div  class="container align-self-center">
+      <div class="row">
+
+         <div class="col">
+            <div>
+               <mat-label class="fs-12-bold">Mês:</mat-label>
+            </div>
+            <kendo-datepicker 
+               style="width: 100%" 
+               formControlName="mes" 
+               [bottomView]="'year'"
+               [topView]="'decade'"
+               [format]="'MMMM'"
+               [max]="maxDate" >
+            </kendo-datepicker>
+            <mat-error class="fs-075" *ngIf="relatorioForm.get('mes').invalid && relatorioForm.get('mes').touched">{{ getRequiredError('mes') }}</mat-error>
+         </div>
+
+         <div class="col" *ngIf="admin">
+            <mat-form-field style="width: 100%">
+               <mat-label class="fs-12-bold">Usuario</mat-label>
+               <mat-select formControlName="idUser">
+                  <mat-option *ngFor="let item of users" [value]="item.id">
+                     {{item.nome}} {{item.sobrenome}}
+                  </mat-option>
+               </mat-select>
+               <mat-error class="fs-075" *ngIf="relatorioForm.get('idUser').invalid && relatorioForm.get('idUser').touched">{{ getRequiredError('idUser') }}</mat-error>
+            </mat-form-field>
+         </div>
+
+         <div class="col center-div">
+            <button type="submit" class="btn btn-sm btn-info" (click)="validForm()">
+               <fa-icon [icon]="faFileAlt" size="md" class="ml-2"></fa-icon>&nbsp;&nbsp;Gerar Relatório
+            </button>
+            <button type="submit" class="btn btn-sm btn-secondary ml-1" (click)="resetForm()">
+               <fa-icon [icon]="faReply" size="md" class="ml-2"></fa-icon>&nbsp;&nbsp;Resetar
+            </button>
+         </div>
+
+      </div>
+
+      <div *ngIf="showRelatorio" class="row mt-2" style="padding-left: 15px;">
+         <button type="submit" class="btn btn-sm btn-primary" (click)="downloadPDF(pdf)">
+            <fa-icon [icon]="faFileDownload" size="md" class="ml-2"></fa-icon>&nbsp;&nbsp;Download
+         </button>
+      </div>
+
+   </div>
+</form>
+
+
+<div *ngIf="showRelatorio" class="container align-self-center mt-2 " style="display: flex;justify-content: center">
+   <div #pdf class="container-A4 shadow mb-5 bg-white rounded">
+
+      <div class="vr-row">
+         <header class="vr-menuHeader">
+            <span class="vr-rspan">R</span><span class="ml-1 vr-outSpan">ochaut</span>
+         </header>
+         <span class="vr-spacer"></span>
+         <div class="fs-10 mr-2 pt-2">
+            Período de referência {{ relatorioForm.get('mes').value | date: 'MMMM yyyy' }}.
+         </div>
+      </div>
+
+      <div class="fs-12 mt-2 vr-bt vr-bb pb-2">
+
+         <div class="vr-row">
+            <div class="col-6">
+               <mat-label class="fs-10-bold">Nome</mat-label>
+               <div class="vr-mt--5px">{{ dataUser.nome }} {{ dataUser.sobrenome }}</div>
+            </div>
+            <div class="col-6">
+               <mat-label class="fs-10-bold">Email</mat-label>
+               <div class="vr-mt--5px">{{ dataUser.email ? dataUser.email : '-' }}</div>
+            </div>
+         </div>
+
+         <div class="vr-row">
+            <div class="col-6">
+               <mat-label class="fs-10-bold">Telefone</mat-label>
+               <div class="vr-mt--5px">{{ (dataUser.telefone ? dataUser.telefone : '-') | phone}}</div>
+               <!-- <div class="vr-mt--5px">{{ dataUser?.telefone | phone}}</div> -->
+            </div>
+            <div class="col-6">
+               <mat-label class="fs-10-bold">Cidade</mat-label>
+               <div class="vr-mt--5px">{{ dataUser.cidade }} - {{ dataUser.estado }}</div>
+            </div>
+         </div>
+
+         <div class="vr-row">
+            <div class="col-6">
+               <mat-label class="fs-10-bold">Rua/Av</mat-label>
+               <div class="vr-mt--5px">{{ dataUser.logradouro ? dataUser.logradouro : '-' }}</div>
+            </div>
+            <div class="col-6">
+               <mat-label class="fs-10-bold">Bairro</mat-label>
+               <div class="vr-mt--5px">{{ dataUser.bairro ? dataUser.bairro : '-' }}</div>
+            </div>
+         </div>
+
+         <div class="vr-row">
+            <div class="col-6">
+               <mat-label class="fs-10-bold">CEP</mat-label>
+               <div class="vr-mt--5px">{{ dataUser.cep ? dataUser.cep : '-'  }}</div>
+            </div>
+            <div class="col-6">
+               <mat-label class="fs-10-bold">Complemento</mat-label>
+               <div class="vr-mt--5px">{{ dataUser.complemento ? dataUser.complemento : '-' }}</div>
+            </div>
+         </div>
+
+         <div class="vr-row">
+            <div class="col-6">
+               <mat-label class="fs-10-bold">Total de horas</mat-label>
+               <div class="vr-mt--5px">{{ totalHorasMensal }}</div>
+            </div>
+            <div class="col-6">
+               
+            </div>
+         </div>
+
+      </div>
+
+      <div class="vr-row mt-2 fs-12">
+         <table class="table table-sm table-striped table-relatorio">
+            <thead>
+               <tr>
+                  <td>Data</td>
+                  <td>Dia</td>
+                  <td>Horário (entrada - saida)</td>
+                  <td class="text-center">Tempo</td>
+               </tr>
+            </thead>
+            <tbody>
+               <tr *ngFor="let item of arrayData">
+                  <td>{{ item.data | date: 'dd/MM/yyyy' }}</td>
+                  <td>{{ item.data | date: 'EEEE'}}</td>
+                  <td>{{ item.hora }}</td>
+                  <td class="text-center">{{ item.tempo }}</td>
+               </tr>
+            </tbody>
+         </table>
+      </div>
+
+   </div>
+</div>

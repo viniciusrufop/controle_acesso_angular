@@ -1,0 +1,58 @@
+<div class="row">
+  <div class="col">
+    <button type="submit" class="ml-2 btn btn-sm btn-primary" (click)="exportarExcel(excelexport)">
+      <fa-icon [icon]="faFileExcel" size="md"></fa-icon>&nbsp;&nbsp;Exportar dados Excel
+    </button>
+  </div>
+</div>
+
+<div class="container align-self-center">
+
+  <div class="row">
+  
+    <div *ngFor="let item of users;" class="mt-3 col-lg-4 col-md-6">
+  
+      <mat-card>
+        <mat-card-header style="min-height: 100px;">
+          <!-- <div mat-card-avatar class="header-image"></div> -->
+          <div mat-card-avatar>
+            <mat-icon style="font-size: 50px;color: grey;">account_circle</mat-icon>
+          </div>
+          <mat-card-title> {{ item?.nome }} {{ item?.sobrenome }}</mat-card-title>
+          <mat-card-subtitle> {{ item?.email }}</mat-card-subtitle>
+          <mat-card-subtitle *ngIf="item.telefone"> {{ item.telefone | phone }}</mat-card-subtitle>
+        </mat-card-header>
+        <mat-card-actions>
+          <button type="button" class="btn btn-sm btn-info" (click)="editUser(item.id)">
+            <fa-icon [icon]="faEdit" size="md"></fa-icon>&nbsp;&nbsp;Editar
+          </button>
+          <button class="btn btn-sm btn-danger ml-1" type="button" [swal]="{ title: 'Exclusão', text: 'Deseja realmente deletar o usuário?', type: 'question', showCancelButton: true, confirmButtonText: '<i class=\'fa fa-trash-alt fa-lg\'></i>&nbsp;&nbsp;Excluir', cancelButtonText: '<i class=\'fa fa-times fa-lg\'></i>&nbsp;&nbsp;Cancelar' }" (confirm)="deleteUser(item.id)">
+            <fa-icon [icon]="faTrash" size="md"></fa-icon>&nbsp;&nbsp;Deletar
+          </button>
+        </mat-card-actions>
+      </mat-card>
+  
+    </div>
+  
+  </div>
+
+</div>
+
+<div kendoDialogContainer ></div>
+
+<kendo-excelexport [data]="allDataUser" fileName="Usuarios_Cadastrados.xlsx" #excelexport>
+
+    <kendo-excelexport-column field="nome" title="Nome"></kendo-excelexport-column>
+    <kendo-excelexport-column field="user.email" title="Email"></kendo-excelexport-column>
+    <kendo-excelexport-column field="login" title="Login"></kendo-excelexport-column>
+    <kendo-excelexport-column field="senha" title="Senha"></kendo-excelexport-column>
+    <kendo-excelexport-column field=" " title="Administrador"></kendo-excelexport-column>
+    <kendo-excelexport-column field="telefone" title="Telefone"></kendo-excelexport-column>
+    <kendo-excelexport-column field="logradouro" title="Endereço"></kendo-excelexport-column>
+    <kendo-excelexport-column field="complemento" title="Complemento"></kendo-excelexport-column>
+    <kendo-excelexport-column field="bairro" title="Bairro"></kendo-excelexport-column>
+    <kendo-excelexport-column field="cidade" title="Cidade"></kendo-excelexport-column>
+    <kendo-excelexport-column field="estado" title="Estado"></kendo-excelexport-column>
+    <kendo-excelexport-column field="cep" title="CEP"></kendo-excelexport-column>
+
+</kendo-excelexport>

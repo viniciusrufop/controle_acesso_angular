@@ -1,0 +1,42 @@
+/* MENU */
+.vr-main-menu{position: fixed; width: 230px; height: 100vh;background:#2f2e47;color:#fff;}
+.vr-menuHeader{display: flex;height: 50px;justify-content: center;align-items: center;background-color: #1c1b2b;}
+        
+.vr-menuHeader a{text-decoration: none;}
+
+.vr-rspan{ background: #fff;color: #282a2b;font-size: 26px; font-family: 'Roboto Slab', serif;padding: 2px 6px;
+    border-radius: 3px;margin-right: 1px;}
+.vr-outSpan{font-family: 'Poppins', sans-serif;letter-spacing: 2px;color: #fff;}
+
+.vr-menu-item a{color:#fff;}
+.vr-menu-item {display: inline-block;background: none;position: relative;transition:color 0.25s ease;cursor: pointer}
+.vr-menu-item::after {position: absolute;content: '';top:0;left: 0;width: 0;height: 100%;background-color: #553d7a;transform-origin:left;
+    transition:width 0.25s ease;z-index:-1;}
+.vr-menu-item:hover::after {width: 100%;}
+.vr-mat-icon {background-repeat: no-repeat;fill: currentColor;height: 24px;width: 24px;position: absolute;
+   right: 10px;top:10px;}
+.nav-link.active{background-color: #553d7a; width: 5px;cursor: pointer}
+
+
+/* CONTAINER */
+.vr-container{margin-left: 230px;min-height: 100vh;/* background: rgba(0,0,0,.14); */background: #fafafa;}
+.vr-container-main{min-height: calc(100vh - 50px);padding: 1rem; padding-top: 70px;}
+.vr-toolbar{height: 50px;background: linear-gradient(to right,#563d7c 0%, #242939 100%);color:#fff;position: fixed;
+    z-index: 10;}
+.vr-spacer {flex: 1 1 auto;}
+.vr-icon{cursor: pointer;cursor: pointer;position: fixed;right: 20px;}
+.vr-menu-icon{display: none;cursor: pointer;}
+
+@media screen and (max-width: 618px){
+    .vr-main-menu{height: 100%;width: 0;margin-top:50px;position: fixed; overflow-x: hidden;transition: 0.5s;z-index: 1;}
+    .vr-container{margin-left: 0;min-height: 100vh;margin-bottom: 0;}
+    .vr-menu-icon{display: inline-block;}
+}
+
+
+.footer {color:#fff;width: 100%;background-color: #282a2b;min-height: 50px;align-items: center;
+    display:grid; font-size: 12px;text-align: center;}
+
+
+
+

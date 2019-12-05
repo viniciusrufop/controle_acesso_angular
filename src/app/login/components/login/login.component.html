@@ -1,0 +1,53 @@
+<header>
+  <nav class="navbar navbar-dark bg-rock">
+    <a class="navbar-brand" href=""> <span class="rspan">R</span><span class="outSpan">ochaut</span></a>
+  </nav>
+</header>
+
+<main>
+  <div class="container">
+    <div class="row justify-content-center">
+      <div class="card text-center col-10 col-sm-12 col-md-8 col-lg-6">
+
+        <div class="card-header">
+          <h1><i class="fas fa-lock"></i> Login</h1>
+        </div>
+
+        <div class="card-body">
+
+          <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
+            
+              <div class="form-group col-md-12">
+                  <mat-form-field appearance="outline">
+                    <mat-label>Email</mat-label>
+                    <input matInput placeholder="Email" formControlName="email">
+                    <mat-icon matSuffix>email</mat-icon>
+                    <mat-error *ngIf="loginForm.get('email').invalid">{{getEmailError()}}</mat-error>
+                  </mat-form-field>
+              </div>
+
+              <div class="form-group col-md-12">
+                <mat-form-field appearance="outline">
+                  <mat-label>Senha</mat-label>
+                  <input matInput placeholder="Senha" [type]="hide ? 'password' : 'text'" formControlName="password">
+                  <mat-icon matSuffix (click)="hide = !hide">{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
+                  <mat-error *ngIf="loginForm.get('password').invalid">{{getPassError()}}</mat-error>
+                  <mat-hint *ngIf="invalidLogin">Email ou senha inválido</mat-hint>
+                </mat-form-field>
+              </div>
+              
+              <button type="submit" class="btn btn-primary float-right" [disabled]="validForm">Entrar</button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</main>
+
+<footer class="footer">
+  <div class="text-center">
+    © Rochaut. 2019 | Vinicius Rocha
+    <br>
+    rocha.g.vinicius@gmail.com
+  </div>
+</footer>

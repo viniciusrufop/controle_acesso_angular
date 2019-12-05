@@ -1,0 +1,180 @@
+<form [formGroup]="ajusteForm" *ngIf="showFormAjuste">
+   <div class="container align-self-center">
+       <div class="row">
+
+            <div class="col">
+                  <div>
+                        <mat-label class="fs-12">Data:</mat-label>
+                  </div>
+                  <kendo-datepicker
+                        style="width: 100%"
+                        formControlName="data"
+                        [format]="'dd-MM-yyyy'"
+                        [max]="maxDate">
+                        <kendo-datepicker-messages
+                              today="Hoje"
+                              toggle="Ajustar data"
+                        ></kendo-datepicker-messages>
+                  </kendo-datepicker>
+                  <mat-error class="fs-075" *ngIf="ajusteForm.get('data').invalid && ajusteForm.get('data').touched">{{ getRequiredError('justificativa') }}</mat-error>
+            </div>
+
+            <div class="col">
+               <div>
+                     <mat-label class="fs-12">Horário:</mat-label>
+               </div>
+
+               <kendo-timepicker
+                  formControlName="hora"
+                  [format]="'HH:mm:ss'">
+                  <kendo-timepicker-messages
+                        accept="Selecionar"
+                        acceptLabel="Selecionar o tempo"
+                        cancel="Cancelar"
+                        cancelLabel="Cancelar"
+                        now="Agora"
+                        nowLabel="Seleciona o horário atual"
+                        toggle="Ajustar horário">
+                  </kendo-timepicker-messages>
+                  </kendo-timepicker>
+                  <mat-error class="fs-075" *ngIf="ajusteForm.get('hora').invalid && ajusteForm.get('hora').touched">{{ getRequiredError('justificativa') }}</mat-error>
+            </div>
+
+            <div class="col center-div pt-2">
+               <button type="submit" class="btn btn-sm btn-info" (click)="onSubmit()" >
+                     <fa-icon [icon]="faRedo" size="md" class="ml-2"></fa-icon>&nbsp;&nbsp;Enviar Solicitação
+               </button>
+               <button type="submit" class="btn btn-sm btn-secondary ml-1" (click)="resetForm()">
+                     <fa-icon [icon]="faReply" size="md" class="ml-2"></fa-icon>&nbsp;&nbsp;Resetar
+               </button>
+            </div>
+
+       </div>
+
+       <div class="row">
+         <mat-form-field class="col mr-2 mt-3">
+            <textarea matInput placeholder="Justificativa" formControlName="justificativa" autocomplete="off"></textarea>
+            <mat-error *ngIf="ajusteForm.get('justificativa').invalid && ajusteForm.get('justificativa').touched">{{ getRequiredError('justificativa') }}</mat-error>
+         </mat-form-field>
+       </div>
+   </div>
+</form>
+
+<div class="container align-self-center">
+
+      <mat-accordion *ngIf="showTableAjuste || showHistoricoAjuste">
+
+            <mat-expansion-panel *ngIf="showTableAjuste">
+                  <mat-expansion-panel-header>
+                        <mat-panel-title>
+                              <mat-label class="fs-12">Solicitações de ajuste pendente</mat-label>
+                        </mat-panel-title>
+                  </mat-expansion-panel-header>
+
+                  <div style="overflow: auto">
+                        <table class="table table-sm table-striped table-ajuste">
+                              <thead>
+                                    <tr>
+                                          <th>Nome</th>
+                                          <th>Data</th>
+                                          <th>Hora</th>
+                                          <th>Justificativa</th>
+                                          <th *ngIf="admin" class="text-center">Aceitar</th>
+                                          <th *ngIf="admin" class="text-center">Recusar</th>
+                                    </tr>
+                              </thead>
+                              <tbody>
+                                    <tr *ngFor="let item of solicitacaoAjuste">
+                                          <td>{{item?.nome}}</td>
+                                          <td>{{item?.data}}</td>
+                                          <td>{{item?.hora}}</td>
+                                          <td style="max-width: 200px;">{{item?.justificativa}}</td>
+                                          <td *ngIf="admin" class="text-center">
+                                                <button type="submit" class="btn btn-sm btn-success" (click)="setObjSolicitacao(true,item.id)" >
+                                                      <fa-icon [icon]="faCheckCircle" size="md"></fa-icon>
+                                                </button>
+                                          </td>
+                                          <td *ngIf="admin" class="text-center">
+                                                <button type="submit" class="btn btn-sm btn-warning" (click)="setObjSolicitacao(false,item.id)" >
+                                                      <fa-icon [icon]="faTimesCircle" size="md"></fa-icon>
+                                                </button>
+                                          </td>
+                                    </tr>
+                              </tbody>
+                        </table>
+                  </div>
+
+
+            </mat-expansion-panel>
+
+            <mat-expansion-panel *ngIf="showHistoricoAjuste">
+                  <mat-expansion-panel-header>
+                        <mat-panel-title>
+                              <mat-label class="fs-12">Historico de ajuste</mat-label>
+                        </mat-panel-title>
+                  </mat-expansion-panel-header>
+
+                  <kendo-grid
+                  [data]="gridData"
+                  [pageSize]="state.take"
+                  [skip]="state.skip"
+                  [sort]="state.sort"
+                  [filter]="state.filter"
+                  [sortable]="true"
+                  [pageable]="true"
+                  [filterable]="true"
+                  (dataStateChange)="dataStateChange($event)">
+
+            <kendo-grid-column field="nome" title="Nome" width="130">
+            </kendo-grid-column>
+
+            <kendo-grid-column field="data" title="Data" filter="date" format="{0:EE dd/MMM/yyyy}" width="150">
+                  <ng-template kendoGridFilterCellTemplate let-filter let-column="column" let-dataItem>
+                        <kendo-grid-date-filter-cell
+                              [showOperators]="true"
+                              [column]="column"
+                              [filter]="filter"
+                              operator="eq">
+                        </kendo-grid-date-filter-cell>
+                  </ng-template>
+            </kendo-grid-column>
+
+            <kendo-grid-column field="hora" title="Horário" [filterable]="false" width="100">
+            </kendo-grid-column>
+
+            <kendo-grid-column field="justificativa" title="Justificativa" [filterable]="false" width="150">
+            </kendo-grid-column>
+
+            <kendo-grid-column field="aceito" title="Aprovado" [filterable]="false" width="100">
+                  <ng-template kendoGridCellTemplate let-dataItem>
+                        {{ dataItem.aceito ? 'Sim' : 'Não' }}
+                  </ng-template>
+            </kendo-grid-column>
+
+            <kendo-grid-column field="diaDoPedido" title="Dia do pedido" filter="date" format="{0:EE dd/MMM/yyyy}" width="150">
+                  <ng-template kendoGridFilterCellTemplate let-filter let-column="column" let-dataItem>
+                        <kendo-grid-date-filter-cell
+                              [showOperators]="true"
+                              [column]="column"
+                              [filter]="filter"
+                              operator="eq">
+                        </kendo-grid-date-filter-cell>
+                  </ng-template>
+            </kendo-grid-column>
+            
+            </kendo-grid>
+
+            </mat-expansion-panel>
+
+      </mat-accordion>
+
+      <div class="row mt-3 text-center" *ngIf="!showHistoricoAjuste">
+            <span class="vr-title-info vr-box-info">
+                  <button class="btn btn-sm btn-primary ml-1" type="button" (click)="getAdjustmentHistoryRequest()">
+                  <fa-icon [icon]="faRedo" size="md"></fa-icon>
+                  </button>
+                  Nenhum histórico de ajuste encontrado
+            </span>
+      </div>
+
+</div>

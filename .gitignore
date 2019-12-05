@@ -44,3 +44,8 @@ testem.log
 # System Files
 .DS_Store
 Thumbs.db
+
+newserveraws.pem
+
+#teste
+src/app/page/components/page-historico/products.ts

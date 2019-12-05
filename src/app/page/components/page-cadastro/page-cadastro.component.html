@@ -1,0 +1,130 @@
+<div class="row">
+
+  <div style="padding-left: 20px;">
+
+    <kendo-upload
+      saveField="arquivo"
+      [autoUpload]="true"
+      [saveUrl]="apiUploadFile"
+      [withCredentials]="false"
+    
+      [multiple]="false"
+      [showFileList]="false"
+    
+      (upload)="uploadEventHandler($event)"
+      (success)="successUpload($event)"
+      (error)="errorUpload($event)"
+    >
+    <kendo-upload-messages select="Importar Excel"></kendo-upload-messages>
+    </kendo-upload>
+  
+    <button type="submit" class="ml-2 btn btn-sm btn-primary" (click)="downloadTamplateTabela()">
+      <fa-icon [icon]="faDownload" size="md"></fa-icon>&nbsp;&nbsp;Download Template Excel
+    </button>
+
+  </div>
+
+</div>
+
+<form [formGroup]="cadastroForm" (ngSubmit)="onSubmit()">
+  <div class="container align-self-center">
+    <div class="row">
+      <mat-form-field class="col mr-2 mt-3">
+        <input matInput placeholder="*Nome" formControlName="nome" autocomplete="off">
+        <mat-error *ngIf="cadastroForm.get('nome').invalid && cadastroForm.get('nome').touched">{{ getRequiredError('nome') }}</mat-error>
+      </mat-form-field>
+
+      <mat-form-field class="col mr-2 mt-3">
+        <input matInput placeholder="Sobrenome" formControlName="sobrenome" autocomplete="off">
+        <mat-error *ngIf="cadastroForm.get('sobrenome').invalid">{{ getRequiredError('sobrenome') }}</mat-error>
+      </mat-form-field>
+
+      <mat-form-field class="col mr-2 mt-3">
+        <input matInput placeholder="*Email" formControlName="email" autocomplete="off" (blur)="getEmailUser()">
+        <mat-error *ngIf="cadastroForm.get('email').invalid && cadastroForm.get('email').touched">{{ getEmailError() }}</mat-error>
+      </mat-form-field>
+    </div>
+
+    <div class="row">
+      <mat-form-field class="col mr-2 mt-3">
+        <input matInput type="text" placeholder="Telefone" formControlName="telefone" autocomplete="off" mask="(00) 00000-0000">
+      </mat-form-field>
+
+      <mat-form-field class="col mr-2 mt-3" formGroupName="endereco">
+        <input matInput type="text" placeholder="CEP" formControlName="cep" autocomplete="off" mask="00000-000" (blur)="consultaCEP()">
+      </mat-form-field>
+
+      <mat-form-field class="col mr-2 mt-3" formGroupName="endereco">
+        <input matInput placeholder="Logradouro" formControlName="logradouro" autocomplete="off">
+      </mat-form-field>
+    </div>
+
+    <div class="row">
+      <mat-form-field class="col mr-2 mt-3" formGroupName="endereco">
+        <input matInput placeholder="Bairro" formControlName="bairro" autocomplete="off">
+      </mat-form-field>
+
+      <mat-form-field class="col mr-2 mt-3" formGroupName="endereco">
+        <input matInput placeholder="Complemento" formControlName="complemento" autocomplete="off">
+      </mat-form-field>
+
+      <mat-form-field class="col mr-2 mt-3" formGroupName="endereco">
+        <input matInput placeholder="Cidade" formControlName="cidade" autocomplete="off">
+      </mat-form-field>
+    </div>
+
+    <div class="row">
+      <mat-form-field class="col mr-2 mt-3" formGroupName="endereco">
+        <mat-label>Estados</mat-label>
+        <mat-select formControlName="estado">
+          <mat-option *ngFor="let item of estados | async" [value]="item.sigla">
+            {{item.nome}}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+
+      <mat-form-field class="col mr-2 mt-3">
+        <input matInput type="text" placeholder="*Login" formControlName="login" mask="0000" autocomplete="off" (blur)="getLoginUser()">
+        <mat-error *ngIf="cadastroForm.get('login').invalid && cadastroForm.get('login').touched">{{ getLoginError('login') }}</mat-error>
+      </mat-form-field>
+
+      <mat-form-field class="col mr-2 mt-3">
+        <input matInput type="text" placeholder="*Senha" formControlName="senha" mask="0000" autocomplete="off">
+        <mat-error *ngIf="cadastroForm.get('senha').invalid && cadastroForm.get('senha').touched">{{ getLoginError('senha') }}</mat-error>
+      </mat-form-field>
+
+    </div>
+
+    <div class="row">
+
+      <!-- <div class="col-lg-4 col-md-6 mr-2 mt-3"> -->
+      <div class="col-lg-4 col-sm-1 mt-3">
+        <mat-checkbox formControlName="ativo">Ativo</mat-checkbox>
+      </div>
+
+      <div class="col-lg-4 col-sm-1 mt-3">
+        <mat-checkbox formControlName="admin">Administrador</mat-checkbox>
+      </div>
+
+      <mat-form-field class="col-lg-4 col-sm-1 mt-3">
+        <mat-label>Tag</mat-label>
+        <mat-select multiple formControlName="tag">
+          <mat-option *ngFor="let item of tagList" [value]="item">{{item}}</mat-option>
+        </mat-select>
+      </mat-form-field>
+
+      <!-- <div class="col-lg-4 col-sm-1 mr-2 mt-3">
+          <mat-checkbox formControlName="admin">Administrador</mat-checkbox>
+      </div> -->
+
+    </div>
+
+  </div>
+
+  <div class="row">
+    <button type="submit" class="ml-4 btn btn-sm btn-primary float-right" [disabled]="validForm">
+        <fa-icon [icon]="faSave" size="md"></fa-icon>&nbsp;&nbsp;Salvar
+    </button>
+  </div>
+
+</form>

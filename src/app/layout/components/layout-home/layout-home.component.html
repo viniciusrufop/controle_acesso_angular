@@ -1,0 +1,81 @@
+<!-- https://material.io/resources/icons/?icon=delete_forever&style=baseline -->
+
+<div #vrMenu class="vr-main-menu" >
+
+    <header class="vr-menuHeader">
+        <a href=""> <span class="vr-rspan">R</span><span class="ml-1 vr-outSpan">ochaut</span></a>
+    </header>
+  
+    <ul class="navbar-nav mr-auto">
+        <li class="vr-menu-item">
+          <a [routerLink]="['/historico']" routerLinkActive="active"  class="nav-link" >
+            <span class="ml-3">Histórico </span> 
+            <mat-icon class="float-right vr-mat-icon" >history</mat-icon>
+          </a>
+        </li>
+        <li class="vr-menu-item" *ngIf="admin">
+          <a [routerLink]="['/cadastro']" routerLinkActive="active"  class="nav-link" >
+            <span class="ml-3">Cadastro</span>
+            <mat-icon class="float-right vr-mat-icon">note_add</mat-icon>
+          </a>
+        </li>
+        <li class="vr-menu-item" *ngIf="admin">
+          <a [routerLink]="['/usuarios']" routerLinkActive="active"  class="nav-link" >
+            <span class="ml-3">Ususários</span>
+            <mat-icon class="float-right vr-mat-icon">account_circle</mat-icon>
+          </a>
+        </li>
+        <li class="vr-menu-item">
+          <a [routerLink]="['/relatorio']" routerLinkActive="active"  class="nav-link" >
+            <span class="ml-3">Relatório</span>
+            <mat-icon class="float-right vr-mat-icon">description</mat-icon>
+          </a>
+        </li>
+        <li class="vr-menu-item">
+          <a [routerLink]="['/ajuste']" routerLinkActive="active"  class="nav-link" >
+            <span class="ml-3">Ajuste</span>
+            <mat-icon class="float-right vr-mat-icon" >report</mat-icon>
+          </a>
+        </li>
+        <li class="vr-menu-item" *ngIf="admin">
+          <a [routerLink]="['/tags']" routerLinkActive="active"  class="nav-link" >
+            <span class="ml-3">Tags</span>
+            <mat-icon class="float-right vr-mat-icon" >vpn_key</mat-icon>
+          </a>
+        </li>
+    </ul>
+  
+  </div>
+  
+  <div class="vr-container" (window:resize)="onResize($event)">
+    <mat-toolbar class="vr-toolbar shadow bg-white">
+        <mat-icon class="vr-menu-icon" (click)="menuToggle()">menu</mat-icon>
+        <span class="ml-3">{{ titlePage }}</span>
+        <span class="vr-spacer"></span>
+        <button class="vr-icon" mat-button [matMenuTriggerFor]="beforeMenu">
+            {{ userName != 'undefined' ? userName : 'Opções' }}<fa-icon [icon]="faAngleDown" size="md" class="ml-2"></fa-icon>&nbsp;&nbsp;
+        </button>
+        <mat-menu #beforeMenu="matMenu" xPosition="before">
+          <button mat-menu-item [routerLink]="['/perfil']">
+            Perfil<fa-icon [icon]="faUser" size="md" class="float-right"></fa-icon>
+          </button>
+          <button mat-menu-item (click)="logout()">
+            Sair<fa-icon [icon]="faSignOutAlt" size="md" class="float-right"></fa-icon>
+          </button>
+        </mat-menu>        
+        <!-- <mat-icon class="vr-icon" (click)="logout()" matTooltip="Sair" [matTooltipPosition]="positionLogout">exit_to_app</mat-icon> -->
+    </mat-toolbar>
+    
+    <div class="vr-container-main">
+        <router-outlet ></router-outlet>
+    </div>
+  
+    <footer class="footer">
+      <div class="text-center">
+        © Rochaut. 2019 | Vinicius Rocha
+        <br>
+        rocha.g.vinicius@gmail.com 
+      </div>
+    </footer>
+  </div>
+  

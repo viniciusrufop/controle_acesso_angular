@@ -1,1 +1,83 @@
 /* You can add global styles to this file, and also import other style files */
+@import '~bootstrap/dist/css/bootstrap.min.css';
+@import "~@angular/material/prebuilt-themes/indigo-pink.css";
+@import '~ngx-toastr/toastr';
+// @import './../node_modules/font-awesome/scss/font-awesome.scss';
+// @import '~ngx-toastr/toastr-bs4-alert';
+
+/* S C R O L L PAGE*/
+/* width */
+::-webkit-scrollbar {width: 5px;height: 5px;}
+/* Track */
+::-webkit-scrollbar-track {background: #f1f1f1; border-radius: 10px;}
+/* Handle */
+::-webkit-scrollbar-thumb {background: #888; border-radius: 10px;}
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover { background: #555; }
+
+.bg-rock{background: linear-gradient(to right,#563d7c 0%, #242939 100%); }
+html, body { height: 100%; }
+// body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+body { margin: 0; font-family: 'Source Sans Pro', sans-serif; }
+
+.vr-spacer {flex: 1 1 auto;}
+
+app-login .mat-form-field.mat-focused .mat-form-field-label{color: #fff !important; }
+app-login .mat-form-field-label{color: #fff !important; }
+app-login .mat-form-field-appearance-outline .mat-form-field-outline-thick {opacity: 0;color: #fff;}
+app-login .mat-form-field-appearance-outline .mat-form-field-outline-thick {opacity: 1 !important;color: #fff !important;}
+app-login .mat-form-field {display: unset !important ;position: relative;text-align: left;}
+
+app-page-cadastro .mat-form-field-label{color: #563d7c !important; }
+
+// CHECKBOX
+.mat-checkbox-checked.mat-accent .mat-checkbox-background{background-color: #563d7c ;}
+
+// KENDO DIALOG
+app-page-usuario .k-dialog {padding: 0;position: fixed;box-sizing: border-box;border-radius: 5px;}
+.k-dialog-titlebar {border-color: inherit;color: #fff;background: linear-gradient(to right, #563d7c 0%, #242939 100%);}
+.k-dialog-wrapper {overflow-y: auto;display: -webkit-box !important;z-index: 1000 !important;}
+
+/** MAT DIALOG */
+.mat-dialog-container { padding: 0 !important; }
+.mat-dialog-title { margin: 0 !important; padding: 12px 16px; font-size: 19px; line-height: 1.3; }
+.mat-dialog-title { border-color: inherit; color: #fff; background: linear-gradient(to right, #563d7c 0%, #242939 100%); }
+.mat-dialog-content { margin: 0 !important; font-family: 'Source Sans Pro', sans-serif; font-weight: 400; }
+.mat-dialog-actions { margin-bottom: 0 !important; display: block !important; }
+.mat-dialog-actions { border-top: 1px solid #a6a6a6; }
+
+// KENDO GRID
+.k-grid{overflow-x: auto}
+.k-pager-wrap .k-link, .k-pager-wrap .k-state-selected {z-index: 0;}
+.k-grid-header-wrap {background-color: #563d7c;color:#fff;border-color: #fafafa;}
+.k-grid td,.k-filter-row>td{border-color: #fafafa;}
+.k-grid tr.k-alt {background-color: #eaeaef;}
+.k-pager-wrap {background-color: #563d7c;color:#fff;}
+.k-pager-numbers .k-state-selected {color: #563d7c !important;background-color: #fff;}
+.k-pager-numbers .k-link {color: #fff;}
+
+// GERAL
+.vr-box-info { padding: 1rem;border-radius: 3px;width: 100%; box-shadow: 0 3px 1px -2px rgba(0,0,0,.2), 0 2px 2px 0 rgba(0,0,0,.14), 0 1px 5px 0 rgba(0,0,0,.12);}
+.vr-title-info{font-family: 'Source Sans Pro', sans-serif; font-weight: 300; font-size: 20px; }
+
+// SWAL2
+.swal2-title{color:#fff !important;}
+.swal2-popup{background-color:#563d7c !important; }
+.swal2-content{color:#fff !important;}
+.swal2-icon.swal2-question {border-color: #c9dae1 !important;color: #fff !important;}
+
+// KENDO UPLOAD
+.k-button { color: #FFFFFF; background-color: #007bff; }
+.k-button:hover { color: #fff; background-color: #0069d9; }
+.k-upload .k-dropzone .k-upload-status { display: none;}
+// .k-upload-button span::before { font-family: "Font Awesome 5 Free"; font-weight: 900; content: "\f382"; margin-right: 5px;}
+.k-upload-button { @extend .btn !optional; @extend .btn-sm !optional; @extend .btn-risk !optional; background-image: none; margin: 0 !important; padding: 0.30rem 0.5rem ; border-radius: 0.25rem; }
+.k-upload-button:hover { background-image: none; }
+.k-upload { display: inline-block !important; border: none; }
+// kendo-upload .k-widget:not(.k-grid-pager):not(.k-datepicker), .k-upload { background-color: transparent !important; border: none !important; }
+.k-upload .k-dropzone-hint, kendo-upload .k-upload .k-action-buttons, kendo-upload .k-upload kendo-upload-status-total { display: none; }
+
+
+/** BOX INFO */
+.vr-box-info.success{ background-color: #51A351; color: #FFFFFF;}
+.vr-box-info.error{ background-color: #BD362F; color: #FFFFFF;}
