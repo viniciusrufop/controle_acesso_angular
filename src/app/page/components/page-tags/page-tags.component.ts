@@ -1,3 +1,6 @@
+import { AuthService } from 'src/app/core/services/auth.service';
+import { UserData } from './../../../core/interfaces/user-data';
+import { StorageKeys } from './../../../core/interfaces/storage-keys';
 import { Component, OnInit } from '@angular/core';
 import { BlockUI, NgBlockUI } from 'ng-block-ui';
 import { AjusteService } from 'src/app/core/services/ajuste.service';
@@ -39,6 +42,7 @@ export class PageTagsComponent implements OnInit {
     this.state = state;
     this.gridData = process(this.tagsArray, this.state);
   }
+  public userData: UserData;
   /**
    * === END CONFIG GRID TABLE
    */
@@ -48,9 +52,11 @@ export class PageTagsComponent implements OnInit {
     private _snackBar: MatSnackBar,
     private toastr: ToastrService,
     private dialogService: DialogService,
+    private authService: AuthService,
   ) { }
 
   ngOnInit() {
+    this.authService.userData.subscribe(res => this.userData = res);
     this.getTags();
   }
 
@@ -76,8 +82,8 @@ export class PageTagsComponent implements OnInit {
   }
 
   getObjSolicitacao(){
-    let email = localStorage.getItem('userEmail');
-    let authToken = localStorage.getItem('authToken');
+    let email = localStorage.getItem(StorageKeys.AUTH_USEREMAIL);
+    let authToken = this.userData.auth;
     return {
       email: email,
       authToken: authToken

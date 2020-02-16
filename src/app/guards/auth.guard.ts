@@ -4,6 +4,7 @@ import { Observable } from 'rxjs';
 
 import { AuthService } from '../core/services/auth.service';
 import { admin } from './../core/services/admin';
+import { tap } from 'rxjs/operators';
 
 @Injectable({
   providedIn: 'root'
@@ -16,7 +17,9 @@ export class AuthGuard implements CanActivate, CanLoad, CanActivateChild {
   ) { }
 
   private verifyAccess(){
-    return this.authService.checkJWT();
+    return this.authService.isAuthenticated.pipe(
+      tap(is => { if (!is) { this.router.navigate(['/login']); } })
+    );
   }
 
   private verifyAdmin(){
@@ -39,13 +42,6 @@ export class AuthGuard implements CanActivate, CanLoad, CanActivateChild {
     // return admin.value;
     return this.verifyAccess();
   }
-
-  /* canActivateChild(
-    route: ActivatedRouteSnapshot,
-    state: RouterStateSnapshot
-  ) : Observable<boolean> | Promise<boolean> | boolean{
-    return this.verifyAdmin();
-  } */
 
   canActivateChild(
     route: ActivatedRouteSnapshot,

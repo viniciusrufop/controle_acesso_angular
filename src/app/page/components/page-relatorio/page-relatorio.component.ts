@@ -1,3 +1,5 @@
+import { AuthService } from './../../../core/services/auth.service';
+import { UserData } from './../../../core/interfaces/user-data';
 import { Component, OnInit, ViewChildren, QueryList, ElementRef, ViewChild } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { CadastroService } from 'src/app/core/services/cadastro.service';
@@ -25,8 +27,9 @@ export class PageRelatorioComponent implements OnInit {
   public showRelatorio: boolean = false;
   public dataUser:any = [];
   public arrayData: any = [];
-  public admin = admin.value;
+  public admin: boolean;
   public totalHorasMensal;
+  public userData: UserData;
 
   faReply = faReply;
   faFileAlt = faFileAlt;
@@ -37,10 +40,13 @@ export class PageRelatorioComponent implements OnInit {
   constructor(
     private formBuilder : FormBuilder,
     private cadastroService : CadastroService,
-    private _snackBar: MatSnackBar
+    private _snackBar: MatSnackBar,
+    private authService: AuthService,
   ) { }
 
   ngOnInit() {
+    this.authService.userData.subscribe(res => this.userData = res);
+    this.admin = admin.value;
     this.createForm();
     this.getAllUsers();
   }
@@ -56,8 +62,8 @@ export class PageRelatorioComponent implements OnInit {
         this.blockUI.stop();
       });
     } else {
-      let id = localStorage.getItem('dataUserId');
-      if(id != 'undefined'){
+      let id = this.userData.dataUserId
+      if(id !== undefined){
         this.relatorioForm.get('idUser').setValue(id);
       }
     }

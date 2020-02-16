@@ -55,29 +55,26 @@ export class LoginComponent implements OnInit, OnDestroy {
   }
 
   onSubmit(){
-    if(this.loginForm.status === 'VALID'){
-      let obj = this.loginForm.value;
-      this.blockUI.start();
-      this.sub = this.authService.loginUser(obj).subscribe(res=>{
-        this.setLocalStorage(res);
-        admin.value = (res.result.auth);
-        this._router.navigate(['/historico']);
-      }
-      ,error=>{
-        if( error instanceof HttpErrorResponse){
-          if(error.status === 401){
-            this.invalidLogin = true;
-          } else if(error.status === 0){
-            this.openSnackBar('Servidor Offline','OK');
-          }
+
+    if(this.loginForm.status !== 'VALID') { return this.openSnackBar('Formulário Inválido','OK'); }
+
+    let obj = this.loginForm.value;
+
+    this.blockUI.start();
+
+    this.sub = this.authService.loginUser(obj).subscribe(res => {
+      console.log('loginUser', res);
+      if (res.auth) { admin.value = true; }
+      this._router.navigate(['/historico']);
+    }, error =>{
+      if( error instanceof HttpErrorResponse){
+        if(error.status === 401){
+          this.invalidLogin = true;
+        } else if(error.status === 0){
+          this.openSnackBar('Servidor Offline','OK');
         }
-      })
-      .add(()=>{
-        this.blockUI.stop();
-      })
-    } else {
-      this.openSnackBar('Formulário Inválido','OK');
-    }
+      }
+    }).add(() => this.blockUI.stop());
   }
 
   getEmailError() {
@@ -97,14 +94,6 @@ export class LoginComponent implements OnInit, OnDestroy {
       duration: 3000,
       verticalPosition: 'top'
     });
-  }
-
-  setLocalStorage(res) {
-    localStorage.setItem('token',res.result.token);
-    localStorage.setItem('userEmail',res.result.userEmail);
-    localStorage.setItem('userName',res.result.userName);
-    localStorage.setItem('dataUserId',res.result.dataUserId);
-    localStorage.setItem('authToken',res.result.auth);
   }
 
 }

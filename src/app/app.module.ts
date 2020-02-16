@@ -34,14 +34,14 @@ registerLocaleData(ptBr)
     AppComponent
   ],
   imports: [
+    LoginModule,
+    LayoutModule,
     CommonModule,
-    BrowserModule,
     AppRoutingModule,
+    BrowserModule,
     SharedModule,
     BrowserAnimationsModule,
-    LoginModule,
     HttpClientModule,
-    LayoutModule,
     BlockUIModule.forRoot(),
     NgxMaskModule.forRoot(),
     ToastrModule.forRoot({

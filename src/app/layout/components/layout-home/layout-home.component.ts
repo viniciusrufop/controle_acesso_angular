@@ -1,10 +1,10 @@
+import { StorageKeys } from './../../../core/interfaces/storage-keys';
+import { UserData } from './../../../core/interfaces/user-data';
 import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
 import { AuthService } from 'src/app/core/services/auth.service';
 import { Router } from '@angular/router';
 import {TooltipPosition} from '@angular/material/tooltip';
 import { faAngleDown, faSignOutAlt, faUser } from '@fortawesome/free-solid-svg-icons';
-
-import { admin } from './../../../core/services/admin';
 
 @Component({
   selector: 'app-layout-home',
@@ -23,8 +23,9 @@ export class LayoutHomeComponent implements OnInit {
   showFiller = false;
   showMenu : boolean = false;
   titlePage : string;
-  public admin = admin.value;
-  public userName = localStorage.getItem('userName');
+  public admin: boolean = false;
+  public userName = localStorage.getItem(StorageKeys.AUTH_USERNAME);
+  public userData: UserData;
 
   constructor(
     private router:Router,
@@ -32,7 +33,9 @@ export class LayoutHomeComponent implements OnInit {
   ) {}
 
   ngOnInit() {
+    this.authService.userData.subscribe(res => this.userData = res)
     this.namePage(this.router.url);
+    this.admin = (this.userData.auth) ? true : false;
   }
 
   menuToggle(){

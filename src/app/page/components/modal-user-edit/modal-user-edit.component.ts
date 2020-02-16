@@ -24,7 +24,7 @@ export class ModalUserEditComponent implements OnInit {
 
   public validForm : boolean = true;
   public tagList : any = [];
-  public admin = admin.value;
+  public admin: boolean;
   faWindowClose = faWindowClose ;
   faSave = faSave;
 
@@ -37,6 +37,7 @@ export class ModalUserEditComponent implements OnInit {
   ) { }
 
   ngOnInit() {
+    this.admin = admin.value;
     this.createForm();
     this.getDataUser();
     this.validateForm();
