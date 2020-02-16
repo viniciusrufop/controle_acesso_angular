@@ -8,8 +8,6 @@ import { BlockUI, NgBlockUI } from 'ng-block-ui';
 import { faReply, faFileAlt, faFileDownload } from '@fortawesome/free-solid-svg-icons';
 import { DrawOptions, drawDOM, Group, exportPDF } from '@progress/kendo-drawing';
 import { saveAs } from '@progress/kendo-file-saver';
-import { admin } from 'src/app/core/services/admin';
-// import { PDFOptions } from '@progress/kendo-drawing/pdf';
 
 @Component({
   selector: 'app-page-relatorio',
@@ -46,7 +44,7 @@ export class PageRelatorioComponent implements OnInit {
 
   ngOnInit() {
     this.authService.userData.subscribe(res => this.userData = res);
-    this.admin = admin.value;
+    this.admin = (this.userData.auth) ? true : false;
     this.createForm();
     this.getAllUsers();
   }

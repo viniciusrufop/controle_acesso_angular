@@ -1,7 +1,6 @@
 import { AuthService } from './core/services/auth.service';
 import { Component } from '@angular/core';
 import { BlockUI, NgBlockUI } from 'ng-block-ui';
-import { admin } from './core/services/admin';
 
 @Component({
   selector: 'app-root',
@@ -21,7 +20,7 @@ export class AppComponent{
     this.blockUI.start();
 
     this.authService.logged().subscribe(res => {
-      if (res.auth) { admin.value = true; }
+      // if (res.auth) { admin.value = true; }
     }).add(()=> this.blockUI.stop() );
 
   }

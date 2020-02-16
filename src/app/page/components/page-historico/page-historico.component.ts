@@ -8,7 +8,6 @@ import { CadastroService } from 'src/app/core/services/cadastro.service';
 import { faSearch, faReply } from '@fortawesome/free-solid-svg-icons';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { MatSnackBar } from '@angular/material/snack-bar';
-import { admin } from 'src/app/core/services/admin';
 
 @Component({
   selector: 'app-page-historico',
@@ -46,7 +45,7 @@ export class PageHistoricoComponent implements OnInit {
 
   ngOnInit() {
     this.authService.userData.subscribe(res => this.userData = res);
-    this.admin = admin.value;
+    this.admin = (this.userData.auth) ? true : false;
     this.createForm();
     this.getAllUsers();
     this.minDate = this.historicoForm.get('dataInicio').value;

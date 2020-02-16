@@ -8,7 +8,6 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 import { ToastrService } from 'ngx-toastr';
 import { BlockUI, NgBlockUI } from 'ng-block-ui';
 import { faReply, faRedo, faCheckCircle, faTimesCircle } from '@fortawesome/free-solid-svg-icons';
-import { admin } from 'src/app/core/services/admin';
 import { DataStateChangeEvent, GridDataResult } from '@progress/kendo-angular-grid';
 import { process, State } from '@progress/kendo-data-query';
 
@@ -55,7 +54,7 @@ export class PageAjusteComponent implements OnInit {
   ngOnInit() {
     this.authService.userData.subscribe(res => this.userData = res);
 
-    this.admin = admin.value;
+    this.admin = (this.userData.auth) ? true : false;
 
     this.maxDate.setDate(this.maxDate.getDate() - 1);
 
@@ -156,7 +155,7 @@ export class PageAjusteComponent implements OnInit {
   }
 
   confirmaSolicitacao(obj){
-    if(admin){
+    if(this.admin){
       this.blockUI.start();
       this.ajusteService.acceptAdjustmentRequest(obj).subscribe(res=>{
         this.toastr.success('Solicitação atendida!', 'Sucesso',{timeOut:3000});
@@ -193,6 +192,7 @@ export class PageAjusteComponent implements OnInit {
       element.data = new Date(element.data);
       element.diaDoPedido = new Date(element.diaDoPedido);
     });
+    console.log('array', array);
     this.gridData = process(array, this.state);
   }
 

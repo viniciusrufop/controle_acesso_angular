@@ -9,7 +9,6 @@ import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { faEdit, faCopy, faKey } from '@fortawesome/free-solid-svg-icons';
 import { DialogService, DialogCloseResult } from '@progress/kendo-angular-dialog';
 import { ModalUserEditComponent } from '../modal-user-edit/modal-user-edit.component';
-import { admin } from 'src/app/core/services/admin';
 import { ModalChangePasswordComponent } from '../modal-change-password/modal-change-password.component';
 
 @Component({
@@ -29,7 +28,6 @@ export class PagePerfilComponent implements OnInit {
   private idUser:number;
   public tagList : any = [];
   public admin: boolean;
-  // public authToken = localStorage.getItem(StorageKeys.AUTH_TOKEN);
   public authToken;
   public userData: UserData;
 
@@ -44,7 +42,7 @@ export class PagePerfilComponent implements OnInit {
   ngOnInit() {
     this.authService.userData.subscribe(res => this.userData = res);
     this.authToken = this.userData.auth;
-    this.admin = admin.value;
+    this.admin = (this.userData.auth) ? true : false;
     this.getDataUser();
     this.createForm();
   }

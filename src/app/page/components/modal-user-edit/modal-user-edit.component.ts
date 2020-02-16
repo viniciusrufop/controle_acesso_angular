@@ -1,3 +1,4 @@
+import { AuthService } from 'src/app/core/services/auth.service';
 import { Component, OnInit, Input } from '@angular/core';
 import { DialogRef } from '@progress/kendo-angular-dialog';
 import { FormGroup, Validators, FormBuilder } from '@angular/forms';
@@ -7,7 +8,6 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 import { Observable, Subscription } from 'rxjs';
 import { faWindowClose, faSave } from '@fortawesome/free-solid-svg-icons';
 import { ToastrService } from 'ngx-toastr';
-import { admin } from 'src/app/core/services/admin';
 
 @Component({
   selector: 'app-modal-user-edit',
@@ -34,10 +34,12 @@ export class ModalUserEditComponent implements OnInit {
     private cadastroService : CadastroService,
     private _snackBar: MatSnackBar,
     private toastr: ToastrService,
+    private authService: AuthService
   ) { }
 
   ngOnInit() {
-    this.admin = admin.value;
+    this.authService.isAdmin.subscribe(res => this.admin = res);
+
     this.createForm();
     this.getDataUser();
     this.validateForm();

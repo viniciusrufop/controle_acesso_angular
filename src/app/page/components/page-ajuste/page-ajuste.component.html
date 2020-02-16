@@ -114,16 +114,16 @@
                         </mat-panel-title>
                   </mat-expansion-panel-header>
 
-                  <kendo-grid
-                  [data]="gridData"
-                  [pageSize]="state.take"
-                  [skip]="state.skip"
-                  [sort]="state.sort"
-                  [filter]="state.filter"
-                  [sortable]="true"
-                  [pageable]="true"
-                  [filterable]="true"
-                  (dataStateChange)="dataStateChange($event)">
+            <kendo-grid
+            [data]="gridData"
+            [pageSize]="state.take"
+            [skip]="state.skip"
+            [sort]="state.sort"
+            [filter]="state.filter"
+            [sortable]="true"
+            [pageable]="true"
+            [filterable]="true"
+            (dataStateChange)="dataStateChange($event)">
 
             <kendo-grid-column field="nome" title="Nome" width="130">
             </kendo-grid-column>

@@ -18,12 +18,17 @@ export class AuthService {
   @BlockUI() blockUI: NgBlockUI;
 
   private _isAuthenticated = new ReplaySubject<boolean>(1);
+  private _isAdmin = new ReplaySubject<boolean>(1);
   private _userData = new ReplaySubject<UserData>(1);
 
   constructor(
     private http:HttpClient,
     private router : Router
   ) { }
+
+  get isAdmin(): Observable<boolean> {
+    return this._isAdmin.asObservable();
+  }
 
   get isAuthenticated(): Observable<boolean> {
     return this._isAuthenticated.asObservable();
@@ -62,6 +67,7 @@ export class AuthService {
   logoutUser(){
     localStorage.clear();
     this._isAuthenticated.next(false);
+    this._isAdmin.next(false);
     this.router.navigate(['/login']);
   }
 
@@ -69,6 +75,10 @@ export class AuthService {
     window.localStorage.setItem(StorageKeys.AUTH_TOKEN, authData.token);
     window.localStorage.setItem(StorageKeys.AUTH_USERNAME, authData.userName);
     window.localStorage.setItem(StorageKeys.AUTH_USEREMAIL, authData.userEmail);
+
+    const admin = (authData.userData.auth) ? true : false;
+    this._isAdmin.next(admin);
+    
     this._userData.next(authData.userData);
     this._isAuthenticated.next(authData.isAuthenticated);
   }

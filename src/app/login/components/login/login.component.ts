@@ -7,8 +7,6 @@ import { HttpErrorResponse } from '@angular/common/http';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { BlockUI, NgBlockUI } from 'ng-block-ui';
 
-import { admin } from './../../../core/services/admin';
-
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
@@ -63,8 +61,6 @@ export class LoginComponent implements OnInit, OnDestroy {
     this.blockUI.start();
 
     this.sub = this.authService.loginUser(obj).subscribe(res => {
-      console.log('loginUser', res);
-      if (res.auth) { admin.value = true; }
       this._router.navigate(['/historico']);
     }, error =>{
       if( error instanceof HttpErrorResponse){

@@ -3,7 +3,6 @@ import { CanActivate, ActivatedRouteSnapshot, RouterStateSnapshot, UrlTree,CanAc
 import { Observable } from 'rxjs';
 
 import { AuthService } from '../core/services/auth.service';
-import { admin } from './../core/services/admin';
 import { tap } from 'rxjs/operators';
 
 @Injectable({
@@ -23,11 +22,9 @@ export class AuthGuard implements CanActivate, CanLoad, CanActivateChild {
   }
 
   private verifyAdmin(){
-    if(admin.value){
-      return true;
-    } else {
-      this.router.navigate(['/historico']);
-    }
+    return this.authService.isAdmin.pipe(
+      tap(is => { if (!is) { this.router.navigate(['/historico']); } })
+    );
   }
 
   canActivate(
@@ -38,8 +35,6 @@ export class AuthGuard implements CanActivate, CanLoad, CanActivateChild {
   }
 
   canLoad(route : Route):Observable<boolean> | Promise<boolean> | boolean{
-    console.log('canLoad',admin.value)
-    // return admin.value;
     return this.verifyAccess();
   }
 
