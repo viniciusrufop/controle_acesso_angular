@@ -1,3 +1,6 @@
+import { StorageKeys } from './../../../core/interfaces/storage-keys';
+import { AuthService } from './../../../core/services/auth.service';
+import { UserData } from './../../../core/interfaces/user-data';
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { AjusteService } from 'src/app/core/services/ajuste.service';
@@ -21,12 +24,12 @@ export class PageAjusteComponent implements OnInit {
 
   public maxDate: Date = new Date;
   public valueDateTime:Date;
-  public admin = admin.value;
+  public admin: boolean;
   public solicitacaoAjuste : any = [];
   public showTableAjuste : boolean = false;
   public showFormAjuste : boolean = false;
   public showHistoricoAjuste : boolean = false;
-  private dataUserId = localStorage.getItem('dataUserId');
+  private userData: UserData;
 
   faRedo = faRedo;
   faReply = faReply;
@@ -46,11 +49,17 @@ export class PageAjusteComponent implements OnInit {
     private ajusteService: AjusteService,
     private _snackBar: MatSnackBar,
     private toastr: ToastrService,
+    private authService: AuthService,
   ) { }
 
   ngOnInit() {
+    this.authService.userData.subscribe(res => this.userData = res);
+
+    this.admin = admin.value;
+
     this.maxDate.setDate(this.maxDate.getDate() - 1);
-    if(this.dataUserId != "null"){
+
+    if(this.userData.dataUserId !== null){
       this.createForm();
       this.showFormAjuste = true;
     } else {
@@ -90,14 +99,14 @@ export class PageAjusteComponent implements OnInit {
   }
 
   trataForm():boolean{
-    let id = localStorage.getItem('dataUserId');
+    let id = this.userData.dataUserId;
     this.ajusteForm.get('data_user_id').setValue(id);
-    return (this.ajusteForm.status  === 'VALID' && id != "null")
+    return (this.ajusteForm.status  === 'VALID' && id !== null)
   }
 
   getAdjustmentRequest(){
     this.blockUI.start();
-    let email = localStorage.getItem('userEmail');
+    let email = localStorage.getItem(StorageKeys.AUTH_USEREMAIL);
     let obj = {email : email};
     this.ajusteService.getAdjustmentRequest(obj).subscribe(res=>{
       this.solicitacaoAjuste = res.result;
@@ -112,7 +121,7 @@ export class PageAjusteComponent implements OnInit {
 
   getAdjustmentHistoryRequest(){
     this.blockUI.start();
-    let email = localStorage.getItem('userEmail');
+    let email = localStorage.getItem(StorageKeys.AUTH_USEREMAIL);
     let obj = {email : email};
     this.ajusteService.getAdjustmentHistoryRequest(obj).subscribe(res=>{
       this.historicoAjuste = res.result;
@@ -163,8 +172,8 @@ export class PageAjusteComponent implements OnInit {
   }
 
   setObjSolicitacao(accept:boolean,id){
-    let email = localStorage.getItem('userEmail');
-    let authToken = localStorage.getItem('authToken');
+    let email = localStorage.getItem(StorageKeys.AUTH_USEREMAIL);
+    let authToken = this.userData.auth;
     let obj = {
       email: email,
       authToken: authToken,

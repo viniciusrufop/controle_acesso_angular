@@ -1,3 +1,5 @@
+import { AuthService } from './../../../core/services/auth.service';
+import { UserData } from './../../../core/interfaces/user-data';
 import { ToastrService } from 'ngx-toastr';
 import { BlockUI, NgBlockUI } from 'ng-block-ui';
 import { MatSnackBar } from '@angular/material/snack-bar';
@@ -23,6 +25,7 @@ export class ModalChangePasswordComponent implements OnInit {
 
   public validForm: boolean = true;
   public sub: Subscription;
+  public userData: UserData;
 
   constructor(
     public dialog : DialogRef,
@@ -30,9 +33,11 @@ export class ModalChangePasswordComponent implements OnInit {
     private _snackBar: MatSnackBar,
     private cadastroService : CadastroService,
     private toastr: ToastrService,
+    private authService: AuthService,
   ) { }
 
   ngOnInit() {
+    this.authService.userData.subscribe(res => this.userData = res);
     this.createForm();
     this.validateForm();
   }
@@ -55,20 +60,23 @@ export class ModalChangePasswordComponent implements OnInit {
   }
 
   onSubmit() {
-    if (!this.validForm) {
-      this.blockUI.start();
-      let obj = { id : localStorage.getItem('dataUserId'), newPass: this.getForm('newPass').value };
-      this.cadastroService.changePassword(obj).subscribe(res=>{
-        this.toastr.success('Senha alterada com sucesso!', 'Sucesso', {timeOut: 3000});
-        this.onClose();
-      },error=>{
-        this.toastr.error('Erro ao atualizar dados.' , 'Erro!', { disableTimeOut: false, timeOut: 3000 });
-      }).add(()=>{
-        this.blockUI.stop();
-      });
-    } else {
-      this._snackBar.open('Formulário Inválido.', 'OK', { duration: 3000, verticalPosition: 'top' });
+    if (this.validForm) {
+      return this._snackBar.open('Formulário Inválido.', 'OK', { duration: 3000, verticalPosition: 'top' });
     }
+
+    this.blockUI.start();
+
+    let obj = {
+      id: this.userData.dataUserId,
+      newPass: this.getForm('newPass').value
+    };
+
+    this.cadastroService.changePassword(obj).subscribe(res=>{
+      this.toastr.success('Senha alterada com sucesso!', 'Sucesso', {timeOut: 3000});
+      this.onClose();
+    }, error => {
+      this.toastr.error('Erro ao atualizar dados.' , 'Erro!', { disableTimeOut: false, timeOut: 3000 });
+    }).add(() => this.blockUI.stop());
   }
 
   validateForm(){

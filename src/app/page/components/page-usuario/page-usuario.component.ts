@@ -1,3 +1,5 @@
+import { AuthService } from './../../../core/services/auth.service';
+import { UserData } from './../../../core/interfaces/user-data';
 import { Component, OnInit } from '@angular/core';
 import { CadastroService } from 'src/app/core/services/cadastro.service';
 import { BlockUI, NgBlockUI } from 'ng-block-ui';
@@ -23,22 +25,25 @@ export class PageUsuarioComponent implements OnInit {
 
   public users : any = [];
   public allDataUser: Array<any> = [];
+  public userData: UserData;
 
   constructor(
     private cadastroService : CadastroService,
     private toastr: ToastrService,
     private dialogService: DialogService,
     private _snackBar: MatSnackBar,
+    private authService: AuthService
   ) { }
 
   ngOnInit() {
+    this.authService.userData.subscribe(res => this.userData = res);
     this.getAllUsers();
   }
 
   getAllUsers(){
     this.blockUI.start();
     this.cadastroService.getAllUsers().subscribe(res=>{
-      const userId = parseInt(localStorage.getItem('dataUserId'), 10);
+      const userId = this.userData.dataUserId;
       this.users = res.userList.filter(elem => elem.id !== userId );
     },error=>{
       console.log(error)

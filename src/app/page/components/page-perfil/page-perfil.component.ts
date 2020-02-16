@@ -1,3 +1,6 @@
+import { AuthService } from 'src/app/core/services/auth.service';
+import { UserData } from './../../../core/interfaces/user-data';
+import { StorageKeys } from './../../../core/interfaces/storage-keys';
 import { Component, OnInit } from '@angular/core';
 import { CadastroService } from 'src/app/core/services/cadastro.service';
 import { BlockUI, NgBlockUI } from 'ng-block-ui';
@@ -25,17 +28,23 @@ export class PagePerfilComponent implements OnInit {
 
   private idUser:number;
   public tagList : any = [];
-  public admin = admin.value;
-  public authToken = localStorage.getItem('authToken');
+  public admin: boolean;
+  // public authToken = localStorage.getItem(StorageKeys.AUTH_TOKEN);
+  public authToken;
+  public userData: UserData;
 
   constructor(
     private cadastroService : CadastroService,
     private _snackBar: MatSnackBar,
     private formBuilder : FormBuilder,
-    private dialogService: DialogService
+    private dialogService: DialogService,
+    private authService: AuthService
   ) { }
 
   ngOnInit() {
+    this.authService.userData.subscribe(res => this.userData = res);
+    this.authToken = this.userData.auth;
+    this.admin = admin.value;
     this.getDataUser();
     this.createForm();
   }
@@ -63,7 +72,7 @@ export class PagePerfilComponent implements OnInit {
 
   getDataUser(){
     this.blockUI.start();
-    let email = localStorage.getItem('userEmail');
+    let email = localStorage.getItem(StorageKeys.AUTH_USEREMAIL);
     let obj = { email : email}
     this.cadastroService.getDataUserByEmail(obj).subscribe(res=>{
       this.preencheForm(res.result.dataUser);

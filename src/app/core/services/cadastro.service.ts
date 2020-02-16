@@ -1,3 +1,4 @@
+import { StorageKeys } from './../interfaces/storage-keys';
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { of, Observable } from 'rxjs';
@@ -75,16 +76,12 @@ export class CadastroService {
     return this.http.post(`${config.apiUrl}/api/get-data-user-by-email`,{params:emailUser});
   }
 
-  getAdmin(emailUser): Observable<any>{
-    return this.http.post(`${config.apiUrl}/api/get-admin`,{params:emailUser});
-  }
-
   getAllDatauser(): Observable<any>{
     return this.http.get(`${config.apiUrl}/api/get-all-data-user`);
   }
   
   changePassword(params): Observable<any>{
-    this.httpOptions.headers = this.httpOptions.headers.set('email', localStorage.getItem('userEmail'));
+    this.httpOptions.headers = this.httpOptions.headers.set('email', localStorage.getItem(StorageKeys.AUTH_USEREMAIL));
     return this.http.post(`${config.apiUrl}/api/changePassword`, {params: params}, this.httpOptions);
   }
 

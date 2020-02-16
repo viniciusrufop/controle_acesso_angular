@@ -15,6 +15,8 @@
 /* Handle on hover */
 ::-webkit-scrollbar-thumb:hover { background: #555; }
 
+input:-internal-autofill-selected{ background-color: red; }
+
 .bg-rock{background: linear-gradient(to right,#563d7c 0%, #242939 100%); }
 html, body { height: 100%; }
 // body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }

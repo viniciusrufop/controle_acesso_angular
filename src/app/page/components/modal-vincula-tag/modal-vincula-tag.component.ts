@@ -1,3 +1,6 @@
+import { AuthService } from 'src/app/core/services/auth.service';
+import { UserData } from './../../../core/interfaces/user-data';
+import { StorageKeys } from './../../../core/interfaces/storage-keys';
 import { Component, OnInit, Input } from '@angular/core';
 import { BlockUI, NgBlockUI } from 'ng-block-ui';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
@@ -23,6 +26,7 @@ export class ModalVinculaTagComponent implements OnInit {
   public users:any = [];
   faWindowClose = faWindowClose ;
   faSave = faSave;
+  public userData: UserData;
   
   constructor(
     public dialog : DialogRef,
@@ -31,9 +35,11 @@ export class ModalVinculaTagComponent implements OnInit {
     private cadastroService : CadastroService,
     private _snackBar: MatSnackBar,
     private toastr: ToastrService,
+    private authService: AuthService
   ) { }
 
   ngOnInit() {
+    this.authService.userData.subscribe(res => this.userData = res);
     this.createForm();
     this.getAllUsers();
   }
@@ -93,8 +99,8 @@ export class ModalVinculaTagComponent implements OnInit {
   }
 
   getObjSolicitacao(){
-    let email = localStorage.getItem('userEmail');
-    let authToken = localStorage.getItem('authToken');
+    let email = localStorage.getItem(StorageKeys.AUTH_USEREMAIL);
+    let authToken = this.userData.auth;
     return {
       email: email,
       authToken: authToken

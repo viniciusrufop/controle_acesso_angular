@@ -1,3 +1,4 @@
+import { StorageKeys } from './../core/interfaces/storage-keys';
 import { Injectable } from '@angular/core';
 import { CanActivate, ActivatedRouteSnapshot, RouterStateSnapshot, UrlTree, Router } from '@angular/router';
 import { Observable } from 'rxjs';
@@ -13,7 +14,7 @@ export class AutoLoginGuard implements CanActivate{
   ) { }
 
   private verifyAccess(){
-    if(localStorage.getItem('token') === null){
+    if(localStorage.getItem(StorageKeys.AUTH_TOKEN) === null){
       return true;
     } else {
       this.router.navigate(['/historico']);

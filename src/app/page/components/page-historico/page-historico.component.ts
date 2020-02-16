@@ -1,3 +1,5 @@
+import { AuthService } from 'src/app/core/services/auth.service';
+import { UserData } from './../../../core/interfaces/user-data';
 import { Component, OnInit } from '@angular/core';
 import { BlockUI, NgBlockUI } from 'ng-block-ui';
 import { process, State } from '@progress/kendo-data-query';
@@ -23,7 +25,8 @@ export class PageHistoricoComponent implements OnInit {
   public maxDate : Date;
   public arrayData: any = [];
   public showGrid : boolean = false;
-  public admin = admin.value;
+  public admin: boolean;
+  public userData: UserData;
   
   faSearch = faSearch;
   faReply = faReply;
@@ -37,10 +40,13 @@ export class PageHistoricoComponent implements OnInit {
   constructor(
     private formBuilder : FormBuilder,
     private cadastroService : CadastroService,
-    private _snackBar: MatSnackBar
+    private _snackBar: MatSnackBar,
+    private authService: AuthService
   ) { }
 
   ngOnInit() {
+    this.authService.userData.subscribe(res => this.userData = res);
+    this.admin = admin.value;
     this.createForm();
     this.getAllUsers();
     this.minDate = this.historicoForm.get('dataInicio').value;
@@ -57,8 +63,8 @@ export class PageHistoricoComponent implements OnInit {
         this.blockUI.stop();
       });
     } else {
-      let id = localStorage.getItem('dataUserId');
-      if(id != 'undefined'){
+      let id = this.userData.dataUserId;
+      if(id !== undefined){
         this.historicoForm.get('users').setValue([id]);
       }
     }
@@ -86,7 +92,7 @@ export class PageHistoricoComponent implements OnInit {
     this.minDate = null;
     this.maxDate = null;
     if(!this.admin){
-      let id = localStorage.getItem('dataUserId');
+      let id = this.userData.dataUserId;
       this.historicoForm.get('users').setValue([id]);
     }
   }
