@@ -1,4 +1,4 @@
 export const environment = {
   production: true,
-  url: 'https://api-fechadura.rochaut.com.br'
+  url: 'http://localhost:8000'
 };

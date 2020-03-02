@@ -192,7 +192,6 @@ export class PageAjusteComponent implements OnInit {
       element.data = new Date(element.data);
       element.diaDoPedido = new Date(element.diaDoPedido);
     });
-    console.log('array', array);
     this.gridData = process(array, this.state);
   }
 
