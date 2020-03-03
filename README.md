@@ -24,3 +24,15 @@ O firmware foi feito utilizando a linguagem Arduino, que tem por base a linguage
 # Algumas Imagens
 
 <img src="src/assets/img/page_historico.png" width="500">
+
+<img src="src/assets/img/page_cadastro.png" width="500">
+
+<img src="src/assets/img/page_usuarios.png" width="500">
+
+<img src="src/assets/img/page_relatorio.png" width="500">
+
+<img src="src/assets/img/page_ajuste.png" width="500">
+
+<img src="src/assets/img/page_tags.png" width="500">
+
+<img src="src/assets/img/page_perfil.png" width="500">
